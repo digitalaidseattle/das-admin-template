@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 
 // material-ui
 import { Box, List, Typography } from '@mui/material';
@@ -53,10 +52,6 @@ const NavGroup: React.FC<NavGroupProps> = ({ item }) => {
       {navCollapse}
     </List>
   );
-};
-
-NavGroup.propTypes = {
-  item: PropTypes.object
 };
 
 export default NavGroup;

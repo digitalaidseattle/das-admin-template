@@ -5,7 +5,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Link, SortDirection, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 // third-party
-import NumberFormat from 'react-number-format';
 
 // project import
 import Dot from '../../components/@extended/Dot';

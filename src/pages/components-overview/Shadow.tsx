@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Grid, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // project import
 import MainCard from '../../components/MainCard';
@@ -20,10 +19,6 @@ function ShadowBox(props: { shadow: any }) {
     </MainCard>
   );
 }
-
-ShadowBox.propTypes = {
-  shadow: PropTypes.string.isRequired
-};
 
 // ===============================|| CUSTOM - SHADOW BOX ||=============================== //
 interface CustomShadowBoxProps {
@@ -43,13 +38,6 @@ const CustomShadowBox: React.FC<CustomShadowBoxProps> = ({ shadow, label, color,
     </MainCard>
   );
 }
-
-CustomShadowBox.propTypes = {
-  shadow: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  bgcolor: PropTypes.string
-};
 
 // ============================|| COMPONENT - SHADOW ||============================ //
 

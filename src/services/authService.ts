@@ -14,8 +14,9 @@ class AuthService {
     return supabaseClient.auth.signOut()
   }
 
-  hasUser = (): boolean => {
-    return this.getUser() != null
+  hasUser = async (): Promise<boolean> => {
+    return this.getUser().
+      then(user => user != null)
   }
 
   getUser = async (): Promise<User | null> => {

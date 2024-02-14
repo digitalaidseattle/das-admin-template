@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 // material-ui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -55,8 +53,3 @@ export default function SimpleBarScroll({ children, sx, ...other }) {
     </>
   );
 }
-
-SimpleBarScroll.propTypes = {
-  children: PropTypes.node,
-  sx: PropTypes.object
-};

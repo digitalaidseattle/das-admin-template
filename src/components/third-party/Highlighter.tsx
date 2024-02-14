@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import { ReactNode, useState } from 'react';
 
 // material-ui
-import { Box, CardActions, Collapse, Divider, IconButton, Tooltip } from '@mui/material';
+import { Box, CardActions, Divider, IconButton, Tooltip } from '@mui/material';
 
 // third-party
 // FIXME
@@ -10,11 +9,11 @@ import { Box, CardActions, Collapse, Divider, IconButton, Tooltip } from '@mui/m
 // import reactElementToJSXString from 'react-element-to-jsx-string';
 
 // assets
-import { CodeOutlined, CopyOutlined } from '@ant-design/icons';
+import { CodeOutlined } from '@ant-design/icons';
 
 // ==============================|| CLIPBOARD & HIGHLIGHTER   ||============================== //
 
-const Highlighter = (props: { children: ReactNode }) => {
+const Highlighter = (_props: { children: ReactNode }) => {
   const [highlight, setHighlight] = useState(false);
 
   return (
@@ -41,7 +40,8 @@ const Highlighter = (props: { children: ReactNode }) => {
           </Tooltip>
         </Box>
       </CardActions>
-      {/* <Collapse in={highlight}>
+      {/*  FIXME
+       <Collapse in={highlight}>
         {highlight && (
           {
             reactElementToJSXString(children, {
@@ -54,10 +54,6 @@ const Highlighter = (props: { children: ReactNode }) => {
       </Collapse> */}
     </Box>
   );
-};
-
-Highlighter.propTypes = {
-  children: PropTypes.node
 };
 
 export default Highlighter;
