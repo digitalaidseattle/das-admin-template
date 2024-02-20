@@ -1,5 +1,5 @@
 /**
- *  index.tsx
+ *  DrawerHeader/index.tsx
  *
  *  @copyright 2024 Digital Aid Seattle
  *

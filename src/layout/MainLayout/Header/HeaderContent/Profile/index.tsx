@@ -26,7 +26,6 @@ import SettingTab from './SettingTab';
 
 // assets
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import avatar1 from '../../../../../assets/images/users/avatar-1.png';
 import { UserContext } from '../../../../../components/contexts/UserContext';
 import { authService } from '../../../../../services/authService';
 import { useNavigate } from 'react-router';

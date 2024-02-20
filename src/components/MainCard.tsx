@@ -49,7 +49,7 @@ const MainCard: React.FC<MainCardProp> = forwardRef(
       codeHighlight,
       ...others
     },
-    ref
+    _ref
   ) => {
     const theme = useTheme();
     boxShadow = theme.palette.mode === 'dark' ? boxShadow || true : boxShadow;

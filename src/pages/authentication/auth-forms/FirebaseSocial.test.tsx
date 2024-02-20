@@ -1,8 +1,13 @@
+/**
+ *  FirebaseSocial.test.tsx
+ *
+ *  @copyright 2024 Digital Aid Seattle
+ *
+ */
 import { render } from '@testing-library/react';
 import { afterEach, assert, describe, expect, it, vi } from 'vitest';
 import { authService } from '../../../services/authService';
 import FirebaseSocial from './FirebaseSocial';
-import { useMediaQuery, useTheme } from '@mui/material';
 
 // ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
 

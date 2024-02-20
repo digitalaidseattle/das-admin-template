@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 type DrawerHeaderStyledProps = {
   open: boolean
 }
-const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })<DrawerHeaderStyledProps>(({ theme, open }) =>
+const DrawerHeaderStyled = styled(Box, { shouldForwardProp: (prop) => prop !== 'open' })<DrawerHeaderStyledProps>(
   ({ theme, open }) => ({
     ...theme.mixins.toolbar,
     display: 'flex',

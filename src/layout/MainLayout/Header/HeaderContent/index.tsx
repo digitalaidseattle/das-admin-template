@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Theme, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 // project import
 import MobileSection from './MobileSection';
