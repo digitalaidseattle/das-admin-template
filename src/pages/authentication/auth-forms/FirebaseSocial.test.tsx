@@ -14,11 +14,12 @@ import FirebaseSocial from './FirebaseSocial';
 
 describe('FirebaseSocial tests', () => {
   const signInWithGoogleSpy = vi.spyOn(authService, 'signInWithGoogle');
+  const signInWithAzureSpy = vi.spyOn(authService, 'signInWithAzure');
 
   it('should render the app', () => {
     const element = render(<FirebaseSocial />);
     assert.isNotNull(element.queryByText('Google'));
-    assert.isNotNull(element.queryByText('Facebook'));
+    assert.isNotNull(element.queryByText('Microsoft'));
   });
 
   it('Google button should work', () => {
@@ -28,11 +29,11 @@ describe('FirebaseSocial tests', () => {
     expect(signInWithGoogleSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('Facebook button should not work', () => {
+  it('Microsoft button should  work', () => {
     const element = render(<FirebaseSocial />);
-    const button = element.queryByText('Facebook');
+    const button = element.queryByText('Microsoft');
     button?.click();
-    expect(signInWithGoogleSpy).toHaveBeenCalledTimes(0);
+    expect(signInWithAzureSpy).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {

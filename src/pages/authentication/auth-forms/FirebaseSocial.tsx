@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 // assets
 import Facebook from '../../../assets/images/icons/facebook.svg';
 import Google from '../../../assets/images/icons/google.svg';
+import Microsoft from '../../../assets/images/icons/microsoft.svg';
 import { authService } from '../../../services/authService';
 
 // ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
@@ -17,8 +18,9 @@ const FirebaseSocial = () => {
       .then(resp => console.log(resp))
   };
 
-  const facebookHandler = async () => {
-    alert('Not ready for prime time.')
+  const microsoftHandler = async () => {
+    authService.signInWithAzure()
+      .then(resp => console.log(resp))
   };
 
   return (
@@ -39,6 +41,16 @@ const FirebaseSocial = () => {
       </Button>
 
       <Button
+        title='Login with Microsoft'
+        variant="outlined"
+        color="secondary"
+        fullWidth={!matchDownSM}
+        startIcon={<img src={Microsoft} alt="Microsoft" />}
+        onClick={microsoftHandler}>
+        {!matchDownSM && 'Microsoft'}
+      </Button>
+
+      {/* <Button
         title='Login with Facebook'
         variant="outlined"
         color="secondary"
@@ -46,7 +58,7 @@ const FirebaseSocial = () => {
         startIcon={<img src={Facebook} alt="Facebook" />}
         onClick={facebookHandler}>
         {!matchDownSM && 'Facebook'}
-      </Button>
+      </Button> */}
     </Stack>
   );
 };

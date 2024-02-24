@@ -6,10 +6,11 @@ import MobileSection from './MobileSection';
 import Notification from './Notification';
 import Profile from './Profile';
 import Search from './Search';
+import ServiceTicket from './ServiceTicket';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
-const HeaderContent: React.FC = ({  }) => {
+const HeaderContent: React.FC = ({ }) => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -17,7 +18,7 @@ const HeaderContent: React.FC = ({  }) => {
     <>
       {!matchesXs && <Search />}
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
-
+      <ServiceTicket />
       <Notification />
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}

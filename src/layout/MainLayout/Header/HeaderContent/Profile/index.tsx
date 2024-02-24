@@ -69,9 +69,8 @@ const Profile = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user.user_metadata)
       setAvatar(user.user_metadata.avatar_url)
-      setUsername(user.user_metadata.name)
+      setUsername(user.user_metadata.name ? user.user_metadata.name : user.user_metadata.email)
     }
   }, [user])
 

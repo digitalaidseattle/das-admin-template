@@ -21,11 +21,30 @@ class AuthService {
 
   getUser = async (): Promise<User | null> => {
     return supabaseClient.auth.getUser()
-      .then((response: UserResponse) => response.data.user)
+      .then((response: UserResponse) => {
+        return response.data.user
+      })
+  }
+
+  getSession = async (): Promise<any | null> => {
+    return supabaseClient.auth.getSession()
+      .then((response: any) => {
+        return response.data
+      })
+      .catch(err => console.error(err))
   }
 
   signInWithGoogle = async (): Promise<OAuthResponse> => {
     return supabaseClient.auth.signInWithOAuth({ provider: 'google' })
+  }
+
+  signInWithAzure = async (): Promise<OAuthResponse> => {
+    return supabaseClient.auth.signInWithOAuth({
+      provider: 'azure',
+      options: {
+        scopes: 'email',
+      },
+    })
   }
 }
 
