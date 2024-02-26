@@ -3,6 +3,8 @@ import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
 import Page404 from './error/404';
+import TicketPage from './TicketPage';
+import TicketsPage from './TicketsPage';
 
 const Dashboard = Loadable(lazy(() => import('./dashboard')));
 const AuthLogin = Loadable(lazy(() => import('./authentication/Login')));
@@ -15,7 +17,6 @@ const routes = [
       {
         path: "",
         element: <Dashboard />,
-
       },
       {
         path: "dashboard",
@@ -24,6 +25,14 @@ const routes = [
       {
         path: "sample-page",
         element: <SamplePage />,
+      },
+      {
+        path: "ticket/:id",
+        element: <TicketPage />,
+      },
+      {
+        path: "tickets",
+        element: <TicketsPage />,
       }
     ]
   },

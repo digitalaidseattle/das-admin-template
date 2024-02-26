@@ -9,8 +9,8 @@ Built with:
 
 Things to modify for an application:
 * .env
-* src/menu-items.tsx
-* src/pages/routes.tsx
-* src/components/Logo.tsx
+* src/menu-items
+* src/toolbar-items
 * src/pages
+* src/components/Logo.tsx
 * src/themes

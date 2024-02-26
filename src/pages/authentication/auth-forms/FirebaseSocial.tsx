@@ -3,7 +3,6 @@ import { Button, Stack, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 // assets
-import Facebook from '../../../assets/images/icons/facebook.svg';
 import Google from '../../../assets/images/icons/google.svg';
 import Microsoft from '../../../assets/images/icons/microsoft.svg';
 import { authService } from '../../../services/authService';

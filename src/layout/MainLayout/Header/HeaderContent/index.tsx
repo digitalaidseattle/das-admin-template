@@ -2,11 +2,10 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 // project import
+import toolbarItems from '../../../../toolbar-items';
 import MobileSection from './MobileSection';
-import Notification from './Notification';
 import Profile from './Profile';
 import Search from './Search';
-import ServiceTicket from './ServiceTicket';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
@@ -18,8 +17,7 @@ const HeaderContent: React.FC = ({ }) => {
     <>
       {!matchesXs && <Search />}
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
-      <ServiceTicket />
-      <Notification />
+      {toolbarItems.items}
       {!matchesXs && <Profile />}
       {matchesXs && <MobileSection />}
     </>

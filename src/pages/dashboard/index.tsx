@@ -22,17 +22,18 @@ import {
 import AnalyticEcommerce from '../../components/cards/statistics/AnalyticEcommerce';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
-import OrdersTable from './OrdersTable';
-import SalesColumnChart from './SalesColumnChart';
 import ReportAreaChart from './ReportAreaChart';
+import SalesColumnChart from './SalesColumnChart';
 
 // assets
-import MainCard from '../../components/MainCard';
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import MainCard from '../../components/MainCard';
 import avatar1 from '/src/assets/images/users/avatar-1.png';
 import avatar2 from '/src/assets/images/users/avatar-2.png';
 import avatar3 from '/src/assets/images/users/avatar-3.png';
 import avatar4 from '/src/assets/images/users/avatar-4.png';
+import TicketsTable from '../../sections/tickets/TicketsTable';
 
 // avatar style
 const avatarSX = {
@@ -73,6 +74,7 @@ const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
 
+  const navigate = useNavigate();
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -100,12 +102,23 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5">Recent Orders</Typography>
+            <Typography variant="h5">Recent Tickets</Typography>
           </Grid>
-          <Grid item />
+          <Grid item>
+            <Stack direction="row" alignItems="center" spacing={0}>
+              <Button
+                size="small"
+                onClick={() =>  navigate('/tickets')}
+                color={'primary'}
+                variant={'text'}
+              >
+                More
+              </Button>
+            </Stack>
+          </Grid>
         </Grid>
         <MainCard sx={{ mt: 2 }} content={false}>
-          <OrdersTable />
+          <TicketsTable />
         </MainCard>
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

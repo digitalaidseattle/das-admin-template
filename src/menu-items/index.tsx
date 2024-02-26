@@ -28,6 +28,14 @@ const dashboard = {
       url: '/dashboard',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
+    },
+    {
+      id: 'tickets',
+      title: 'Tickets',
+      type: 'item',
+      url: '/tickets',
+      icon: icons.DashboardOutlined,
+      breadcrumbs: false
     }
   ]
 };
