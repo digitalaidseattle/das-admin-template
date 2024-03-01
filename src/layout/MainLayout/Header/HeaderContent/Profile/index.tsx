@@ -87,7 +87,8 @@ const Profile = () => {
 
   const handleClose = (event: MouseEvent | TouchEvent) => {
     // FIXME
-    const ref = anchorRef as unknown as Record<string, HTMLButtonElement>;
+    // eslint-disable-next-line 
+    const ref = anchorRef as any;
     if (ref.current && ref.current.contains(event.target)) {
       return;
     }
