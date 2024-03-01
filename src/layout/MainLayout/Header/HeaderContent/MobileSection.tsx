@@ -25,7 +25,10 @@ const MobileSection = () => {
   };
 
   const handleClose = (event: MouseEvent | TouchEvent) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    // FIXME
+    // eslint-disable-next-line 
+    const ref = anchorRef as any;
+    if (ref.current && ref.current.contains(event.target)) {
       return;
     }
 
@@ -35,7 +38,10 @@ const MobileSection = () => {
   const prevOpen = useRef(open);
   useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      // FIXME
+      // eslint-disable-next-line 
+      const ref = anchorRef as any;
+      ref.current.focus();
     }
 
     prevOpen.current = open;
