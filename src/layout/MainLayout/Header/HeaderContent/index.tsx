@@ -9,7 +9,7 @@ import Search from './Search';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
-const HeaderContent: React.FC = ({ }) => {
+const HeaderContent = () => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 

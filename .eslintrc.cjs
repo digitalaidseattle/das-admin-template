@@ -6,7 +6,16 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    '*.test.ts',
+    '*.test.tsx',
+    // From template
+    'src/pages/dashboard',
+    'src/pages/components-overview',
+    'src/components/@extended'
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
@@ -14,5 +23,5 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-  },
+  }
 }

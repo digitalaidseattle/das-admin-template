@@ -26,16 +26,16 @@ import SettingTab from './SettingTab';
 
 // assets
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router';
 import { UserContext } from '../../../../../components/contexts/UserContext';
 import { authService } from '../../../../../services/authService';
-import { useNavigate } from 'react-router';
 
 interface TabPanelProps {
   children: ReactNode,
-  index: any,
-  value: any,
+  index: number,
+  value: number,
   dir: Direction
-};
+}
 // tab panel wrapper
 const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, dir, ...other }) => {
   return (
@@ -79,14 +79,16 @@ const Profile = () => {
       .then(() => navigate('/login'))
   };
 
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: any) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+  const handleClose = (event: MouseEvent | TouchEvent) => {
+    // FIXME
+    const ref = anchorRef as unknown as Record<string, HTMLButtonElement>;
+    if (ref.current && ref.current.contains(event.target)) {
       return;
     }
     setOpen(false);
@@ -94,7 +96,7 @@ const Profile = () => {
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (_event: any, newValue: any) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 

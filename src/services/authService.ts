@@ -7,7 +7,6 @@
 import { AuthError, OAuthResponse, User, UserResponse } from '@supabase/supabase-js'
 import supabaseClient from './supabaseClient'
 
-
 class AuthService {
 
   signOut = async (): Promise<{ error: AuthError | null }> => {
@@ -21,17 +20,7 @@ class AuthService {
 
   getUser = async (): Promise<User | null> => {
     return supabaseClient.auth.getUser()
-      .then((response: UserResponse) => {
-        return response.data.user
-      })
-  }
-
-  getSession = async (): Promise<any | null> => {
-    return supabaseClient.auth.getSession()
-      .then((response: any) => {
-        return response.data
-      })
-      .catch(err => console.error(err))
+      .then((response: UserResponse) => response.data.user)
   }
 
   signInWithGoogle = async (): Promise<OAuthResponse> => {

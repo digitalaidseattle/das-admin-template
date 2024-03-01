@@ -20,35 +20,28 @@ import {
 
 // project import
 import Dot from '../../components/@extended/Dot';
-import { TicketProps, ticketService } from './ticketService';
+import { Ticket, TicketProps, ticketService } from './ticketService';
 
-function descendingComparator(a: any, b: any, orderBy: any) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
+function descendingComparator(a: Ticket, b: Ticket, orderBy: string) {
+    switch (orderBy) {
+        case 'clientName':
+            return b.clientName < a.clientName ? -1 : b.clientName > a.clientName ? 1 : 0;
+        case 'phone':
+            return b.phone < a.phone ? -1 : b.phone > a.phone ? 1 : 0;
+        case 'email':
+            return b.email < a.email ? -1 : b.email > a.email ? 1 : 0;
+        case 'id':
+        default:
+            return b.id < a.id ? -1 : b.id > a.id ? 1 : 0;
     }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
 }
 
-function getComparator(order: any, orderBy: any) {
+function getComparator(order: SortDirection, orderBy: string) {
     return order === 'desc'
-        ? (a: any, b: any) => descendingComparator(a, b, orderBy)
-        : (a: any, b: any) => -descendingComparator(a, b, orderBy);
+        ? (a: Ticket, b: Ticket) => descendingComparator(a, b, orderBy)
+        : (a: Ticket, b: Ticket) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array: [], comparator: (a1: any, a2: any) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-}
 
 // ==============================|| ORDER TABLE - HEADER CELL ||============================== //
 
@@ -99,7 +92,7 @@ const TicketTableHead: React.FC<TicketTableHeadProps> = ({ order, orderBy }) => 
                         key={headCell.id}
                         align={headCell.align as "left" | "right" | "center" | "justify" | "inherit" | undefined}
                         padding={headCell.disablePadding ? 'none' : 'normal'}
-                        sortDirection={orderBy === headCell.id ? order : 'asc'}
+                        sortDirection={orderBy === headCell.id ? order : 'desc'}
                     >
                         {headCell.label}
                     </TableCell>
@@ -159,18 +152,13 @@ const TicketLink: React.FC<TicketProps> = ({ ticket }) => {
 const NUM_TIX = 10;
 
 export default function TicketsTable() {
-    const [order] = useState<SortDirection>('asc');
-    const [orderBy] = useState<string>('trackingNo');
-    const [selected] = useState<string[]>([]);
+    const [order] = useState<SortDirection>('desc');
+    const [orderBy] = useState<string>('id');
+    const [tickets, setTickets] = useState<Ticket[]>([]);
 
-    const isSelected = (trackingNo: string) => selected.indexOf(trackingNo) !== -1;
-
-    const [tickets, setTickets] = useState([]);
     useEffect(() => {
         ticketService.getTickets(NUM_TIX)
-            .then((tix) => {
-                setTickets(tix)
-            })
+            .then((tix) => setTickets(tix))
     }, [])
 
     return (
@@ -198,20 +186,16 @@ export default function TicketsTable() {
                 >
                     <TicketTableHead order={order} orderBy={orderBy} />
                     <TableBody>
-                        {stableSort(tickets as [], getComparator(order, orderBy))
-                            .map((ticket: any, index: number) => {
-                                const isItemSelected = isSelected(ticket.id);
+                        {tickets.sort(getComparator(order, orderBy))
+                            .map((ticket: Ticket, index: number) => {
                                 const labelId = `enhanced-table-checkbox-${index}`;
-
                                 return (
                                     <TableRow
                                         hover
                                         role="checkbox"
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={ticket.trackingNo}
-                                        selected={isItemSelected}
+                                        key={index}
                                     >
                                         <TableCell component="th" id={labelId} scope="row" align="left"><TicketLink ticket={ticket} /></TableCell>
                                         <TableCell align="left">{ticket.clientName}</TableCell>

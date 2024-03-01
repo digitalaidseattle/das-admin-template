@@ -42,7 +42,7 @@ const MainLayout: React.FC = () => {
           navigate("/login")
         }
       })
-  }, [])
+  }, [navigate])
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
@@ -51,7 +51,6 @@ const MainLayout: React.FC = () => {
   // set media wise responsive drawer
   useEffect(() => {
     setDrawerOpen(!matchDownLG);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownLG]);
 
   return (

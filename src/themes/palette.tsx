@@ -1,7 +1,7 @@
 // material-ui
 import { presetPalettes } from '@ant-design/colors';
+import { PaletteMode, createTheme } from '@mui/material';
 import Theme from './theme';
-import { createTheme } from '@mui/material';
 
 // third-party
 
@@ -9,8 +9,7 @@ import { createTheme } from '@mui/material';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
-//  FIXME shouldn't be any
-const Palette = (mode: any) => {
+const Palette = (mode: PaletteMode) => {
   const colors = presetPalettes;
   const greyPrimary = [
     '#ffffff',

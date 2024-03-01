@@ -13,7 +13,7 @@ const SettingTab = () => {
   const theme = useTheme();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleListItemClick = (_event: any, index: number) => {
+  const handleListItemClick = (_event: React.SyntheticEvent, index: number) => {
     setSelectedIndex(index);
   };
 

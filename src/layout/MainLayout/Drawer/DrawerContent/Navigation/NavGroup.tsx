@@ -6,16 +6,17 @@ import { Box, List, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { DrawerOpenContext } from '../../../../../components/contexts/DrawerOpenContext';
 import NavItem from './NavItem';
+import { MenuItem } from '../../../../../components/contexts/ActiveMenuItemContext';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
 interface NavGroupProps {
-  item: any
+  item: MenuItem
 }
 const NavGroup: React.FC<NavGroupProps> = ({ item }) => {
   const { drawerOpen } = useContext(DrawerOpenContext);
 
-  const navCollapse = item.children?.map((menuItem: any) => {
+  const navCollapse = item.children?.map((menuItem: MenuItem) => {
     switch (menuItem.type) {
       case 'collapse':
         return (

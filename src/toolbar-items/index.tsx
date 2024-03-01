@@ -5,8 +5,8 @@ import TicketToolbarItem from '../sections/tickets/TicketToolbarItem';
 
 const toolbarItems = {
   items: [
-  <TicketToolbarItem />,
-  <Notification />]
+  <TicketToolbarItem key={1}/>,
+  <Notification key={2} />]
 };
 
 export default toolbarItems;

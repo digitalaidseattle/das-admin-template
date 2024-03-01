@@ -1,9 +1,9 @@
 // project import
 import {
+  ChromeOutlined,
   DashboardOutlined,
   LoginOutlined,
   ProfileOutlined,
-  ChromeOutlined,
   QuestionOutlined
 } from '@ant-design/icons';
 
@@ -38,7 +38,7 @@ const dashboard = {
       breadcrumbs: false
     }
   ]
-};
+}
 
 const pages = {
   id: 'authentication',
@@ -61,7 +61,6 @@ const pages = {
     }
   ]
 };
-
 
 const support = {
   id: 'support',

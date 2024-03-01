@@ -1,14 +1,12 @@
-import { lazy } from 'react';
-import Loadable from '../components/Loadable';
 import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
-import Page404 from './error/404';
 import TicketPage from './TicketPage';
 import TicketsPage from './TicketsPage';
+import Login from './authentication/Login';
+import DashboardDefault from './dashboard';
+import Page404 from './error/404';
+import SamplePage from './extra-pages/SamplePage';
 
-const Dashboard = Loadable(lazy(() => import('./dashboard')));
-const AuthLogin = Loadable(lazy(() => import('./authentication/Login')));
-const SamplePage = Loadable(lazy(() => import('./extra-pages/SamplePage')));
 const routes = [
   {
     path: "/",
@@ -16,11 +14,11 @@ const routes = [
     children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: <DashboardDefault />,
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <DashboardDefault />,
       },
       {
         path: "sample-page",
@@ -42,7 +40,7 @@ const routes = [
     children: [
       {
         path: 'login',
-        element: <AuthLogin />
+        element: <Login />
       }
     ]
   },
@@ -58,4 +56,4 @@ const routes = [
   }
 ];
 
-export { routes }
+export { routes };

@@ -22,7 +22,6 @@ export default function ThemeCustomization(props: { children: ReactNode }) {
   // const theme = Palette('light', 'default');
   const theme = Palette('light');
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const themeTypography = Typography(`'Public Sans', sans-serif`);
   const themeCustomShadows = useMemo(() => CustomShadows(theme), [theme]);
 

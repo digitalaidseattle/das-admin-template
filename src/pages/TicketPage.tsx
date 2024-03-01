@@ -7,7 +7,7 @@ import { Grid, Stack, TextField, Typography } from '@mui/material';
 import MainCard from '../components/MainCard';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { TicketProps, ticketService } from '../sections/tickets/ticketService';
+import { Ticket, TicketHistory, TicketProps, ticketService } from '../sections/tickets/ticketService';
 import moment from 'moment';
 
 // project import
@@ -74,8 +74,8 @@ const TicketHistory: React.FC<TicketProps> = ({ ticket }) => {
   return (<MainCard title="History">
     <Stack spacing={'1rem'}>
       {ticket.ticket_history
-        .sort((h1: any, h2: any) => h2.created_at.localeCompare(h1.created_at))
-        .map((hist: any, idx: number) => {
+        .sort((h1: TicketHistory, h2: TicketHistory) => h2.created_at.getTime() - h1.created_at.getTime())
+        .map((hist: TicketHistory, idx: number) => {
           const date = moment(hist.created_at)
           return <MainCard key={idx}>
             <Typography>Action: {hist.description}</Typography>
@@ -89,11 +89,11 @@ const TicketHistory: React.FC<TicketProps> = ({ ticket }) => {
 
 const TicketPage = () => {
   const { id } = useParams();
-  const [ticket, setTicket] = useState<any>();
+  const [ticket, setTicket] = useState<Ticket>();
 
   useEffect(() => {
     ticketService.getTicket(Number(id))
-      .then((resp: any) => setTicket(resp))
+      .then((resp: Ticket) => setTicket(resp))
   }, [id]);
 
 

@@ -19,27 +19,28 @@ import {
 // assets
 import { ThunderboltOutlined } from '@ant-design/icons';
 import TicketDialog from './TicketDialog';
+import { Ticket } from './ticketService';
 
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
 
 const TicketToolbarItem: React.FC = () => {
 
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
 
   const iconBackColorOpen = 'grey.300';
   const iconBackColor = 'grey.100';
 
-  const handleSuccess = (resp: any) => {
+  const handleSuccess = (resp: Ticket | null) => {
     if (resp) {
       setOpenSnack(true)
     }
     setOpen(false);
   };
 
-  const handleError = (err: any) => {
+  const handleError = (err: Error) => {
     console.error(err);
     setOpen(false);
   };

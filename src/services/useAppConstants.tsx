@@ -1,11 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import supabaseClient from "./supabaseClient";
 
 
+export type AppConstant = {
+    value: string,
+    label: string
+}
+const cache: Record<string, AppConstant[]> = {}
+
 const useAppConstants = (type: string) => {
-    const cache: any = useRef({});
     const [status, setStatus] = useState('idle');
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<AppConstant[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -18,15 +23,15 @@ const useAppConstants = (type: string) => {
                 const response = await supabaseClient.from('app_constants')
                     .select()
                     .eq('type', type);
-                const data = response.data;
-                cache[type] = data; // set response in cache;
-                setData(data as []);
+                const data = response.data as AppConstant[];
+                cache[type] = data;
+                setData(data);
                 setStatus('fetched');
             }
         };
 
         fetchData();
-    }, []);
+    }, [type]);
 
     return { status, data };
 };

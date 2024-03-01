@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 // material-ui
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
@@ -9,7 +9,7 @@ import { EditOutlined, LogoutOutlined, ProfileOutlined, UserOutlined, WalletOutl
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 type ProfileTabProps = {
-  handleLogout: () => {}
+  handleLogout: () => void
 };
 
 
@@ -17,7 +17,7 @@ const ProfileTab: React.FC<ProfileTabProps> = ({ handleLogout }) => {
   const theme = useTheme();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleListItemClick = (_event: any, index: number) => {
+  const handleListItemClick = (_event: React.SyntheticEvent, index: number) => {
     setSelectedIndex(index);
   };
 
