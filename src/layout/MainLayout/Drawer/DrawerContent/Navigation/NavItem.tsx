@@ -2,58 +2,57 @@ import { forwardRef, useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 // project import
 import { ActiveMenuItemContext } from '../../../../../components/contexts/ActiveMenuItemContext';
 import { DrawerOpenContext } from '../../../../../components/contexts/DrawerOpenContext';
-import { OpenMenuItemsContext } from '../../../../../components/contexts/OpenMenuItemsContext';
+import { MenuItem } from '../../../../../components/contexts/MenuContext';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 interface NavItemProps {
-  item: any,
+  item: MenuItem,
   level: number
-};
+}
 
 const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
   const theme = useTheme();
   const { pathname } = useLocation();
 
   const { drawerOpen } = useContext(DrawerOpenContext)
-  const { openMenuItems } = useContext(OpenMenuItemsContext);
-  const { setActiveMenuItem } = useContext(ActiveMenuItemContext);
-  
+  const { activeMenuItem, setActiveMenuItem } = useContext(ActiveMenuItemContext);
+
+  // active menu item on page load
+  useEffect(() => {
+    if (pathname.includes(item.url)) {
+      setActiveMenuItem(item.id);
+    }
+  }, [pathname, item]);
+
   let itemTarget = '_self';
   if (item.target) {
     itemTarget = '_blank';
   }
 
-  let listItemProps = { component: forwardRef((props, ref: any) => <Link ref={ref} {...props} to={item.url} target={itemTarget} />) };
+  const listItemProps = { component: forwardRef((props, ref: any) => <Link ref={ref} {...props} to={item.url} target={itemTarget} />) };
   // FIXME
   // if (item?.external) {
   //   listItemProps = { component: 'a', href: item.url, target: itemTarget };
   // }
 
-  const itemHandler = (id: any) => {
-    setActiveMenuItem({ openMenuItems: [id] });
+  const itemHandler = (id: string) => {
+    console.log('id', id)
+
+    setActiveMenuItem(id);
   };
 
-  const Icon = item.icon;
-  const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
-
-  const isSelected = openMenuItems.findIndex((id) => id === item.id) > -1;
-  // active menu item on page load
-  useEffect(() => {
-    if (pathname.includes(item.url)) {
-      setActiveMenuItem({ openMenuItems: [item.id] });
-    }
-    // eslint-disable-next-line
-  }, [pathname]);
-
+  const itemIcon = item.icon ? <SvgIcon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
   const textColor = 'text.primary';
   const iconSelectedColor = 'primary.main';
 
+  const isSelected = activeMenuItem === item.id;//openMenuItems.findIndex((id) => id === item.id) > -1;
+  console.log('activeMenuItem', activeMenuItem, "item", item)
   return (
     <ListItemButton
       {...listItemProps}

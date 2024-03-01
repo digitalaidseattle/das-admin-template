@@ -8,12 +8,12 @@ import { createContext } from "react";
 
 
 interface MenuItemContextType {
-    activeMenuItem: string;
-    setActiveMenuItem: (menuItem: string) => void;
+    activeMenuItem: string | null;
+    setActiveMenuItem: (menuItem: string | null) => void;
 }
 
 export const ActiveMenuItemContext = createContext<MenuItemContextType>({
-    activeMenuItem: '',
+    activeMenuItem: null,
     setActiveMenuItem: () => { }
 });
 
