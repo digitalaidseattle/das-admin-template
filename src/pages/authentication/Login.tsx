@@ -5,25 +5,26 @@ import { Grid, Stack, Typography } from '@mui/material';
 // project import
 import CenteredCard from '../../layout/MinimalLayout/CenteredCard';
 import MinimalWrapper from '../../layout/MinimalLayout/MinimalWrapper';
-import AuthLogin from './auth-forms/AuthLogin';
+import FirebaseSocial from './auth-forms/FirebaseSocial';
 
-// ================================|| LOGIN ||================================ //
+// ================================|| 404 ||================================ //
 
-const Login = () => (
-  <MinimalWrapper>
+const Login: React.FC = () => {
+
+  return (<MinimalWrapper>
     <CenteredCard>
       <Grid container spacing={3} style={{ textAlign: "center" }}>
         <Grid item xs={12} >
           <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-            <Typography variant="h3">Login</Typography>
+            <Typography variant="h3">Please login</Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <AuthLogin />
+          <FirebaseSocial />
         </Grid>
       </Grid>
     </CenteredCard>
-  </MinimalWrapper>
-);
+  </MinimalWrapper>)
+};
 
 export default Login;

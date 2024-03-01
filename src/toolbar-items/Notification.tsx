@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import {
   Avatar,
   Badge,
@@ -10,19 +9,20 @@ import {
   Divider,
   IconButton,
   List,
-  ListItemButton,
   ListItemAvatar,
-  ListItemText,
+  ListItemButton,
   ListItemSecondaryAction,
+  ListItemText,
   Paper,
   Popper,
   Typography,
   useMediaQuery
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // project import
-import MainCard from '../components/MainCard';
 import Transitions from '../components/@extended/Transitions';
+import MainCard from '../components/MainCard';
 
 // assets
 import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -50,15 +50,16 @@ const Notification = () => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
-  // FIXME
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: any) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+  const handleClose = (event: MouseEvent | TouchEvent) => {
+    // REVIEW this casting works, but ugh
+    const ref = anchorRef as unknown as Record<string, HTMLElement>;
+    if (ref.current && ref.current === event.target) {
       return;
     }
     setOpen(false);

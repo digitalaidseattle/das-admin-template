@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import CenteredCard from '../../layout/MinimalLayout/CenteredCard';
 import MinimalWrapper from '../../layout/MinimalLayout/MinimalWrapper';
 
-// ================================|| LOGIN ||================================ //
+// ================================|| 404 ||================================ //
 
 const Page404: React.FC = () => {
   const navigate = useNavigate();

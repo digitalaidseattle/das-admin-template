@@ -6,9 +6,8 @@ import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typo
 import { useTheme } from '@mui/material/styles';
 
 // project import
-import { ActiveMenuItemContext } from '../../../../../components/contexts/ActiveMenuItemContext';
+import { ActiveMenuItemContext, MenuItem } from '../../../../../components/contexts/ActiveMenuItemContext';
 import { DrawerOpenContext } from '../../../../../components/contexts/DrawerOpenContext';
-import { MenuItem } from '../../../../../components/contexts/MenuContext';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 interface NavItemProps {
@@ -28,13 +27,14 @@ const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
     if (pathname.includes(item.url)) {
       setActiveMenuItem(item.id);
     }
-  }, [pathname, item]);
+  }, [pathname, item, setActiveMenuItem]);
 
   let itemTarget = '_self';
   if (item.target) {
     itemTarget = '_blank';
   }
 
+  // eslint-disable-next-line 
   const listItemProps = { component: forwardRef((props, ref: any) => <Link ref={ref} {...props} to={item.url} target={itemTarget} />) };
   // FIXME
   // if (item?.external) {
@@ -42,8 +42,6 @@ const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
   // }
 
   const itemHandler = (id: string) => {
-    console.log('id', id)
-
     setActiveMenuItem(id);
   };
 
@@ -52,7 +50,6 @@ const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
   const iconSelectedColor = 'primary.main';
 
   const isSelected = activeMenuItem === item.id;//openMenuItems.findIndex((id) => id === item.id) > -1;
-  console.log('activeMenuItem', activeMenuItem, "item", item)
   return (
     <ListItemButton
       {...listItemProps}

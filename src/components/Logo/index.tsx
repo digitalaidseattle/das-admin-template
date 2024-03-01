@@ -12,7 +12,7 @@ import config from '../../config';
 interface LogoSectionProps {
   sx: object,
   to: string
-};
+}
 
 const LogoSection: React.FC<LogoSectionProps> = ({ sx, to }) => {
   // FIXME
@@ -28,8 +28,8 @@ const LogoSection: React.FC<LogoSectionProps> = ({ sx, to }) => {
     >
       <Logo />
     </ButtonBase>
-  );
-};
+  )
+}
 
 
 

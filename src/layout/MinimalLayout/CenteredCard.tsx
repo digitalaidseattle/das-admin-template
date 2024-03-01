@@ -10,11 +10,11 @@ import { Box } from '@mui/material';
 
 // project import
 import { ReactNode } from 'react';
-import MainCard from '../../components/MainCard';
+import MainCard, { MainCardProp } from '../../components/MainCard';
 
 // ==============================|| AUTHENTICATION - CARD WRAPPER ||============================== //
 
-const CenteredCard = (props: { children: ReactNode, other?: any }) => (
+const CenteredCard = (props: { children: ReactNode, other?: MainCardProp }) => (
   <MainCard
     sx={{
       maxWidth: { xs: 400, lg: 475 },

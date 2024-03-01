@@ -15,15 +15,15 @@ import { drawerWidth } from '../../../config';
 interface MainDrawerProps {
   open: boolean,
   handleDrawerToggle: () => void,
-  window?: any
 }
 
-const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle, window }) => {
+const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle }) => {
+  // console.log('window', typeof window)
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down('lg'));
 
   // responsive drawer container
-  const container = window !== undefined ? () => window().document.body : undefined;
+  // const container = un
 
   // header content
   const drawerContent = useMemo(() => <DrawerContent />, []);
@@ -38,7 +38,7 @@ const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle, windo
         </MiniDrawerStyled>
       ) : (
         <Drawer
-          container={container}
+          // container={container}
           variant="temporary"
           open={open}
           onClose={handleDrawerToggle}

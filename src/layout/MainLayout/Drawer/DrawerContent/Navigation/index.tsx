@@ -12,6 +12,8 @@ import { useState } from 'react';
 const Navigation = () => {
   const [activeMenuItem, setActiveMenuItem] = useState<string | null>(null)
 
+  // FIXME
+  // eslint-disable-next-line 
   const navGroups = menuItem.items.map((item: any) => {
     switch (item.type) {
       case 'group':

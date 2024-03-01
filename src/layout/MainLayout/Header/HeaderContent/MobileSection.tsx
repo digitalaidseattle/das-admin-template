@@ -18,13 +18,13 @@ const MobileSection = () => {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  const anchorRef = useRef<any>(null);
+  const anchorRef = useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event: any) => {
+  const handleClose = (event: MouseEvent | TouchEvent) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }

@@ -14,7 +14,7 @@ const headerSX = {
 
 // ==============================|| CUSTOM - MAIN CARD ||============================== //
 
-interface MainCardProp {
+export interface MainCardProp {
   border?: boolean,
   boxShadow?: boolean,
   contentSX?: object,
@@ -55,6 +55,7 @@ const MainCard: React.FC<MainCardProp> = forwardRef(
       <Card
         elevation={elevation || 0}
         // FIXME
+        // eslint-disable-next-line 
         ref={ref as any}
         {...others}
         sx={{

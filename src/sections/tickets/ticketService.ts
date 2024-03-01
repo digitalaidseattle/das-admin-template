@@ -5,22 +5,47 @@
  *
  */
 
+import { User } from "@supabase/supabase-js";
 import supabaseClient from "../../services/supabaseClient";
 
 type TicketProps = {
-    ticket: any
+    ticket: Ticket
+};
+
+type Ticket = {
+    id: number,
+    created_at: Date,
+    inputSource: string,
+    summary: string,
+    description: string,
+    status: string,
+    assignee: string,
+    due_date: Date,
+    phone: string,
+    email: string,
+    clientName: string,
+    ticket_history: TicketHistory[]
+};
+
+type TicketHistory = {
+    service_ticket_id: number
+    created_at: Date,
+    description: string,
+    property: string,
+    value: string,
+    change_by: string
 };
 
 class TicketService {
-    async getTickets(count: number): Promise<any> {
+    async getTickets(count: number): Promise<Ticket[]> {
         return supabaseClient.from('service_ticket')
             .select()
             .limit(count)
             .order('created_at', { ascending: false })
-            .then(tixResp => tixResp.data)
+            .then(tixResp => tixResp.data as Ticket[])
     }
 
-    async getTicket(ticket_id: number): Promise<any> {
+    async getTicket(ticket_id: number): Promise<Ticket> {
         return supabaseClient.from('service_ticket')
             .select('*, ticket_history(*)')
             .eq('id', ticket_id)
@@ -28,36 +53,32 @@ class TicketService {
             .then(tixResp => tixResp.data)
     }
 
-    async createTicket(user: any, tix: any): Promise<any> {
+async createTicket(user: User, tix: Ticket): Promise<Ticket> {
         tix.status = 'new';
         return supabaseClient.from('service_ticket')
             .insert(tix)
             .select()
-            .then(tixResp => {
-                const ticket = (tixResp.data as any)[0];
+            .then(async tixResp => {
+                const ticket = tixResp.data![0] as Ticket;
                 const history = {
                     'service_ticket_id': ticket.id,
                     'description': 'New ticket',
                     'change_by': user.email
                 }
-                return this.createTicketHistory(history)
-                    .then(_histResp => {
-                        // return ticket instead of
-                        return ticket
-                    });
+                await this.createTicketHistory(history as TicketHistory);
+                return ticket;
             })
     }
 
-    async createTicketHistory(history: any): Promise<any> {
-
+    async createTicketHistory(history: TicketHistory): Promise<TicketHistory> {
         return supabaseClient.from('ticket_history')
             .insert(history)
             .select()
-            .then(histResp => histResp.data);
+            .then(histResp => histResp.data![0] as TicketHistory);
     }
 }
 
 const ticketService = new TicketService()
 export { ticketService };
-export type { TicketProps };
+export type { TicketProps, Ticket, TicketHistory };
 

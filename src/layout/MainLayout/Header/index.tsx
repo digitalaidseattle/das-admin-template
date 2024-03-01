@@ -49,8 +49,8 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerToggle }) => {
 
   // app-bar params
   const appBar = {
-    position: 'fixed' as 'fixed',
-    color: 'inherit' as 'inherit',
+    position: 'fixed' as const,
+    color: 'inherit' as const,
     elevation: 0,
     sx: {
       borderBottom: `1px solid ${theme.palette.divider}`,

@@ -22,12 +22,16 @@ import {
     TextField,
     Typography
 } from '@mui/material';
-import { ticketService } from './ticketService';
+import { Ticket, ticketService } from './ticketService';
 import useAppConstants from '../../services/useAppConstants';
 import { UserContext } from '../../components/contexts/UserContext';
 
-
-const TicketDialog: React.FC<any> = (props: { open: boolean, handleSuccess: (resp: any) => {}, handleError: () => {} }) => {
+interface TicketDialogProps {
+    open: boolean,
+    handleSuccess: (resp: Ticket | null) => void,
+    handleError: (err: Error) => void
+}
+const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handleError }) => {
 
     const { user } = useContext(UserContext)
     const { data: sources } = useAppConstants('SOURCE');
@@ -37,19 +41,18 @@ const TicketDialog: React.FC<any> = (props: { open: boolean, handleSuccess: (res
     const iconBackColor = 'grey.100';
 
     return <Dialog
-        open={props.open}
-        onClose={() => props.handleSuccess(null)}
+        open={open}
+        onClose={() => handleSuccess(null)}
         PaperProps={{
             component: 'form',
             onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
-                const formJson = Object.fromEntries((formData as any).entries());
-                ticketService.createTicket(user, formJson)
-                    .then((resp: any) => {
-                        console.log('resp', resp);
-                        props.handleSuccess(resp);
-                    })
+                const formJson = Object.fromEntries(formData.entries());
+                // Review as unknown as Ticket
+                ticketService.createTicket(user!, formJson as unknown as Ticket)
+                    .then((resp: Ticket) => handleSuccess(resp))
+                    .catch(err => handleError(err))
             },
         }}
     >
@@ -119,11 +122,11 @@ const TicketDialog: React.FC<any> = (props: { open: boolean, handleSuccess: (res
         <DialogActions>
             <Button
                 variant='outlined'
-                sx={{ color: 'text.secondary', bgcolor: props.open ? iconBackColorOpen : iconBackColor }}
-                onClick={() => props.handleSuccess(null)}>Cancel</Button>
+                sx={{ color: 'text.secondary', bgcolor: open ? iconBackColorOpen : iconBackColor }}
+                onClick={() => handleSuccess(null)}>Cancel</Button>
             <Button
                 variant='outlined'
-                sx={{ color: 'text.success', bgcolor: props.open ? iconBackColorOpen : iconBackColor }}
+                sx={{ color: 'text.success', bgcolor: open ? iconBackColorOpen : iconBackColor }}
                 type="submit">OK</Button>
         </DialogActions>
     </Dialog>

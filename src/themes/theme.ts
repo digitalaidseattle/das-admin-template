@@ -1,6 +1,9 @@
 // ==============================|| PRESET THEME - THEME SELECTOR ||============================== //
+
+import { PalettesProps } from "@ant-design/colors";
+
 //  FIXME shouldn't be any
-const Theme = (colors: any) => {
+const Theme = (colors: PalettesProps) => {
   const { blue, red, gold, cyan, green, grey } = colors;
   const greyColors = {
     0: grey[0],

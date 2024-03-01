@@ -1,6 +1,6 @@
 // ==============================|| DEFAULT THEME - TYPOGRAPHY  ||============================== //
 // FIXME any?
-const Typography = (fontFamily: any) => ({
+const Typography = (fontFamily: string) => ({
   htmlFontSize: 16,
   fontFamily,
   fontWeightLight: 300,
