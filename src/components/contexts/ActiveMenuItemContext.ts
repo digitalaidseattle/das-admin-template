@@ -6,8 +6,14 @@
  */
 import { createContext } from "react";
 
-  
-export const ActiveMenuItemContext = createContext({
-    activeMenuItem: 'string',
-    setActiveMenuItem: (_item: any) => {}
-})
+
+interface MenuItemContextType {
+    activeMenuItem: string;
+    setActiveMenuItem: (menuItem: string) => void;
+}
+
+export const ActiveMenuItemContext = createContext<MenuItemContextType>({
+    activeMenuItem: '',
+    setActiveMenuItem: () => { }
+});
+

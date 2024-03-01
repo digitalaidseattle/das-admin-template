@@ -6,8 +6,13 @@
  */
 import { createContext } from "react";
 
-  
-export const MenuContext = createContext({
+
+interface MenuContextType {
+    menu: any,
+    setMenu: (_menu: any) => void
+}
+
+export const MenuContext = createContext<MenuContextType>({
     menu: {},
-    setMenu: (_menu: any) => {}
-})
+    setMenu: () => { }
+});

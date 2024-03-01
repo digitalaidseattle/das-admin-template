@@ -6,8 +6,13 @@
  */
 import { createContext } from "react";
 
-  
-export const DrawerOpenContext = createContext({
+interface DrawerOpenContextType {
+    drawerOpen: boolean,
+    setDrawerOpen: (open: boolean) => void
+}
+
+export const DrawerOpenContext = createContext<DrawerOpenContextType>({
     drawerOpen: false,
-    setDrawerOpen: (_open: boolean) => {}
-})
+    setDrawerOpen: () => {}
+});
+

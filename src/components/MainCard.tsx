@@ -5,8 +5,6 @@ import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 // project import
-// FIXME
-// import Highlighter from './third-party/Highlighter';
 
 // header style
 const headerSX = {
@@ -30,7 +28,7 @@ interface MainCardProp {
   codeHighlight?: boolean,
   content?: boolean,
   children?: ReactNode
-};
+}
 
 const MainCard: React.FC<MainCardProp> = forwardRef(
   (
@@ -46,10 +44,9 @@ const MainCard: React.FC<MainCardProp> = forwardRef(
       shadow,
       sx = {},
       title,
-      codeHighlight,
       ...others
     },
-    _ref
+    ref
   ) => {
     const theme = useTheme();
     boxShadow = theme.palette.mode === 'dark' ? boxShadow || true : boxShadow;
@@ -58,7 +55,7 @@ const MainCard: React.FC<MainCardProp> = forwardRef(
       <Card
         elevation={elevation || 0}
         // FIXME
-        // ref={...ref}
+        ref={ref as any}
         {...others}
         sx={{
           border: border ? '1px solid' : 'none',
@@ -86,17 +83,6 @@ const MainCard: React.FC<MainCardProp> = forwardRef(
         {/* card content */}
         {content && <CardContent sx={contentSX}>{children}</CardContent>}
         {!content && children}
-
-        {/* card footer - clipboard & highlighter  */}
-        {/* FIXME */}
-        {/* {codeHighlight && (
-          <>
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <Highlighter codeHighlight={codeHighlight} main>
-              {children}
-            </Highlighter>
-          </>
-        )} */}
       </Card>
     );
   }
