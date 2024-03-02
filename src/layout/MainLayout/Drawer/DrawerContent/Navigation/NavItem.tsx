@@ -2,7 +2,7 @@ import { forwardRef, useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typography } from '@mui/material';
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 // project import
@@ -45,11 +45,12 @@ const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
     setActiveMenuItem(id);
   };
 
-  const itemIcon = item.icon ? <SvgIcon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
   const textColor = 'text.primary';
   const iconSelectedColor = 'primary.main';
+  const Icon = item.icon;
+  const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
+  const isSelected = activeMenuItem === item.id;
 
-  const isSelected = activeMenuItem === item.id;//openMenuItems.findIndex((id) => id === item.id) > -1;
   return (
     <ListItemButton
       {...listItemProps}

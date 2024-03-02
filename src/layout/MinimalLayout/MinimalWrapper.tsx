@@ -8,12 +8,11 @@
 import { ReactNode } from 'react';
 
 // material-ui
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // project import
 
 // assets
-import Logo from '../../components/Logo/Logo';
 import MinimalFooter from './MinimalFooter';
 
 // ==============================|| AUTHENTICATION - WRAPPER ||============================== //
@@ -28,12 +27,6 @@ const MinimalWrapper = (props: { children: ReactNode }) => (
         minHeight: '100vh'
       }}
     >
-      <Grid item xs={12} sx={{ ml: 3, mt: 3 }}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Logo />
-          <Typography variant="h5">{import.meta.env.VITE_APPLICATION_NAME}</Typography>
-        </Stack>
-      </Grid>
       <Grid item xs={12}>
         <Grid
           item

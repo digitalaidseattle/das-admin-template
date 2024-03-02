@@ -4,7 +4,9 @@ import {
   DashboardOutlined,
   LoginOutlined,
   ProfileOutlined,
-  QuestionOutlined
+  QuestionOutlined,
+  ExclamationOutlined,
+  FileOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -12,7 +14,9 @@ const icons = {
   LoginOutlined,
   ProfileOutlined,
   ChromeOutlined,
-  QuestionOutlined
+  QuestionOutlined,
+  ExclamationOutlined,
+  FileOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -34,15 +38,15 @@ const dashboard = {
       title: 'Tickets',
       type: 'item',
       url: '/tickets',
-      icon: icons.DashboardOutlined,
+      icon: icons.FileOutlined,
       breadcrumbs: false
     }
   ]
 }
 
 const pages = {
-  id: 'authentication',
-  title: 'Authentication',
+  id: 'example',
+  title: 'Examples',
   type: 'group',
   children: [
     {
@@ -53,40 +57,24 @@ const pages = {
       icon: icons.LoginOutlined
     },
     {
-      id: 'register1',
-      title: 'Register',
+      id: '404',
+      title: '404',
       type: 'item',
-      url: '/register',
-      icon: icons.ProfileOutlined
-    }
-  ]
-};
-
-const support = {
-  id: 'support',
-  title: 'Support',
-  type: 'group',
-  children: [
+      url: '/404',
+      icon: icons.ExclamationOutlined
+    },
     {
       id: 'sample-page',
       title: 'Sample Page',
       type: 'item',
       url: '/sample-page',
       icon: icons.ChromeOutlined
-    },
-    {
-      id: 'documentation',
-      title: 'Documentation',
-      type: 'item',
-      url: 'https://codedthemes.gitbook.io/mantis/',
-      icon: icons.QuestionOutlined,
-      external: true,
-      target: true
     }
   ]
 };
+
 const menuItems = {
-  items: [dashboard, pages, support]
+  items: [dashboard, pages]
 };
 
 export default menuItems;
