@@ -1,6 +1,7 @@
 import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
 import TicketPage from './TicketPage';
+import TicketsGridPage from './TicketsGridPage';
 import TicketsPage from './TicketsPage';
 import Login from './authentication/Login';
 import DashboardDefault from './dashboard';
@@ -31,6 +32,10 @@ const routes = [
       {
         path: "tickets",
         element: <TicketsPage />,
+      },
+      {
+        path: "tickets-grid",
+        element: <TicketsGridPage />,
       }
     ]
   },

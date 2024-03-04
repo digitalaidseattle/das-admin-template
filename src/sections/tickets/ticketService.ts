@@ -6,7 +6,7 @@
  */
 
 import { User } from "@supabase/supabase-js";
-import supabaseClient from "../../services/supabaseClient";
+import supabaseClient, { PageInfo } from "../../services/supabaseClient";
 
 type TicketProps = {
     ticket: Ticket
@@ -37,6 +37,21 @@ type TicketHistory = {
 };
 
 class TicketService {
+    async query(count: number, offset?: number): Promise<PageInfo<Ticket>> {
+        const _offset = offset ? offset * count : 0;
+        return supabaseClient.from('service_ticket')
+            .select('*', { count: 'exact' })
+            .range(_offset, _offset + count - 1)
+            .order('id', { ascending: false })
+            .then(resp => {
+                return {
+                    rows: resp.data as Ticket[],
+                    totalRowCount: resp.count || 0
+                }
+            })
+    }
+
+
     async getTickets(count: number): Promise<Ticket[]> {
         return supabaseClient.from('service_ticket')
             .select()
@@ -53,7 +68,7 @@ class TicketService {
             .then(tixResp => tixResp.data)
     }
 
-async createTicket(user: User, tix: Ticket): Promise<Ticket> {
+    async createTicket(user: User, tix: Ticket): Promise<Ticket> {
         tix.status = 'new';
         return supabaseClient.from('service_ticket')
             .insert(tix)
@@ -80,5 +95,5 @@ async createTicket(user: User, tix: Ticket): Promise<Ticket> {
 
 const ticketService = new TicketService()
 export { ticketService };
-export type { TicketProps, Ticket, TicketHistory };
+export type { PageInfo, TicketProps, Ticket, TicketHistory };
 
