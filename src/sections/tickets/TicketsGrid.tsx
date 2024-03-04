@@ -69,15 +69,8 @@ const getColumns = (statuses: AppConstant[]): GridColDef[] => {
 }
 
 export default function TicketsGrid() {
-    const [paginationModel, setPaginationModel] = useState({
-        page: 0,
-        pageSize: PAGE_SIZE,
-    });
-
-    const [pageInfo, setPageInfo] = useState<PageInfo<Ticket>>({
-        rows: [],
-        totalRowCount: 0
-    });
+    const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: PAGE_SIZE });
+    const [pageInfo, setPageInfo] = useState<PageInfo<Ticket>>({ rows: [], totalRowCount: 0 });
     const [rowCountState, setRowCountState] = useState(pageInfo?.totalRowCount || 0,);
     const apiRef = useGridApiRef();
     const { data: statuses } = useAppConstants('STATUS')
