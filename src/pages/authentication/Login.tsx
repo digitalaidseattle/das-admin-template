@@ -3,11 +3,10 @@
 import { Grid, Stack, Typography } from '@mui/material';
 
 // project import
+import Logo from '../../components/Logo/Logo';
 import CenteredCard from '../../layout/MinimalLayout/CenteredCard';
 import MinimalWrapper from '../../layout/MinimalLayout/MinimalWrapper';
 import FirebaseSocial from './auth-forms/FirebaseSocial';
-import Logo from '../../components/Logo/Logo';
-import { Box } from '@mui/system';
 
 // ================================|| 404 ||================================ //
 

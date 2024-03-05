@@ -6,7 +6,8 @@ import {
   ProfileOutlined,
   QuestionOutlined,
   ExclamationOutlined,
-  FileOutlined
+  FileOutlined,
+  FileExclamationOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -16,7 +17,8 @@ const icons = {
   ChromeOutlined,
   QuestionOutlined,
   ExclamationOutlined,
-  FileOutlined
+  FileOutlined,
+  FileExclamationOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -39,6 +41,15 @@ const dashboard = {
       type: 'item',
       url: '/tickets',
       icon: icons.FileOutlined,
+      breadcrumbs: false
+    },
+
+    {
+      id: 'tickets-grid',
+      title: 'Advanced Tickets Table',
+      type: 'item',
+      url: '/tickets-grid',
+      icon: icons.FileExclamationOutlined,
       breadcrumbs: false
     }
   ]

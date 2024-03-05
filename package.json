@@ -15,6 +15,7 @@
     "@ant-design/colors": "^7.0.2",
     "@ant-design/icons": "^5.3.0",
     "@mui/material": "^5.15.9",
+    "@mui/x-data-grid": "^6.19.6",
     "@supabase/supabase-js": "^2.39.3",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",

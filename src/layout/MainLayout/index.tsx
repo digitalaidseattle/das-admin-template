@@ -55,7 +55,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }} >
-      <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
+      {user && <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
         <ScrollTop>
           <Box sx={{ display: 'flex', width: '100%' }}>
             <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
@@ -68,6 +68,7 @@ const MainLayout: React.FC = () => {
           </Box>
         </ScrollTop>
       </DrawerOpenContext.Provider>
+      }
     </UserContext.Provider>
   );
 };
