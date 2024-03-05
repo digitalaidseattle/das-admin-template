@@ -7,6 +7,7 @@ import {
     DataGrid,
     GridColDef,
     GridRenderCellParams,
+    GridSortModel,
     useGridApiRef
 } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
@@ -22,14 +23,14 @@ import {
 import useAppConstants, { AppConstant } from '../../services/useAppConstants';
 import { TicketContact, TicketLink, TicketStatus } from './TableUtils';
 import { PageInfo, Ticket, ticketService } from './ticketService';
+import { QueryModel } from '../../services/supabaseClient';
 
 
-// ==============================|| TICKETS TABLE ||============================== //
+// ==============================|| Tickets Grid ||============================== //
 
 const PAGE_SIZE = 5;
 
 const getColumns = (statuses: AppConstant[]): GridColDef[] => {
-
     return [
         {
             field: 'id', headerName: 'ID', width: 90,
@@ -75,6 +76,7 @@ const getColumns = (statuses: AppConstant[]): GridColDef[] => {
 
 export default function TicketsGrid() {
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: PAGE_SIZE });
+    const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'created_at', sort: 'desc' }])
     const [pageInfo, setPageInfo] = useState<PageInfo<Ticket>>({ rows: [], totalRowCount: 0 });
     const [rowCountState, setRowCountState] = useState(pageInfo?.totalRowCount || 0,);
     const apiRef = useGridApiRef();
@@ -89,9 +91,17 @@ export default function TicketsGrid() {
     }, [pageInfo?.totalRowCount, setRowCountState]);
 
     useEffect(() => {
-        ticketService.query(paginationModel.pageSize, paginationModel.page)
-            .then((pi) => setPageInfo(pi))
-    }, [paginationModel])
+        if (paginationModel && sortModel) {
+            const queryModel = {
+                page: paginationModel.page,
+                pageSize: paginationModel.pageSize,
+                sortField: sortModel.length === 0 ? 'created_at' : sortModel[0].field,
+                sortDirection: sortModel.length === 0 ? 'created_at' : sortModel[0].sort
+            } as QueryModel
+            ticketService.query(queryModel)
+                .then((pi) => setPageInfo(pi))
+        }
+    }, [paginationModel, sortModel])
 
     const applyAction = () => {
         const rows = apiRef.current.getSelectedRows();
@@ -119,6 +129,10 @@ export default function TicketsGrid() {
                 paginationModel={paginationModel}
                 rowCount={rowCountState}
                 onPaginationModelChange={setPaginationModel}
+
+                sortingMode='server'
+                sortModel={sortModel}
+                onSortModelChange={setSortModel}
 
                 pageSizeOptions={[5, 10, 25, 100]}
                 checkboxSelection

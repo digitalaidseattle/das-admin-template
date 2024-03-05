@@ -5,10 +5,17 @@ type PageInfo<T> = {
     rows: T[]
 }
 
+type QueryModel = {
+    page: number
+    pageSize: number,
+    sortField: string,
+    sortDirection: string
+}
+
 const supabaseClient = createClient(
     import.meta.env.VITE_PUBLIC_SUPABASE_URL,
     import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY
 );
 
 export default supabaseClient;
-export type { PageInfo }
+export type { PageInfo, QueryModel }

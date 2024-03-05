@@ -6,7 +6,7 @@
  */
 
 import { User } from "@supabase/supabase-js";
-import supabaseClient, { PageInfo } from "../../services/supabaseClient";
+import supabaseClient, { PageInfo, QueryModel } from "../../services/supabaseClient";
 
 type TicketProps = {
     ticket: Ticket
@@ -36,13 +36,15 @@ type TicketHistory = {
     change_by: string
 };
 
+
+
 class TicketService {
-    async query(count: number, offset?: number): Promise<PageInfo<Ticket>> {
-        const _offset = offset ? offset * count : 0;
+    async query(query: QueryModel): Promise<PageInfo<Ticket>> {
+        const _offset = query.page ? query.page * query.pageSize : 0;
         return supabaseClient.from('service_ticket')
             .select('*', { count: 'exact' })
-            .range(_offset, _offset + count - 1)
-            .order('id', { ascending: false })
+            .range(_offset, _offset + query.pageSize - 1)
+            .order(query.sortField, { ascending: query.sortDirection === 'asc' })
             .then(resp => {
                 return {
                     rows: resp.data as Ticket[],

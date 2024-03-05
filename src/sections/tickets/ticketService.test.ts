@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import supabaseClient from '../../services/supabaseClient'
+import supabaseClient, { QueryModel } from '../../services/supabaseClient'
 import { ticketService } from './ticketService'
 
 
@@ -17,7 +17,12 @@ describe('ticketService tests', () => {
     };
 
     it('query', async () => {
-        const LIMIT = 10;
+        const queryModel = {
+            page: 0,
+            pageSize: 10,
+            sortField: 'created_at',
+            sortDirection: 'desc'
+        } as QueryModel
         const response = { data: [{}], count: 5, error: null }
 
         const fromSpy = vi.spyOn(supabaseClient, "from")
@@ -29,11 +34,11 @@ describe('ticketService tests', () => {
         const orderSpy = vi.spyOn(mockFilterBuilder, "order")
             .mockReturnValue(Promise.resolve(response))
 
-        const tixs = await ticketService.query(LIMIT)
+        const tixs = await ticketService.query(queryModel)
         expect(fromSpy).toHaveBeenCalledWith('service_ticket')
         expect(selectSpy).toHaveBeenCalledWith('*', { count: 'exact' })
-        expect(rangeSpy).toHaveBeenCalledWith(0, LIMIT-1)
-        expect(orderSpy).toHaveBeenCalledWith('id', { ascending: false })
+        expect(rangeSpy).toHaveBeenCalledWith(0, 9)
+        expect(orderSpy).toHaveBeenCalledWith('created_at', { ascending: false })
         expect(tixs.rows.length).toEqual(1);
         expect(tixs.totalRowCount).toEqual(5);
     });
