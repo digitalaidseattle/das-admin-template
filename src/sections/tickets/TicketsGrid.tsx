@@ -61,6 +61,11 @@ const getColumns = (statuses: AppConstant[]): GridColDef[] => {
             valueOptions: statuses
         },
         {
+            field: 'assignee',
+            headerName: 'Assigned To',
+            width: 160,
+        },
+        {
             field: 'summary',
             headerName: 'summary',
             width: 160,
