@@ -2,8 +2,6 @@ import { describe, expect, it, vi } from 'vitest'
 import supabaseClient, { QueryModel } from '../../services/supabaseClient'
 import { ticketService } from './ticketService'
 
-
-
 describe('ticketService tests', () => {
 
     const mockFilterBuilder = {

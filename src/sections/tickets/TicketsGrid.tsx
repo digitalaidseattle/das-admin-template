@@ -7,6 +7,7 @@ import {
     DataGrid,
     GridColDef,
     GridRenderCellParams,
+    GridRowSelectionModel,
     GridSortModel,
     useGridApiRef
 } from '@mui/x-data-grid';
@@ -14,7 +15,7 @@ import { useEffect, useState } from 'react';
 
 // material-ui
 import {
-    Box, Button, Stack
+    Box, Button, Stack, useTheme
 } from '@mui/material';
 
 // third-party
@@ -24,6 +25,7 @@ import useAppConstants, { AppConstant } from '../../services/useAppConstants';
 import { TicketContact, TicketLink, TicketStatus } from './TableUtils';
 import { PageInfo, Ticket, ticketService } from './ticketService';
 import { QueryModel } from '../../services/supabaseClient';
+import Theme from '../../themes/theme';
 
 
 // ==============================|| Tickets Grid ||============================== //
@@ -77,10 +79,12 @@ const getColumns = (statuses: AppConstant[]): GridColDef[] => {
 export default function TicketsGrid() {
     const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: PAGE_SIZE });
     const [sortModel, setSortModel] = useState<GridSortModel>([{ field: 'created_at', sort: 'desc' }])
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>();
     const [pageInfo, setPageInfo] = useState<PageInfo<Ticket>>({ rows: [], totalRowCount: 0 });
     const [rowCountState, setRowCountState] = useState(pageInfo?.totalRowCount || 0,);
     const apiRef = useGridApiRef();
     const { data: statuses } = useAppConstants('STATUS')
+    const theme = useTheme();
 
     useEffect(() => {
         setRowCountState((prevRowCountState: number) =>
@@ -104,18 +108,26 @@ export default function TicketsGrid() {
     }, [paginationModel, sortModel])
 
     const applyAction = () => {
-        const rows = apiRef.current.getSelectedRows();
-        const items = Array.from(rows.values());
-        alert(`Apply some action to ${items.length} items.`)
+        alert(`Apply some action to ${rowSelectionModel ? rowSelectionModel.length : 0} items.`)
+    }
+    const newTicket = () => {
+        alert(`New Clicked`)
     }
     return (
         <Box>
-            <Stack direction="row"
-                justifyContent={'space-between'}>
+            <Stack direction="row" spacing={'1rem'}>
                 <Button
                     title='Action'
-                    variant="outlined"
+                    variant="contained"
+                    color="primary"
+                    onClick={newTicket}>
+                    {'New'}
+                </Button>
+                <Button
+                    title='Action'
+                    variant="contained"
                     color="secondary"
+                    disabled={!(rowSelectionModel && rowSelectionModel.length > 0)}
                     onClick={applyAction}>
                     {'Action'}
                 </Button>
@@ -136,6 +148,7 @@ export default function TicketsGrid() {
 
                 pageSizeOptions={[5, 10, 25, 100]}
                 checkboxSelection
+                onRowSelectionModelChange={setRowSelectionModel}
                 disableRowSelectionOnClick
             />
         </Box>
