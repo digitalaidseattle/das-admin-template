@@ -3,17 +3,25 @@
  * Display information of a ticket
  */
 // material-ui
-import { Grid, Stack, TextField, Typography } from '@mui/material';
-import MainCard from '../components/MainCard';
+import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useEffect, useState } from 'react';
-import { Ticket, TicketHistory, TicketProps, ticketService } from '../sections/tickets/ticketService';
-import moment from 'moment';
+import MainCard from '../components/MainCard';
+import { TicketHistoryCard } from '../sections/tickets/TableUtils';
+import { Ticket, TicketProps, ticketService } from '../sections/tickets/ticketService';
+import { UserContext } from '../components/contexts/UserContext';
+import { User } from '@supabase/supabase-js';
 
 // project import
+interface TicketFormProps extends TicketProps {
+  onChanged: (field: string, value: any) => void;
+}
 
-
-const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
+const TicketForm: React.FC<TicketFormProps> = ({ ticket, onChanged }) => {
+  const [t, setT] = useState<Ticket>(ticket);
+  useEffect(() => {
+    setT(ticket)
+  }, [ticket])
   return (
     <MainCard>
       <Stack spacing={'1rem'}>
@@ -24,7 +32,8 @@ const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
           label="Client Name"
           fullWidth
           variant="outlined"
-          value={ticket.clientName}
+          value={t.clientName}
+          onChange={(e) => onChanged('clientName', e.target.value)}
         />
         <TextField
           id="email"
@@ -34,6 +43,7 @@ const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
           fullWidth
           variant="outlined"
           value={ticket.email}
+          onChange={(e) => onChanged('email', e.target.value)}
         />
         <TextField
           id="phone"
@@ -43,6 +53,7 @@ const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
           fullWidth
           variant="outlined"
           value={ticket.phone}
+          onChange={(e) => onChanged('phone', e.target.value)}
         />
         <TextField
           id="summary"
@@ -52,6 +63,7 @@ const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
           fullWidth
           variant="outlined"
           value={ticket.summary}
+          onChange={(e) => onChanged('summary', e.target.value)}
         />
         <TextField
           id="description"
@@ -63,54 +75,82 @@ const TicketForm: React.FC<TicketProps> = ({ ticket }) => {
           multiline
           rows={4}
           value={ticket.description}
+          onChange={(e) => onChanged('description', e.target.value)}
         />
       </Stack>
     </MainCard>
   )
 }
 
-
-const TicketHistory: React.FC<TicketProps> = ({ ticket }) => {
-  return (<MainCard title="History">
-    <Stack spacing={'1rem'}>
-      {ticket.ticket_history
-        .sort((h1: TicketHistory, h2: TicketHistory) => h2.created_at.getTime() - h1.created_at.getTime())
-        .map((hist: TicketHistory, idx: number) => {
-          const date = moment(hist.created_at)
-          return <MainCard key={idx}>
-            <Typography>Action: {hist.description}</Typography>
-            <Typography>Date: {date.format("MM-DD-YYYY")} {date.format("hh:mm")}</Typography>
-            <Typography>Change By: {hist.change_by}</Typography>
-          </MainCard>
-        })}
-    </Stack>
-  </MainCard>);
-}
-
 const TicketPage = () => {
   const { id } = useParams();
+  const { user } = useContext(UserContext);
   const [ticket, setTicket] = useState<Ticket>();
+  const [changes, setChanges] = useState<any>({});
 
   useEffect(() => {
     ticketService.getTicket(Number(id))
-      .then((resp: Ticket) => setTicket(resp))
+      .then((resp: Ticket) => {
+        setTicket(resp);
+        setChanges({});
+      })
   }, [id]);
 
+  const handleChange = (field: string, value: any) => {
+    changes[field] = value;
+    setChanges(Object.assign({}, changes))
+
+    const clone = Object.assign({}, ticket);
+    setTicket(Object.assign(clone, changes))
+  }
+
+  const reset = () => {
+    ticketService.getTicket(Number(id))
+      .then((resp: Ticket) => setTicket(resp))
+  }
+
+  const save = () => {
+    ticketService.updateTicket(user!, ticket!, changes)
+      .then((resp: Ticket) => {
+        setTicket(resp);
+        setChanges({});
+      })
+  }
 
   return (
+
     ticket &&
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
-        <Typography variant="h5">{`Ticket: ${ticket.summary}`}</Typography>
+        <Stack direction="row" justifyContent={'space-between'} >
+          <Typography variant="h5">{`Ticket: ${ticket.summary}`}</Typography>
+          <Stack direction="row" spacing={'1rem'}>
+            <Button
+              title='Action'
+              variant="contained"
+              color="secondary"
+              onClick={reset}>
+              {'Reset'}
+            </Button>
+            <Button
+              title='Action'
+              variant="contained"
+              color="primary"
+              disabled={Object.entries(changes).length === 0}
+              onClick={save}>
+              {'Save'}
+            </Button>
+          </Stack>
+        </Stack>
       </Grid>
 
       {/* row 2 */}
       <Grid item xs={12} md={7} lg={8}>
-        <TicketForm ticket={ticket} />
+        <TicketForm ticket={ticket} onChanged={handleChange} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
-        < TicketHistory ticket={ticket} />
+        <TicketHistoryCard ticket={ticket} />
       </Grid>
     </Grid>
   );

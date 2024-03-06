@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import supabaseClient, { QueryModel } from '../../services/supabaseClient'
-import { ticketService } from './ticketService'
+import { Ticket, TicketHistory, ticketService } from './ticketService'
+import { User } from '@supabase/supabase-js';
 
 describe('ticketService tests', () => {
 
@@ -11,7 +12,10 @@ describe('ticketService tests', () => {
     };
 
     const mockQueryBuilder = {
+        insert: vi.fn(() => Promise.resolve({})),
+        update: vi.fn(() => Promise.resolve({})),
         select: vi.fn(() => Promise.resolve({})),
+        eq: vi.fn(() => Promise.resolve({}))
     };
 
     it('query', async () => {
@@ -62,5 +66,77 @@ describe('ticketService tests', () => {
         expect(tixs.length).toEqual(1);
     });
 
+    it('createTicket', async () => {
+        const user = { email: 'eee' } as User;
+        const tix = {} as Ticket;
+        const created = { id: 22 } as Ticket;
+        const updated = { id: 22 } as Ticket;
+        const response = { data: [created], error: null }
+        const history = {} as TicketHistory;
+
+        const fromSpy = vi.spyOn(supabaseClient, "from")
+            .mockReturnValue(mockQueryBuilder as any);
+        const insertSpy = vi.spyOn(mockQueryBuilder, "insert")
+            .mockReturnValue(mockQueryBuilder as any);
+        const selectSpy = vi.spyOn(mockQueryBuilder, "select")
+            .mockReturnValue(Promise.resolve(response));
+        const createTicketHistorySpy = vi.spyOn(ticketService, "createTicketHistory")
+            .mockReturnValue(Promise.resolve(history))
+        const getTicketSpy = vi.spyOn(ticketService, "getTicket")
+            .mockReturnValue(Promise.resolve(updated))
+
+        const actual = await ticketService.createTicket(user, tix)
+        expect(fromSpy).toHaveBeenCalledWith('service_ticket')
+        expect(insertSpy).toHaveBeenCalledWith(tix)
+        expect(selectSpy).toHaveBeenCalled()
+        expect(createTicketHistorySpy).toHaveBeenCalled()
+        expect(createTicketHistorySpy).toHaveBeenCalledWith({
+            'service_ticket_id': 22,
+            'description': 'New ticket',
+            'change_by': 'eee'
+        })
+        expect(getTicketSpy).toHaveBeenCalledWith(22)
+        expect(actual).toEqual(updated);
+    });
+
+    it('updateTicket', async () => {
+        const user = { email: 'fff' } as User;
+        const tix = { id: 33 } as Ticket;
+        const changes = {
+            clientName: 'clientName',
+            description: 'desc'
+        };
+        const updated = { id: 33 } as Ticket;
+        const expected = { id: 33 } as Ticket;
+        const response = { data: [updated], error: null }
+        const history = {} as TicketHistory;
+
+        const fromSpy = vi.spyOn(supabaseClient, "from")
+            .mockReturnValue(mockQueryBuilder as any);
+        const updateSpy = vi.spyOn(mockQueryBuilder, "update")
+            .mockReturnValue(mockQueryBuilder as any);
+        const eqSpy = vi.spyOn(mockQueryBuilder, "eq")
+            .mockReturnValue(mockQueryBuilder as any);
+        const selectSpy = vi.spyOn(mockQueryBuilder, "select")
+            .mockReturnValue(Promise.resolve(response));
+        const createTicketHistorySpy = vi.spyOn(ticketService, "createTicketHistory")
+            .mockReturnValue(Promise.resolve(history))
+        const getTicketSpy = vi.spyOn(ticketService, "getTicket")
+            .mockReturnValue(Promise.resolve(expected))
+
+        const actual = await ticketService.updateTicket(user, tix, changes)
+        expect(fromSpy).toHaveBeenCalledWith('service_ticket')
+        expect(updateSpy).toHaveBeenCalledWith(changes)
+        expect(eqSpy).toHaveBeenCalledWith('id', 33)
+        expect(selectSpy).toHaveBeenCalled()
+        expect(createTicketHistorySpy).toHaveBeenCalled()
+        expect(createTicketHistorySpy).toHaveBeenCalledWith({
+            'service_ticket_id': 33,
+            'description': 'Changed \"clientName\" to \"clientName\"\nChanged \"description\" to \"desc\"',
+            'change_by': 'fff'
+        })
+        expect(getTicketSpy).toHaveBeenCalledWith(33)
+        expect(actual).toEqual(expected);
+    });
 
 })
