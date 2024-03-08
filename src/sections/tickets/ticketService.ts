@@ -6,9 +6,9 @@
  */
 
 import { User } from "@supabase/supabase-js";
-import supabaseClient, { PageInfo, QueryModel } from "../../services/supabaseClient";
+import { supabaseClient, PageInfo, QueryModel } from "../../services/supabaseClient";
 
-type TicketProps = {
+interface TicketProps {
     ticket: Ticket
 };
 
@@ -53,7 +53,6 @@ class TicketService {
             })
     }
 
-
     async getTickets(count: number): Promise<Ticket[]> {
         return supabaseClient.from('service_ticket')
             .select()
@@ -82,10 +81,29 @@ class TicketService {
                     'description': 'New ticket',
                     'change_by': user.email
                 }
-                await this.createTicketHistory(history as TicketHistory);
-                return ticket;
+                return this.createTicketHistory(history as TicketHistory)
+                    .then(() => this.getTicket(ticket.id))
             })
     }
+
+    async updateTicket(user: User, tix: Ticket, changes: any): Promise<Ticket> {
+        return supabaseClient.from('service_ticket')
+            .update(changes)
+            .eq('id', tix.id)
+            .select()
+            .then(async tixResp => {
+                const ticket = tixResp.data![0] as Ticket;
+                const description = Object.entries(changes).map(e => `Changed "${e[0]}" to "${e[1]}"`).join('\n');
+                const history = {
+                    'service_ticket_id': tix.id,
+                    'description': description,
+                    'change_by': user.email
+                }
+                return this.createTicketHistory(history as TicketHistory)
+                    .then(() => this.getTicket(ticket.id))
+            })
+    }
+
 
     async createTicketHistory(history: TicketHistory): Promise<TicketHistory> {
         return supabaseClient.from('ticket_history')

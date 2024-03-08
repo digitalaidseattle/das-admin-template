@@ -1,7 +1,9 @@
 import { Link, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from 'react-router-dom';
 import Dot from "../../components/@extended/Dot";
-import { TicketProps } from "./ticketService";
+import { TicketHistory, TicketProps } from "./ticketService";
+import MainCard from "../../components/MainCard";
+import moment from "moment";
 
 // ==============================|| Table Cell Renderers ||============================== //
 
@@ -48,4 +50,21 @@ const TicketLink: React.FC<TicketProps> = ({ ticket }) => {
     </Link>
 }
 
-export { TicketLink, TicketStatus, TicketContact };
+const TicketHistoryCard: React.FC<TicketProps> = ({ ticket }) => {
+    return (<MainCard title="History">
+        <Stack spacing={'1rem'}>
+            {ticket.ticket_history
+                .sort((h1: TicketHistory, h2: TicketHistory) => moment(h2.created_at).diff(moment(h1.created_at)))
+                .map((hist: TicketHistory, idx: number) => {
+                    const date = moment(hist.created_at)
+                    return <MainCard key={idx}>
+                        <Typography>Action: {hist.description}</Typography>
+                        <Typography>Date: {date.format("MM-DD-YYYY")} {date.format("hh:mm")}</Typography>
+                        <Typography>Change By: {hist.change_by}</Typography>
+                    </MainCard>
+                })}
+        </Stack>
+    </MainCard>);
+}
+
+export { TicketHistoryCard, TicketLink, TicketStatus, TicketContact };

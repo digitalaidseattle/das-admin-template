@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import supabaseClient from "./supabaseClient";
+import { supabaseClient } from "./supabaseClient";
 
 
 export type AppConstant = {

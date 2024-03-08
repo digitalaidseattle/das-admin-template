@@ -15,17 +15,16 @@ import { useEffect, useState } from 'react';
 
 // material-ui
 import {
-    Box, Button, Stack, useTheme
+    Box, Button, Stack
 } from '@mui/material';
 
 // third-party
 
 // project import
+import { QueryModel } from '../../services/supabaseClient';
 import useAppConstants, { AppConstant } from '../../services/useAppConstants';
 import { TicketContact, TicketLink, TicketStatus } from './TableUtils';
 import { PageInfo, Ticket, ticketService } from './ticketService';
-import { QueryModel } from '../../services/supabaseClient';
-import Theme from '../../themes/theme';
 
 
 // ==============================|| Tickets Grid ||============================== //
@@ -84,7 +83,6 @@ export default function TicketsGrid() {
     const [rowCountState, setRowCountState] = useState(pageInfo?.totalRowCount || 0,);
     const apiRef = useGridApiRef();
     const { data: statuses } = useAppConstants('STATUS')
-    const theme = useTheme();
 
     useEffect(() => {
         setRowCountState((prevRowCountState: number) =>
