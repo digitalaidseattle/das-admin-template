@@ -4,32 +4,50 @@ import { supabaseClient } from './supabaseClient';
 
 describe('storageService tests', () => {
 
-    const mockStorageApi = {
-        download: vi.fn(() => Promise.resolve({ data: null, error: null }))
-    };
-
     beforeEach(() => {
         vi.mock('./supabaseClient', () => ({
-            __esModule: true,
-            supabaseClient: () => {
-                from: mockStorageApi
+            supabaseClient: {
+                storage: {
+                    from: vi.fn()
+                }
             }
-        }));
-    })
+        }))
+    });
 
     it('downloadFile', async () => {
+        const mockStorageApi = {
+            download: vi.fn()
+        };
 
-        // const blob = {};
-        // const fromSpy = vi.spyOn(supabaseClient, 'from')
-        //     .mockReturnValue(mockStorageApi as any)
-        // const downloadSpy = vi.spyOn(mockStorageApi, 'download')
-        //     .mockReturnValue(Promise.resolve({ data: blob, error: null }) as any)
+        const blob = {};
+        const fromSpy = vi.spyOn(supabaseClient.storage, 'from')
+            .mockReturnValue(mockStorageApi as any)
+        const downloadSpy = vi.spyOn(mockStorageApi, 'download')
+            .mockReturnValue(Promise.resolve({ data: blob, error: null }) as any)
 
-        // const actual = await storageService.downloadFile('file')
-        // expect(fromSpy).toHaveBeenCalledWith('info');
-        // expect(downloadSpy).toHaveBeenCalledWith('file');
-        // expect(actual).toEqual(blob);
+        const actual = await storageService.downloadFile('file')
+        expect(fromSpy).toHaveBeenCalledWith('info');
+        expect(downloadSpy).toHaveBeenCalledWith('file');
+        expect(actual).toEqual(blob);
+    })
 
+    it('downloadFile - error', async () => {
+        const mockStorageApi = {
+            download: vi.fn()
+        };
+
+        const blob = {};
+        const fromSpy = vi.spyOn(supabaseClient.storage, 'from')
+            .mockReturnValue(mockStorageApi as any)
+        const downloadSpy = vi.spyOn(mockStorageApi, 'download')
+            .mockReturnValue(Promise.resolve({ data: blob, error: { resp: { message: 'boom' } } }) as any)
+
+        try {
+            await storageService.downloadFile('file')
+        } catch (actual) {
+            expect(fromSpy).toHaveBeenCalledWith('info');
+            expect(downloadSpy).toHaveBeenCalledWith('file');
+        }
     })
 
 

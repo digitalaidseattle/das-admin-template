@@ -13,8 +13,6 @@ import FirebaseSocial from './FirebaseSocial';
 
 
 describe('FirebaseSocial tests', () => {
-  const signInWithGoogleSpy = vi.spyOn(authService, 'signInWithGoogle');
-  const signInWithAzureSpy = vi.spyOn(authService, 'signInWithAzure');
 
   it('should render the app', () => {
     const element = render(<FirebaseSocial />);
@@ -23,13 +21,19 @@ describe('FirebaseSocial tests', () => {
   });
 
   it('Google button should work', () => {
+    const signInWithGoogleSpy = vi.spyOn(authService, 'signInWithGoogle')
+      .mockResolvedValue({} as any);
+
     const element = render(<FirebaseSocial />);
     const button = element.queryByTitle('Login with Google');
     button?.click();
     expect(signInWithGoogleSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('Microsoft button should  work', () => {
+  it('Microsoft button should  work', async () => {
+    const signInWithAzureSpy = vi.spyOn(authService, 'signInWithAzure')
+      .mockResolvedValue({} as any);
+
     const element = render(<FirebaseSocial />);
     const button = element.queryByText('Microsoft');
     button?.click();
