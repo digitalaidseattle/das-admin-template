@@ -7,10 +7,9 @@ import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import MainCard from '../components/MainCard';
+import { UserContext } from '../components/contexts/UserContext';
 import { TicketHistoryCard } from '../sections/tickets/TableUtils';
 import { Ticket, TicketProps, ticketService } from '../sections/tickets/ticketService';
-import { UserContext } from '../components/contexts/UserContext';
-import { User } from '@supabase/supabase-js';
 
 // project import
 interface TicketFormProps extends TicketProps {

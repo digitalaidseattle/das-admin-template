@@ -1,7 +1,7 @@
 import { AuthError, OAuthResponse, User, UserResponse } from '@supabase/supabase-js'
 import { assert, describe, it, vi } from 'vitest'
 import { authService } from './authService'
-import supabaseClient from './supabaseClient'
+import { supabaseClient } from './supabaseClient'
 
 describe('authservice tests', () => {
 

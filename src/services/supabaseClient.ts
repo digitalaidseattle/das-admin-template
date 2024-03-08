@@ -17,5 +17,6 @@ const supabaseClient = createClient(
     import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY
 );
 
-export default supabaseClient;
+
+export { supabaseClient };
 export type { PageInfo, QueryModel }

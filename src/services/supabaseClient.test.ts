@@ -1,5 +1,5 @@
 import { assert, describe, it } from 'vitest'
-import supabaseClient from './supabaseClient'
+import { supabaseClient } from './supabaseClient'
 
 describe('supabase tests', () => {
 

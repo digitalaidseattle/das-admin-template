@@ -5,7 +5,7 @@
  *
  */
 import { AuthError, OAuthResponse, User, UserResponse } from '@supabase/supabase-js'
-import supabaseClient from './supabaseClient'
+import { supabaseClient } from './supabaseClient'
 
 class AuthService {
 

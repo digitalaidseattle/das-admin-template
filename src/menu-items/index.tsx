@@ -7,7 +7,8 @@ import {
   QuestionOutlined,
   ExclamationOutlined,
   FileOutlined,
-  FileExclamationOutlined
+  FileExclamationOutlined,
+  EyeInvisibleOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -18,7 +19,8 @@ const icons = {
   QuestionOutlined,
   ExclamationOutlined,
   FileOutlined,
-  FileExclamationOutlined
+  FileExclamationOutlined,
+  EyeInvisibleOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -80,6 +82,14 @@ const pages = {
       type: 'item',
       url: '/sample-page',
       icon: icons.ChromeOutlined
+    },
+    {
+      id: 'privacy-page',
+      title: 'Privacy Page',
+      type: 'item',
+      url: '/privacy',
+      icon: icons.EyeInvisibleOutlined,
+      breadcrumbs: false
     }
   ]
 };

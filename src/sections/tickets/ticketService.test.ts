@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import supabaseClient, { QueryModel } from '../../services/supabaseClient'
+import { supabaseClient, QueryModel } from '../../services/supabaseClient'
 import { Ticket, TicketHistory, ticketService } from './ticketService'
 import { User } from '@supabase/supabase-js';
 

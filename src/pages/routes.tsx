@@ -1,5 +1,6 @@
 import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
+import PrivacyPage from './PrivacyPage';
 import TicketPage from './TicketPage';
 import TicketsGridPage from './TicketsGridPage';
 import TicketsPage from './TicketsPage';
@@ -36,6 +37,10 @@ const routes = [
       {
         path: "tickets-grid",
         element: <TicketsGridPage />,
+      },
+      {
+        path: "privacy",
+        element: <PrivacyPage />,
       }
     ]
   },

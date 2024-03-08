@@ -6,7 +6,7 @@
  */
 
 import { User } from "@supabase/supabase-js";
-import supabaseClient, { PageInfo, QueryModel } from "../../services/supabaseClient";
+import { supabaseClient, PageInfo, QueryModel } from "../../services/supabaseClient";
 
 interface TicketProps {
     ticket: Ticket
