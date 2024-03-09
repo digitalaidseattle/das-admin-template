@@ -95,7 +95,8 @@ describe('ticketService tests', () => {
             'description': 'New ticket',
             'change_by': 'eee'
         })
-        expect(getTicketSpy).toHaveBeenCalledWith(22)
+        expect(tix.status).toBe('new');
+        expect(getTicketSpy).toHaveBeenCalledWith(22);
         expect(actual).toEqual(updated);
     });
 

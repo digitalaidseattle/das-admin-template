@@ -8,9 +8,6 @@
 import { User } from "@supabase/supabase-js";
 import { supabaseClient, PageInfo, QueryModel } from "../../services/supabaseClient";
 
-interface TicketProps {
-    ticket: Ticket
-};
 
 type Ticket = {
     id: number,
@@ -35,8 +32,6 @@ type TicketHistory = {
     value: string,
     change_by: string
 };
-
-
 
 class TicketService {
     async query(query: QueryModel): Promise<PageInfo<Ticket>> {
@@ -86,7 +81,7 @@ class TicketService {
             })
     }
 
-    async updateTicket(user: User, tix: Ticket, changes: any): Promise<Ticket> {
+    async updateTicket(user: User, tix: Ticket, changes: Record<string, unknown>): Promise<Ticket> {
         return supabaseClient.from('service_ticket')
             .update(changes)
             .eq('id', tix.id)
@@ -115,5 +110,5 @@ class TicketService {
 
 const ticketService = new TicketService()
 export { ticketService };
-export type { PageInfo, TicketProps, Ticket, TicketHistory };
+export type { PageInfo, Ticket, TicketHistory };
 

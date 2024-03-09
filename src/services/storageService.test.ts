@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi, vitest } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { storageService } from './storageService';
 import { supabaseClient } from './supabaseClient';
 

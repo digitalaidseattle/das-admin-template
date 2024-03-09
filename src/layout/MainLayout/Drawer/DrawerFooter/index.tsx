@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 // ==============================|| DRAWER HEADER ||============================== //
 
-const DrawerFooter = (props: { open: boolean }) => {
+const DrawerFooter = () => {
 
   return (
     <ListItemButton style={{ position: 'fixed', bottom: 0, paddingBottom: 10 }}>
