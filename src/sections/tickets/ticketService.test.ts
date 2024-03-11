@@ -140,4 +140,18 @@ describe('ticketService tests', () => {
         expect(actual).toEqual(expected);
     });
 
+    it('getStaff', async () => {
+        const response = { data: [{}], error: null }
+        const fromSpy = vi.spyOn(supabaseClient, "from")
+            .mockReturnValue(mockQueryBuilder as any)
+        const selectSpy = vi.spyOn(mockQueryBuilder, "select")
+            .mockReturnValue(mockFilterBuilder as any)
+            .mockReturnValue(Promise.resolve(response))
+
+        const tixs = await ticketService.getStaff()
+        expect(fromSpy).toHaveBeenCalledWith('staff')
+        expect(selectSpy).toHaveBeenCalled()
+        expect(tixs.length).toEqual(1);
+    });
+
 })

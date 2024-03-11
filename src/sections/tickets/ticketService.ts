@@ -33,6 +33,14 @@ type TicketHistory = {
     change_by: string
 };
 
+type Staff = {
+    id: number,
+    created_at: Date,
+    name: string,
+    email: string,
+    roles: string,
+};
+
 class TicketService {
     async query(query: QueryModel): Promise<PageInfo<Ticket>> {
         const _offset = query.page ? query.page * query.pageSize : 0;
@@ -106,9 +114,16 @@ class TicketService {
             .select()
             .then(histResp => histResp.data![0] as TicketHistory);
     }
+
+    async getStaff(): Promise<Staff[]> {
+        return supabaseClient.from('staff')
+            .select()
+            .then(tixResp => tixResp.data as Staff[])
+    }
+
 }
 
 const ticketService = new TicketService()
 export { ticketService };
-export type { PageInfo, Ticket, TicketHistory };
+export type { PageInfo, Ticket, Staff, TicketHistory };
 
