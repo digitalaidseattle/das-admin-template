@@ -1,9 +1,9 @@
-import { Link, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
+import { Link, MenuItem, Select, Stack, TextField, Typography, Autocomplete } from "@mui/material";
 import moment from "moment";
 import { Link as RouterLink } from 'react-router-dom';
 import Dot from "../../components/@extended/Dot";
 import MainCard from "../../components/MainCard";
-import { Ticket, TicketHistory } from "./ticketService";
+import { Ticket, TicketHistory, Staff } from "./ticketService";
 import useAppConstants from "../../services/useAppConstants";
 
 
@@ -60,9 +60,10 @@ const TicketLink: React.FC<TicketProps> = ({ ticket }) => {
 // project import
 interface TicketFormProps extends TicketProps {
     onChanged: (field: string, value: unknown) => void;
+    staff: Staff[];
 }
 
-const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, onChanged }) => {
+const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, onChanged }) => {
     const { data: sources } = useAppConstants('SOURCE');
 
     return (
@@ -129,6 +130,16 @@ const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, onChanged }) => {
                     onChange={(event) => onChanged('inputSource', event.target.value)}                    >
                     {sources.map((s, idx: number) => <MenuItem key={idx} value={s.value}>{s.label}</MenuItem>)}
                 </Select>
+                <Autocomplete
+                    id="assignee"
+                    value={ticket.assignee}
+                    onChange={(_event: any, newValue: string | null) => {
+                        onChanged('assignee', newValue);
+                    }}
+                    sx={{width:"100%"}}
+                    options={staff ? staff.map(e=> e.name) : []}
+                    renderInput={(params) => <TextField {...params} label="Assigned to" />}
+                />
             </Stack>
         </MainCard>
     )

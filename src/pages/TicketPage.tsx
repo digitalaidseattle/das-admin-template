@@ -13,7 +13,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import { DASSnackbar } from '../components/DASSnackbar';
 import { UserContext } from '../components/contexts/UserContext';
 import { TicketHistoryCard, TicketLongForm } from '../sections/tickets/TicketComponents';
-import { Ticket, ticketService } from '../sections/tickets/ticketService';
+import { Ticket, Staff, ticketService} from '../sections/tickets/ticketService';
 
 const Labels = {
   updateMessage: 'Ticket updated.',
@@ -26,6 +26,7 @@ const TicketPage = () => {
   const [ticket, setTicket] = useState<Ticket>();
   const [changes, setChanges] = useState<Record<string, unknown>>({});
   const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [staff, setStaff] = useState<Staff[]>();
 
   useEffect(() => {
     ticketService.getTicket(Number(id))
@@ -34,6 +35,13 @@ const TicketPage = () => {
         setChanges({});
       })
   }, [id]);
+
+  useEffect(() => {
+    ticketService.getStaff()
+      .then((resp: Staff[]) => {
+        setStaff(resp);
+      })
+  }, []);
 
   const handleChange = (field: string, value: unknown) => {
     changes[field] = value;
@@ -87,7 +95,7 @@ const TicketPage = () => {
 
         {/* row 2 */}
         <Grid item xs={12} md={7} lg={8}>
-          <TicketLongForm ticket={ticket} onChanged={handleChange} />
+          <TicketLongForm ticket={ticket} onChanged={handleChange} staff={staff} />
         </Grid>
         <Grid item xs={12} md={5} lg={4}>
           <TicketHistoryCard ticket={ticket} />
