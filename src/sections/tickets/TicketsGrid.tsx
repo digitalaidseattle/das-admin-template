@@ -23,13 +23,13 @@ import {
 // project import
 import { QueryModel } from '../../services/supabaseClient';
 import useAppConstants, { AppConstant } from '../../services/useAppConstants';
-import { TicketContact, TicketLink, TicketStatus } from './TableUtils';
+import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { PageInfo, Ticket, ticketService } from './ticketService';
 
 
 // ==============================|| Tickets Grid ||============================== //
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 const getColumns = (statuses: AppConstant[]): GridColDef[] => {
     return [

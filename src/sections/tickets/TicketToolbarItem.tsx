@@ -9,20 +9,22 @@ import React, { useRef, useState } from 'react';
 // material-ui
 import {
   Box,
-  IconButton,
-  Snackbar,
-  Typography
+  IconButton
 } from '@mui/material';
 
 // project import
 
 // assets
 import { ThunderboltOutlined } from '@ant-design/icons';
+import { DASSnackbar } from '../../components/DASSnackbar';
 import TicketDialog from './TicketDialog';
 import { Ticket } from './ticketService';
 
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
+const Labels = {
+  createdMessage: 'Ticket created.'
+}
 
 const TicketToolbarItem: React.FC = () => {
 
@@ -49,7 +51,6 @@ const TicketToolbarItem: React.FC = () => {
     setOpen(!open);
   };
 
-
   return (
     <React.Fragment>
       <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -67,13 +68,11 @@ const TicketToolbarItem: React.FC = () => {
         </IconButton>
       </Box>
       <TicketDialog open={open} handleSuccess={handleSuccess} handleError={handleError} />
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      <DASSnackbar
+        message={Labels.createdMessage}
         open={openSnack}
-        autoHideDuration={6000}
-        message={<Typography>Ticket created.</Typography>}
-        onClose={() => setOpenSnack(false)}
-      />
+        severity={'success'}
+        onClose={() => setOpenSnack(false)} />
     </React.Fragment>
   );
 };

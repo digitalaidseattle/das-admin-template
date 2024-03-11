@@ -15,7 +15,7 @@ import {
 // third-party
 
 // project import
-import { TicketContact, TicketLink, TicketStatus } from './TableUtils';
+import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { Ticket, ticketService } from './ticketService';
 
 function descendingComparator(a: Ticket, b: Ticket, orderBy: string) {

@@ -41,6 +41,7 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
     const iconBackColor = 'grey.100';
 
     return <Dialog
+        fullWidth={true}
         open={open}
         onClose={() => handleSuccess(null)}
         PaperProps={{
@@ -49,7 +50,7 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries(formData.entries());
-                // Review as unknown as Ticket
+                // Review: as unknown as Ticket
                 ticketService.createTicket(user!, formJson as unknown as Ticket)
                     .then((resp: Ticket) => handleSuccess(resp))
                     .catch(err => handleError(err))
@@ -60,63 +61,64 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
         <DialogContent>
             <Stack spacing={2}>
                 <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We
-                    will send updates occasionally.
+                    Ticket will be added to data store.
                 </DialogContentText>
-                <FormControl>
-                    <InputLabel>Input Source</InputLabel>
-                    <Select
-                        id="inputSource"
-                        name='inputSource'
-                        value={source}
-                        label="Input Source"
+                <Stack spacing={2}>
+                    <FormControl>
+                        <InputLabel>Input Source</InputLabel>
+                        <Select
+                            id="inputSource"
+                            name="inputSource"
+                            value={source}
+                            label="Input Source"
+                            fullWidth
+                            onChange={(event) => setSource(event.target.value)}                    >
+                            {sources.map((s, idx: number) => <MenuItem key={idx} value={s.value}>{s.label}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        id="clientName"
+                        name="clientName"
+                        type="text"
+                        label="Client Name"
                         fullWidth
-                        onChange={(event) => setSource(event.target.value)}>
-                        {sources.map((s, idx: number) => <MenuItem key={idx} value={s.value}>{s.label}</MenuItem>)}
-                    </Select>
-                </FormControl>
-                <TextField
-                    id="clientName"
-                    name="clientName"
-                    type="text"
-                    label="Client Name"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    id="email"
-                    name="email"
-                    type="email"
-                    label="Email Address"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    id="phone"
-                    name="phone"
-                    type="phone"
-                    label="Phone"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    id="summary"
-                    name="summary"
-                    type="text"
-                    label="Summary"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    id="description"
-                    name="description"
-                    type="text"
-                    label="Description"
-                    fullWidth
-                    variant="standard"
-                    multiline
-                    rows={4}
-                />
+                        variant="standard"
+                    />
+                    <TextField
+                        id="email"
+                        name="email"
+                        type="email"
+                        label="Email Address"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        id="phone"
+                        name="phone"
+                        type="phone"
+                        label="Phone"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        id="summary"
+                        name="summary"
+                        type="text"
+                        label="Summary"
+                        fullWidth
+                        variant="standard"
+                    />
+                    <TextField
+                        id="description"
+                        name="description"
+                        type="text"
+                        label="Description"
+                        fullWidth
+                        variant="standard"
+                        multiline
+                        rows={4}
+                    />
+                </Stack>
             </Stack>
         </DialogContent>
         <DialogActions>
