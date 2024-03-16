@@ -6,20 +6,22 @@ import { useTheme } from '@mui/material/styles';
 import Google from '../../../assets/images/icons/google.svg';
 import Microsoft from '../../../assets/images/icons/microsoft.svg';
 import { authService } from '../../../services/authService';
+import { loggingService } from '../../../services/loggingService';
 
 // ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
 
 const FirebaseSocial = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+
   const googleHandler = async () => {
     authService.signInWithGoogle()
-      .then(resp => console.log(resp))
+      .then((resp) => loggingService.info('Logged in with Google: ' + resp.data.url))
   };
 
   const microsoftHandler = async () => {
     authService.signInWithAzure()
-      .then(resp => console.log(resp))
+      .then((resp) => loggingService.info('Logged in with Azure: ' + resp.data.url))
   };
 
   return (
