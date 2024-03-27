@@ -4,7 +4,7 @@
  *  @copyright 2024 Digital Aid Seattle
  *
  */
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 // material-ui
 import {
@@ -19,6 +19,8 @@ import { ThunderboltOutlined } from '@ant-design/icons';
 import { DASSnackbar } from '../../components/DASSnackbar';
 import TicketDialog from './TicketDialog';
 import { Ticket } from './ticketService';
+import { loggingService } from '../../services/loggingService';
+import { UserContext } from '../../components/contexts/UserContext';
 
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
@@ -29,6 +31,7 @@ const Labels = {
 const TicketToolbarItem: React.FC = () => {
 
   const anchorRef = useRef(null);
+  const {user} = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
 
@@ -43,7 +46,7 @@ const TicketToolbarItem: React.FC = () => {
   };
 
   const handleError = (err: Error) => {
-    console.error(err);
+    loggingService.error(err.message, user!);
     setOpen(false);
   };
 

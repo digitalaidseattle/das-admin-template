@@ -8,6 +8,7 @@ import { render } from '@testing-library/react';
 import { afterEach, assert, describe, expect, it, vi } from 'vitest';
 import { authService } from '../../../services/authService';
 import FirebaseSocial from './FirebaseSocial';
+import { OAuthResponse } from '@supabase/supabase-js';
 
 // ==============================|| FIREBASE - SOCIAL BUTTON ||============================== //
 
@@ -20,24 +21,33 @@ describe('FirebaseSocial tests', () => {
     assert.isNotNull(element.queryByText('Microsoft'));
   });
 
-  it('Google button should work', () => {
+  it('Google button should work', async () => {
+    const resp = Promise.resolve({ data: { url: "URL" } } as OAuthResponse)
     const signInWithGoogleSpy = vi.spyOn(authService, 'signInWithGoogle')
-      .mockResolvedValue({} as any);
+      .mockReturnValue(resp)
+    // const loggingSpy = vi.spyOn(loggingService, 'info')
 
     const element = render(<FirebaseSocial />);
     const button = element.queryByTitle('Login with Google');
-    button?.click();
+    button?.click()
+    await resp
     expect(signInWithGoogleSpy).toHaveBeenCalledTimes(1);
+    // expect(loggingSpy).toHaveBeenCalledWith('Logged in with Google: URL')
   });
 
   it('Microsoft button should  work', async () => {
-    const signInWithAzureSpy = vi.spyOn(authService, 'signInWithAzure')
-      .mockResolvedValue({} as any);
+    const signInWithAzureeSpy = vi.spyOn(authService, 'signInWithAzure')
+      .mockReturnValue(Promise.resolve({ data: { url: "URL" } } as OAuthResponse))
+    // const loggingSpy = vi.spyOn(loggingService, 'info')
 
     const element = render(<FirebaseSocial />);
-    const button = element.queryByText('Microsoft');
-    button?.click();
-    expect(signInWithAzureSpy).toHaveBeenCalledTimes(1);
+    const button = element.queryByTitle('Login with Microsoft');
+
+    button?.click()
+
+    expect(signInWithAzureeSpy).toHaveBeenCalledTimes(1);
+    // expect(loggingSpy).toHaveBeenCalledWith('Logged in with Azure');
+
   });
 
   afterEach(() => {
