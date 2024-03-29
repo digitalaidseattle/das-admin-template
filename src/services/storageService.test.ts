@@ -50,5 +50,56 @@ describe('storageService tests', () => {
         }
     })
 
+    it('removeFile', async () => {
+        const mockStorageApi = {
+            remove: vi.fn()
+        };
+
+        const data = {};
+        const fromSpy = vi.spyOn(supabaseClient.storage, 'from')
+            .mockReturnValue(mockStorageApi as any)
+        const removeSpy = vi.spyOn(mockStorageApi, 'remove')
+            .mockReturnValue(Promise.resolve({ data: data, error: null }) as any)
+
+        const actual = await storageService.removeFile('fileName')
+        expect(fromSpy).toHaveBeenCalledWith('info');
+        expect(removeSpy).toHaveBeenCalledWith(['fileName']);
+        expect(actual).toEqual(data);
+    })
+
+    it('uploadFile', async () => {
+        const mockStorageApi = {
+            upload: vi.fn()
+        };
+
+        const data = {};
+        const fromSpy = vi.spyOn(supabaseClient.storage, 'from')
+            .mockReturnValue(mockStorageApi as any)
+        const uploadSpy = vi.spyOn(mockStorageApi, 'upload')
+            .mockReturnValue(Promise.resolve({ data: data, error: null }) as any)
+
+        const actual = await storageService.uploadFile(File)
+        expect(fromSpy).toHaveBeenCalledWith('info');
+        expect(uploadSpy).toHaveBeenCalledWith(File.name , File);
+        expect(actual).toEqual(data);
+    })
+
+    it('listFiles', async () => {
+        const mockStorageApi = {
+            list: vi.fn()
+        };
+
+        const data = [{}];
+        const fromSpy = vi.spyOn(supabaseClient.storage, 'from')
+            .mockReturnValue(mockStorageApi as any)
+        const listFilesSpy = vi.spyOn(mockStorageApi, 'list')
+            .mockReturnValue(Promise.resolve({ data: data, error: null }) as any)
+
+        const actual = await storageService.listFiles()
+        expect(fromSpy).toHaveBeenCalledWith('info');
+        expect(listFilesSpy).toHaveBeenCalled();
+        expect(actual).toEqual(data);
+    })
+
 
 })
