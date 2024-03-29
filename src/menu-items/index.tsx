@@ -84,8 +84,16 @@ const pages = {
       type: 'item',
       url: '/sample-page',
       icon: icons.ChromeOutlined
-    }
-    ,{
+    },
+    {
+      id: 'privacy-page',
+      title: 'Privacy Page',
+      type: 'item',
+      url: '/privacy',
+      icon: icons.EyeInvisibleOutlined,
+      breadcrumbs: false
+    },
+    {
       id: 'upload-page',
       title: 'Upload Page',
       type: 'item',
