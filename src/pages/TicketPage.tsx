@@ -13,7 +13,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import { DASSnackbar } from '../components/DASSnackbar';
 import { UserContext } from '../components/contexts/UserContext';
 import { TicketHistoryCard, TicketLongForm } from '../sections/tickets/TicketComponents';
-import { Ticket, Staff, ticketService} from '../sections/tickets/ticketService';
+import { Ticket, Staff, ticketService } from '../sections/tickets/ticketService';
 
 const Labels = {
   updateMessage: 'Ticket updated.',
@@ -25,6 +25,7 @@ const TicketPage = () => {
   const { user } = useContext(UserContext);
   const [ticket, setTicket] = useState<Ticket>();
   const [changes, setChanges] = useState<Record<string, unknown>>({});
+  const [messages, setMessages] = useState<Map<string, string>>(new Map());
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [staff, setStaff] = useState<Staff[]>();
 
@@ -45,10 +46,13 @@ const TicketPage = () => {
 
   const handleChange = (field: string, value: unknown) => {
     changes[field] = value;
-    setChanges(Object.assign({}, changes))
+    setChanges({ ...changes })
 
     const clone = Object.assign({}, ticket);
-    setTicket(Object.assign(clone, changes))
+    const updated = Object.assign(clone, changes)
+    setTicket(updated)
+
+    setMessages(ticketService.validateTicket(updated));
   }
 
   const reset = () => {
@@ -72,7 +76,7 @@ const TicketPage = () => {
         {/* row 1 */}
         <Grid item xs={12} sx={{ mb: -2.25 }}>
           <Stack direction="row" justifyContent={'space-between'} >
-            <Typography variant="h5">{`Ticket: ${ticket.summary} (id = ${ticket.id})` }</Typography>
+            <Typography variant="h5">{`Ticket: ${ticket.summary} (id = ${ticket.id})`}</Typography>
             <Stack direction="row" spacing={'1rem'}>
               <Button
                 title={Labels.resetButton}
@@ -85,7 +89,7 @@ const TicketPage = () => {
                 title={Labels.saveButton}
                 variant="contained"
                 color="primary"
-                disabled={Object.entries(changes).length === 0}
+                disabled={Object.entries(changes).length === 0 || messages!.size > 0}
                 onClick={save}>
                 {Labels.saveButton}
               </Button>
@@ -95,7 +99,12 @@ const TicketPage = () => {
 
         {/* row 2 */}
         <Grid item xs={12} md={7} lg={8}>
-          <TicketLongForm ticket={ticket} onChanged={handleChange} staff={staff} />
+          <TicketLongForm
+            ticket={ticket}
+            staff={staff!}
+            messages={messages!}
+            onChanged={handleChange}
+          />
         </Grid>
         <Grid item xs={12} md={5} lg={4}>
           <TicketHistoryCard ticket={ticket} />

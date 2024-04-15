@@ -83,6 +83,7 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
                         label="Client Name"
                         fullWidth
                         variant="standard"
+                        required={true}
                     />
                     <TextField
                         id="email"
@@ -107,6 +108,7 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
                         label="Summary"
                         fullWidth
                         variant="standard"
+                        required={true}
                     />
                     <TextField
                         id="description"
