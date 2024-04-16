@@ -8,7 +8,8 @@ import {
   ExclamationOutlined,
   FileOutlined,
   FileExclamationOutlined,
-  EyeInvisibleOutlined
+  EyeInvisibleOutlined,
+  UploadOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -20,7 +21,8 @@ const icons = {
   ExclamationOutlined,
   FileOutlined,
   FileExclamationOutlined,
-  EyeInvisibleOutlined
+  EyeInvisibleOutlined,
+  UploadOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -89,6 +91,14 @@ const pages = {
       type: 'item',
       url: '/privacy',
       icon: icons.EyeInvisibleOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'upload-page',
+      title: 'Upload Page',
+      type: 'item',
+      url: '/upload',
+      icon: icons.UploadOutlined,
       breadcrumbs: false
     }
   ]
