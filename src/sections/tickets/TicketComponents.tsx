@@ -61,9 +61,10 @@ const TicketLink: React.FC<TicketProps> = ({ ticket }) => {
 interface TicketFormProps extends TicketProps {
     onChanged: (field: string, value: unknown) => void;
     staff: Staff[];
+    messages: Map<string, string>;
 }
 
-const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, onChanged }) => {
+const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, messages, onChanged }) => {
     const { data: sources } = useAppConstants('SOURCE');
 
     return (
@@ -71,12 +72,15 @@ const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, onChanged })
             <Stack spacing={'1rem'}>
                 <TextField
                     id="clientName"
+                    error={messages.get('clientName') !== undefined}
+                    helperText={messages.get('clientName')}
                     name="clientName"
                     type="text"
                     label="Client Name"
                     fullWidth
                     variant="outlined"
                     value={ticket.clientName}
+                    required={true}
                     onChange={(e) => onChanged('clientName', e.target.value)}
                 />
                 <TextField
@@ -101,11 +105,14 @@ const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, onChanged })
                 />
                 <TextField
                     id="summary"
+                    error={messages.get('summary') !== undefined}
+                    helperText={messages.get('summary')}
                     name="summary"
                     type="text"
                     label="Summary"
                     fullWidth
                     variant="outlined"
+                    required={true}
                     value={ticket.summary}
                     onChange={(e) => onChanged('summary', e.target.value)}
                 />
@@ -136,8 +143,8 @@ const TicketLongForm: React.FC<TicketFormProps> = ({ ticket, staff, onChanged })
                     onChange={(_event: any, newValue: string | null) => {
                         onChanged('assignee', newValue);
                     }}
-                    sx={{width:"100%"}}
-                    options={staff ? staff.map(e=> e.name) : []}
+                    sx={{ width: "100%" }}
+                    options={staff ? staff.map(e => e.name) : []}
                     renderInput={(params) => <TextField {...params} label="Assigned to" />}
                 />
             </Stack>

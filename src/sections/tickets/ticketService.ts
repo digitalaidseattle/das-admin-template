@@ -42,6 +42,19 @@ type Staff = {
 };
 
 class TicketService {
+
+    validateTicket(updated: Ticket): Map<string, string> {
+        const map = new Map<string, string>();
+        console.log(updated)
+        if (updated.clientName.trim() === '') {
+            map.set('clientName', 'Client name is required.')
+        }
+        if (updated.summary.trim() === '') {
+            map.set('summary', 'Summary is required.')
+        }
+        return map;
+    }
+
     async query(query: QueryModel): Promise<PageInfo<Ticket>> {
         const _offset = query.page ? query.page * query.pageSize : 0;
         return supabaseClient.from('service_ticket')
