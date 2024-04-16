@@ -4,12 +4,7 @@ import { useEffect, useState } from 'react';
 import FilesTable from '../sections/FilesTable';
 import { v4 as uuid } from 'uuid';
 import moment from "moment";
-export type File = {
-  name: string,
-  id: string,
-  metadata: {size: number, mimetype: string},
-  created_at: string
-};
+import { File } from '../services/storageService';
 
 // ==============================|| UPLOAD PAGE ||============================== //
 
@@ -31,8 +26,7 @@ const UploadPage = () => {
 
     const file = event.target.files[0];
     storageService.uploadFile(file)
-      .then(resp => {
-        console.log(resp);
+      .then(() => {
         const fileObject: File = File(uuid(), file.name, file.size, file.type );
         setFiles([...files, fileObject]);
       })

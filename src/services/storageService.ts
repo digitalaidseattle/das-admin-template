@@ -7,6 +7,15 @@
  */
 
 import { supabaseClient } from "./supabaseClient";
+export type File = {
+    created_at: string,
+    id: string,
+    name: string,
+    metadata: {
+        size: number, 
+        mimetype: string
+    },   
+  };
 
 const BUCKET_NAME = 'info';
 
@@ -24,7 +33,7 @@ downloadFile = async (filepath: string): Promise<Blob | null> => {
             })
     }
 
-    listFiles = async (): Promise<any> => {
+    listFiles = async (): Promise<File[]> => {
         return supabaseClient
             .storage
             .from(BUCKET_NAME)
