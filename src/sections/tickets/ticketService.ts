@@ -61,7 +61,7 @@ class TicketService {
             .select()
             .limit(count)
             .order('created_at', { ascending: false })
-            .then(tixResp => tixResp.data as Ticket[])
+            .then(tixResp => tixResp.data ?? [])
     }
 
     async getTicket(ticket_id: number): Promise<Ticket> {
@@ -69,7 +69,7 @@ class TicketService {
             .select('*, ticket_history(*)')
             .eq('id', ticket_id)
             .single()
-            .then(tixResp => tixResp.data)
+            .then(tixResp => tixResp.data ?? undefined )
     }
 
     async createTicket(user: User, tix: Ticket): Promise<Ticket> {
