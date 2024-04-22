@@ -23,8 +23,10 @@ import { DrawerOpenContext } from '../../components/contexts/DrawerOpenContext';
 import { UserContext } from '../../components/contexts/UserContext';
 import { User } from '@supabase/supabase-js';
 import { authService } from '../../services/authService';
+import { RefreshContext, RefreshContextProvider, useInterval } from '../../components/contexts/RefreshContext';
 
 // ==============================|| MAIN LAYOUT ||============================== //
+
 
 const MainLayout: React.FC = () => {
   const theme = useTheme();
@@ -44,6 +46,7 @@ const MainLayout: React.FC = () => {
       })
   }, [navigate])
 
+
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -55,19 +58,22 @@ const MainLayout: React.FC = () => {
 
   return (
     <UserContext.Provider value={{ user, setUser }} >
-      {user && <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
-        <ScrollTop>
-          <Box sx={{ display: 'flex', width: '100%' }}>
-            <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-            <Drawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-            <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
-              <Toolbar />
-              <Breadcrumbs navigation={navigation} title />
-              <Outlet />
-            </Box>
-          </Box>
-        </ScrollTop>
-      </DrawerOpenContext.Provider>
+      {user &&
+        <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
+          <RefreshContextProvider >
+            <ScrollTop>
+              <Box sx={{ display: 'flex', width: '100%' }}>
+                <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+                <Drawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+                <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+                  <Toolbar />
+                  <Breadcrumbs navigation={navigation} title />
+                  <Outlet />
+                </Box>
+              </Box>
+            </ScrollTop>
+          </RefreshContextProvider>
+        </DrawerOpenContext.Provider>
       }
     </UserContext.Provider>
   );

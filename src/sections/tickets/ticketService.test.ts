@@ -1,22 +1,28 @@
+/**
+ *  ticketService.test.ts
+ * 
+ *  @copyright 2024 Digital Aid Seattle
+ *
+ */
 import { describe, expect, it, vi } from 'vitest'
 import { supabaseClient, QueryModel } from '../../services/supabaseClient'
 import { Ticket, TicketHistory, ticketService } from './ticketService'
 import { User } from '@supabase/supabase-js';
 
+const mockFilterBuilder = {
+    limit: vi.fn(() => Promise.resolve({})),
+    range: vi.fn(() => Promise.resolve({})),
+    order: vi.fn(() => Promise.resolve({}))
+};
+
+const mockQueryBuilder = {
+    insert: vi.fn(() => Promise.resolve({})),
+    update: vi.fn(() => Promise.resolve({})),
+    select: vi.fn(() => Promise.resolve({})),
+    eq: vi.fn(() => Promise.resolve({}))
+};
+
 describe('ticketService tests', () => {
-
-    const mockFilterBuilder = {
-        limit: vi.fn(() => Promise.resolve({})),
-        range: vi.fn(() => Promise.resolve({})),
-        order: vi.fn(() => Promise.resolve({}))
-    };
-
-    const mockQueryBuilder = {
-        insert: vi.fn(() => Promise.resolve({})),
-        update: vi.fn(() => Promise.resolve({})),
-        select: vi.fn(() => Promise.resolve({})),
-        eq: vi.fn(() => Promise.resolve({}))
-    };
 
     it('query', async () => {
         const queryModel = {
