@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useEffect } from 'react';
+import React, { forwardRef, useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 // material-ui
@@ -47,8 +47,8 @@ const NavItem: React.FC<NavItemProps> = ({ item, level }) => {
 
   const textColor = 'text.primary';
   const iconSelectedColor = 'primary.main';
-  const Icon = item.icon;
-  const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
+  const Icon = item.icon as unknown as React.ForwardRefExoticComponent<any>;
+  const itemIcon = item.icon && <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} />;
   const isSelected = activeMenuItem === item.id;
 
   return (
