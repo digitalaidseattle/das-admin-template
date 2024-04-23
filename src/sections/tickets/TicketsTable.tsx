@@ -1,4 +1,12 @@
-import { useEffect, useState } from 'react';
+/**
+ *  TicketsTable.tsx
+ *
+ *  Display a table of tickets.
+ * 
+ *  @copyright 2024 Digital Aid Seattle
+ *
+ */
+import { useContext, useEffect, useState } from 'react';
 
 // material-ui
 import {
@@ -17,6 +25,7 @@ import {
 // project import
 import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { Ticket, ticketService } from './ticketService';
+import { RefreshContext } from '../../components/contexts/RefreshContext';
 
 function descendingComparator(a: Ticket, b: Ticket, orderBy: string) {
     switch (orderBy) {
@@ -108,11 +117,14 @@ export default function TicketsTable() {
     const [order] = useState<SortDirection>('desc');
     const [orderBy] = useState<string>('id');
     const [tickets, setTickets] = useState<Ticket[]>([]);
+    const { refresh } = useContext(RefreshContext)
 
     useEffect(() => {
+        console.log('refer', refresh)
+        // TODO add smarts, maybe save and compare last update
         ticketService.getTickets(NUM_TIX)
             .then((tix) => setTickets(tix))
-    }, [])
+    }, [refresh])
 
     return (
         <Box>

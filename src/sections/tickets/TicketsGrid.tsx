@@ -3,6 +3,9 @@
  * 
  * Example of integrating tickets with data-grid
  */
+import { useContext, useEffect, useState } from 'react';
+
+// material-ui
 import {
     DataGrid,
     GridColDef,
@@ -11,11 +14,10 @@ import {
     GridSortModel,
     useGridApiRef
 } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
-
-// material-ui
 import {
-    Box, Button, Stack
+    Box,
+    Button,
+    Stack
 } from '@mui/material';
 
 // third-party
@@ -25,7 +27,7 @@ import { QueryModel } from '../../services/supabaseClient';
 import useAppConstants, { AppConstant } from '../../services/useAppConstants';
 import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { PageInfo, Ticket, ticketService } from './ticketService';
-
+import { RefreshContext } from '../../components/contexts/RefreshContext';
 
 // ==============================|| Tickets Grid ||============================== //
 
@@ -82,6 +84,7 @@ export default function TicketsGrid() {
     const [pageInfo, setPageInfo] = useState<PageInfo<Ticket>>({ rows: [], totalRowCount: 0 });
     const [rowCountState, setRowCountState] = useState(pageInfo?.totalRowCount || 0,);
     const apiRef = useGridApiRef();
+    const { refresh } = useContext(RefreshContext);
     const { data: statuses } = useAppConstants('STATUS')
 
     useEffect(() => {
@@ -104,6 +107,17 @@ export default function TicketsGrid() {
                 .then((pi) => setPageInfo(pi))
         }
     }, [paginationModel, sortModel])
+
+    useEffect(() => {
+        const queryModel = {
+            page: paginationModel.page,
+            pageSize: paginationModel.pageSize,
+            sortField: sortModel.length === 0 ? 'created_at' : sortModel[0].field,
+            sortDirection: sortModel.length === 0 ? 'created_at' : sortModel[0].sort
+        } as QueryModel
+        ticketService.query(queryModel)
+            .then((pi) => setPageInfo(pi))
+    }, [refresh])
 
     const applyAction = () => {
         alert(`Apply some action to ${rowSelectionModel ? rowSelectionModel.length : 0} items.`)
