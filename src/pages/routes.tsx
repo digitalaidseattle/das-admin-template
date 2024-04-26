@@ -9,6 +9,7 @@ import DashboardDefault from './dashboard';
 import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
 import UploadPage from './UploadPage';
+import MapPage from './MapPage';
 
 const routes = [
   {
@@ -46,6 +47,10 @@ const routes = [
       {
         path: "upload",
         element: <UploadPage />,
+      },
+      {
+        path: "map-example",
+        element: <MapPage />,
       }
     ]
   },

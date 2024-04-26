@@ -24,7 +24,12 @@ class AuthService {
   }
 
   signInWithGoogle = async (): Promise<OAuthResponse> => {
-    return supabaseClient.auth.signInWithOAuth({ provider: 'google' })
+    return supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    })
   }
 
   signInWithAzure = async (): Promise<OAuthResponse> => {
@@ -32,6 +37,7 @@ class AuthService {
       provider: 'azure',
       options: {
         scopes: 'email',
+        redirectTo: window.location.origin,
       },
     })
   }

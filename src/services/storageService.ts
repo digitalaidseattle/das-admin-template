@@ -7,20 +7,21 @@
  */
 
 import { supabaseClient } from "./supabaseClient";
+
 export type File = {
     created_at: string,
     id: string,
     name: string,
     metadata: {
-        size: number, 
+        size: number,
         mimetype: string
-    },   
-  };
+    },
+};
 
 const BUCKET_NAME = 'info';
 
 class StorageService {
-downloadFile = async (filepath: string): Promise<Blob | null> => {
+    downloadFile = async (filepath: string): Promise<Blob | null> => {
         return supabaseClient
             .storage
             .from(BUCKET_NAME)
@@ -33,7 +34,8 @@ downloadFile = async (filepath: string): Promise<Blob | null> => {
             })
     }
 
-    listFiles = async (): Promise<File[]> => {
+    // FIXME Should by FileObject, 
+    listFiles = async (): Promise<any[]> => {
         return supabaseClient
             .storage
             .from(BUCKET_NAME)
