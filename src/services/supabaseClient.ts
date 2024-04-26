@@ -13,8 +13,8 @@ type QueryModel = {
 }
 
 const supabaseClient = createClient(
-    import.meta.env.VITE_PUBLIC_SUPABASE_URL,
-    import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
 
