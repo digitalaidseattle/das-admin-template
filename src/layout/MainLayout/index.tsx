@@ -17,13 +17,13 @@ import Drawer from './Drawer';
 import Header from './Header';
 
 // types
+import { User } from '@supabase/supabase-js';
 import Breadcrumbs from '../../components/@extended/Breadcrumbs';
 import ScrollTop from '../../components/ScrollTop';
 import { DrawerOpenContext } from '../../components/contexts/DrawerOpenContext';
+import { RefreshContextProvider } from '../../components/contexts/RefreshContext';
 import { UserContext } from '../../components/contexts/UserContext';
-import { User } from '@supabase/supabase-js';
 import { authService } from '../../services/authService';
-import { RefreshContext, RefreshContextProvider, useInterval } from '../../components/contexts/RefreshContext';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 

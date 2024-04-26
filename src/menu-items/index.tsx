@@ -9,7 +9,8 @@ import {
   FileOutlined,
   FileExclamationOutlined,
   EyeInvisibleOutlined,
-  UploadOutlined
+  UploadOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 
 const icons = {
@@ -22,7 +23,8 @@ const icons = {
   FileOutlined,
   FileExclamationOutlined,
   EyeInvisibleOutlined,
-  UploadOutlined
+  UploadOutlined,
+  GlobalOutlined,
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -47,7 +49,6 @@ const dashboard = {
       icon: icons.FileOutlined,
       breadcrumbs: false
     },
-
     {
       id: 'tickets-grid',
       title: 'Advanced Tickets Table',
@@ -99,6 +100,14 @@ const pages = {
       type: 'item',
       url: '/upload',
       icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'map-example-page',
+      title: 'Map Example Page',
+      type: 'item',
+      url: '/map-example',
+      icon: icons.GlobalOutlined,
       breadcrumbs: false
     }
   ]
