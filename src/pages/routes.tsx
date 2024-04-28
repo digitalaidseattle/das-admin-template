@@ -3,6 +3,7 @@ import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
 import TicketsGrid from '../sections/tickets/TicketsGrid';
 import TicketsTable from '../sections/tickets/TicketsTable';
+import ExcelPage from './ExcelPage';
 import MapPage from './MapPage';
 import PrivacyPage from './PrivacyPage';
 import TicketPage from './TicketPage';
@@ -59,6 +60,10 @@ const routes = [
       {
         path: "map-example",
         element: <MapPage />,
+      },
+      {
+        path: "excel-example",
+        element: <ExcelPage />
       }
     ]
   },
