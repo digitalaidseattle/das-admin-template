@@ -11,6 +11,7 @@ import {
   EyeInvisibleOutlined,
   UploadOutlined,
   GlobalOutlined,
+  TableOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -25,6 +26,7 @@ const icons = {
   EyeInvisibleOutlined,
   UploadOutlined,
   GlobalOutlined,
+  TableOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -108,6 +110,14 @@ const pages = {
       type: 'item',
       url: '/map-example',
       icon: icons.GlobalOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'excel-example-page',
+      title: 'Excel Example Page',
+      type: 'item',
+      url: '/excel-example',
+      icon: icons.TableOutlined,
       breadcrumbs: false
     }
   ]
