@@ -1,15 +1,16 @@
+import MainCard from '../components/MainCard';
 import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
+import TicketsGrid from '../sections/tickets/TicketsGrid';
+import TicketsTable from '../sections/tickets/TicketsTable';
+import MapPage from './MapPage';
 import PrivacyPage from './PrivacyPage';
 import TicketPage from './TicketPage';
-import TicketsGridPage from './TicketsGridPage';
-import TicketsPage from './TicketsPage';
+import UploadPage from './UploadPage';
 import Login from './authentication/Login';
 import DashboardDefault from './dashboard';
 import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
-import UploadPage from './UploadPage';
-import MapPage from './MapPage';
 
 const routes = [
   {
@@ -34,11 +35,18 @@ const routes = [
       },
       {
         path: "tickets",
-        element: <TicketsPage />,
+        element: (
+          <MainCard title="Tickets Page">
+            <TicketsTable />
+          </MainCard>),
       },
       {
         path: "tickets-grid",
-        element: <TicketsGridPage />,
+        element: (
+          <MainCard title="Tickets Page">
+            <TicketsGrid />
+          </MainCard>
+        ),
       },
       {
         path: "privacy",
