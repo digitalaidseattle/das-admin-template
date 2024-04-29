@@ -11,6 +11,7 @@ import Login from './authentication/Login';
 import DashboardDefault from './dashboard';
 import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
+import DragDropPage from './dragdrop/DragDropPage';
 
 const routes = [
   {
@@ -55,6 +56,10 @@ const routes = [
       {
         path: "upload",
         element: <UploadPage />,
+      },
+      {
+        path: "drag-drop",
+        element: <DragDropPage />,
       },
       {
         path: "map-example",

@@ -10,6 +10,7 @@ import {
   FileExclamationOutlined,
   EyeInvisibleOutlined,
   UploadOutlined,
+  DragOutlined,
   GlobalOutlined,
 } from '@ant-design/icons';
 
@@ -24,6 +25,7 @@ const icons = {
   FileExclamationOutlined,
   EyeInvisibleOutlined,
   UploadOutlined,
+  DragOutlined,
   GlobalOutlined,
 };
 
@@ -100,6 +102,14 @@ const pages = {
       type: 'item',
       url: '/upload',
       icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
+     {
+      id: 'drag-drop-page',
+      title: 'Drag Drop Page',
+      type: 'item',
+      url: '/drag-drop',
+      icon: icons.DragOutlined,
       breadcrumbs: false
     },
     {
