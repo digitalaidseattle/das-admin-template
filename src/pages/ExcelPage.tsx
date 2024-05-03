@@ -11,17 +11,38 @@ import { storageService } from '../services/storageService';
 import { Box, Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
 import MainCard from '../components/MainCard';
+import { Staff } from '../sections/staff/staffService';
+
+// sheetJS
+import { read, utils } from "xlsx";
+
 
 const ExcelPage = () => {
 
+    const [staff, setStaff] = useState<Staff[]>([]);
     const [uploadMsg, setUploadMsg] = useState('');
 
     const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
         const file = event.target.files[0];
-        storageService.uploadFile(file)
-            .then(() => setUploadMsg('File has been uploaded.'))
+        handleParse(file)
+            .then(() => setUploadMsg('File has been parsed.'))
             .catch(err => alert(err));
+        // storageService.uploadFile(file)
+        //     .then(() => setUploadMsg('File has been uploaded.'))
+        //     .catch(err => alert(err));
+    }
+
+    // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
+    const handleParse = async (file: any) => {
+        const arrayBuffer = await file.arrayBuffer();
+
+        const workbook = read(arrayBuffer);
+
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const data: Staff[] = utils.sheet_to_json<Staff>(worksheet);
+
+        setStaff(data);
     }
 
     return (
