@@ -21,6 +21,11 @@ class StaffService {
             .select()
             .then(res => res.data as Staff[])
     }
+
+    async postStaff(rows: Staff[]) {
+        await supabaseClient.from('staff')
+            .insert(rows)
+    }
 }
 
 

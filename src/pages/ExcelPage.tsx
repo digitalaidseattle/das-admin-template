@@ -5,13 +5,12 @@
 
 */
 import { useState } from 'react';
-import { storageService } from '../services/storageService';
 
 // material-ui
 import { Box, Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
 import MainCard from '../components/MainCard';
-import { Staff } from '../sections/staff/staffService';
+import { Staff, staffService } from '../sections/staff/staffService';
 
 // sheetJS
 import { read, utils } from "xlsx";
@@ -26,11 +25,9 @@ const ExcelPage = () => {
         if (!event.target.files) return;
         const file = event.target.files[0];
         handleParse(file)
+            .then(() => staffService.postStaff(staff))
             .then(() => setUploadMsg('File has been parsed.'))
             .catch(err => alert(err));
-        // storageService.uploadFile(file)
-        //     .then(() => setUploadMsg('File has been uploaded.'))
-        //     .catch(err => alert(err));
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
@@ -48,7 +45,7 @@ const ExcelPage = () => {
     return (
         <MainCard title="Excel Upload Example">
             <Typography variant="body2">
-                Upload an excel file (.xlsx) to the database and populate the staff table below.
+                Upload an excel file (.xlsx) to populate the staff table below.
                 <Box sx={{ marginY: '1rem' }}>
                     <input
                         type="file"
