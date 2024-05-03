@@ -5,17 +5,19 @@
 
 */
 // material-ui
-import { Grid } from '@mui/material';
+import { Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
+import MainCard from '../components/MainCard';
 
 const ExcelPage = () => {
 
     return (
-        <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-            <Grid item>
-                <StaffTable />
-            </Grid>
-        </Grid>
+        <MainCard title="Excel Upload Example">
+            <Typography variant="body2">
+                Upload an excel file (.xlsx) to the database and populate the staff table below.
+            </Typography>
+            <StaffTable />
+        </MainCard>
     );
 }
 
