@@ -30,9 +30,9 @@ const ExcelPage = () => {
                 Upload an excel file (.xlsx) to the database and populate the staff table below.
                 <Box sx={{ marginY: '1rem' }}>
                     <input
-                        accept="*"
-                        id="contained-button-file"
                         type="file"
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        id="contained-button-file"
                         onChange={(e) => handleUpload(e)}
                     />
                 </Box>
