@@ -81,7 +81,7 @@ const Breadcrumbs: React.FC<PROPS> = ({ navigation, title, others }) => {
           <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={1}>
             <Grid item>
               <MuiBreadcrumbs aria-label="breadcrumb">
-                <Typography component={Link} to="/" color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
+                <Typography component={Link} to="/dashboard" color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
                   Home
                 </Typography>
                 {mainContent}
