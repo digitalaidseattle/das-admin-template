@@ -38,11 +38,12 @@ const ExcelPage = () => {
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         let data = utils.sheet_to_json(worksheet);
 
-        // add id 
-        // convert roles string into an array
+        // modify excel sheet data 
         data.map((employee) => {
+            // add id and date fields
             employee.id = uuid();
             employee.created_at = new Date();
+            // convert roles string into an array
             employee.roles = employee.roles.toString().split(",");
         })
 
