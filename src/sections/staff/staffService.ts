@@ -8,11 +8,11 @@
 import { supabaseClient } from "../../services/supabaseClient";
 
 type Staff = {
-    id: number,
+    id: string,
     created_at: Date,
     name: string,
     email: string,
-    roles: string,
+    roles: string[],
 }
 
 class StaffService {
@@ -23,8 +23,16 @@ class StaffService {
     }
 
     async postStaff(rows: Staff[]) {
-        await supabaseClient.from('staff')
+        console.log('rows', rows)
+        const { data, error } = await supabaseClient
+            .from('staff')
             .insert(rows)
+            .select()
+        if (error) {
+            console.error('error posting to staff table:', error)
+            return
+        }
+        console.log('data posted to staff table:', data)
     }
 }
 

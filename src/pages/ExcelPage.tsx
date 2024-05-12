@@ -5,6 +5,7 @@
 
 */
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 // material-ui
 import { Box, Typography } from '@mui/material';
@@ -18,16 +19,14 @@ import { read, utils } from "xlsx";
 
 const ExcelPage = () => {
 
-    const [staff, setStaff] = useState<Staff[]>([]);
     const [uploadMsg, setUploadMsg] = useState('');
 
-    const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
         const file = event.target.files[0];
-        handleParse(file)
-            .then(() => staffService.postStaff(staff))
-            .then(() => setUploadMsg('File has been parsed.'))
-            .catch(err => alert(err));
+        const staffData = await handleParse(file)
+        console.log('staffdata', staffData)
+        await staffService.postStaff(staffData)
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
@@ -37,9 +36,17 @@ const ExcelPage = () => {
         const workbook = read(arrayBuffer);
 
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data: Staff[] = utils.sheet_to_json<Staff>(worksheet);
+        let data = utils.sheet_to_json(worksheet);
 
-        setStaff(data);
+        // add id 
+        // convert roles string into an array
+        data.map((employee) => {
+            employee.id = uuid();
+            employee.created_at = new Date();
+            employee.roles = employee.roles.toString().split(",");
+        })
+
+        return data;
     }
 
     return (
