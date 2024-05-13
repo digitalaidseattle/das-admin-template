@@ -4,7 +4,7 @@
 
 
 */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 // material-ui
@@ -21,12 +21,19 @@ const ExcelPage = () => {
 
     const [uploadMsg, setUploadMsg] = useState('');
 
+    const [staff, setStaff] = useState<Staff[]>([]);
+
+    useEffect(() => {
+        staffService.getStaff()
+            .then(res => setStaff(res))
+    }, [])
+
     const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.files) return;
         const file = event.target.files[0];
-        const staffData = await handleParse(file)
-        console.log('staffdata', staffData)
-        await staffService.postStaff(staffData)
+        const newStaffData = await handleParse(file)
+        await staffService.postStaff(newStaffData)
+        setStaff([...staff, ...newStaffData]);
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
@@ -64,7 +71,7 @@ const ExcelPage = () => {
                 </Box>
                 <Typography variant="body2">{uploadMsg.length > 0 && uploadMsg}</Typography>
             </Typography>
-            <StaffTable />
+            <StaffTable tableData={staff} />
         </MainCard>
     );
 }

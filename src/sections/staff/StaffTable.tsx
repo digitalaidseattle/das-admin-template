@@ -60,13 +60,7 @@ const StaffTableHead = () => {
     );
 }
 
-export default function StaffTable() {
-    const [staff, setStaff] = useState<Staff[]>([]);
-
-    useEffect(() => {
-        staffService.getStaff()
-            .then(res => setStaff(res))
-    }, [])
+export default function StaffTable({ tableData }: { tableData: Staff[] }) {
 
     return (
         <Box>
@@ -92,7 +86,7 @@ export default function StaffTable() {
                     }}>
                     <StaffTableHead />
                     <TableBody>
-                        {staff.map(s => (
+                        {tableData.map(s => (
                             <TableRow key={s.id}>
                                 <TableCell align="left">{s.id}</TableCell>
                                 <TableCell align="left">{s.name}</TableCell>
