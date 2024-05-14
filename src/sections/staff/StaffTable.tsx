@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react"
-import { Staff, staffService } from "./staffService"
-import MainCard from "../../components/MainCard";
+/**
+ *  StaffTable.tsx
+ *
+ *  Display a table of staff entries.
+ * 
+ *  @copyright 2024 Digital Aid Seattle
+ *
+ */
+import { Staff } from "./staffService"
 
 // material-ui
 import {
