@@ -39,7 +39,7 @@ const dashboard = {
       id: 'dashboard',
       title: 'Dashboard',
       type: 'item',
-      url: '/dashboard',
+      url: '/',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
     },
