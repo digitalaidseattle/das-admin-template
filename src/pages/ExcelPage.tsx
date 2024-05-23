@@ -34,7 +34,8 @@ const ExcelPage = () => {
         // get parsed array from the uploaded excel file
         const newStaffData = await handleParse(file)
         // upload parsed data to supabase
-        await staffService.postStaff(newStaffData)
+        staffService.postStaff(newStaffData)
+            .catch((error) => setUploadMsg('Error: ' + error));
         // append data to state, so changes are reflected in table
         setStaff([...staff, ...newStaffData]);
     }
