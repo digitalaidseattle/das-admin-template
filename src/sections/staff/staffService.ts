@@ -23,16 +23,13 @@ class StaffService {
     }
 
     async postStaff(rows: Staff[]) {
-        console.log('rows', rows)
-        const { data, error } = await supabaseClient
+        const { error } = await supabaseClient
             .from('staff')
             .insert(rows)
             .select()
         if (error) {
-            console.error('error posting to staff table:', error)
-            return
+            throw new Error(error.message);
         }
-        console.log('data posted to staff table:', data)
     }
 }
 

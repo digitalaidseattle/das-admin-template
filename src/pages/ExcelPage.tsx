@@ -19,7 +19,7 @@ import { read, utils } from "xlsx";
 
 const ExcelPage = () => {
 
-    const [uploadMsg, setUploadMsg] = useState('');
+    const [uploadStatus, setUploadStatus] = useState('');
 
     const [staff, setStaff] = useState<Staff[]>([]);
 
@@ -32,33 +32,41 @@ const ExcelPage = () => {
         if (!event.target.files) return;
         const file = event.target.files[0];
         // get parsed array from the uploaded excel file
-        const newStaffData = await handleParse(file)
+        const newStaffData = await handleParse(file);
         // upload parsed data to supabase
-        staffService.postStaff(newStaffData)
-            .catch((error) => setUploadMsg('Error: ' + error));
-        // append data to state, so changes are reflected in table
-        setStaff([...staff, ...newStaffData]);
+        if (newStaffData) {
+            staffService.postStaff(newStaffData)
+                .then(() => {
+                    // append data to state, so changes are reflected in table
+                    setStaff([...staff, ...newStaffData]);
+                    setUploadStatus('Success! Uploaded data to staff table.')
+                })
+                .catch((error) => setUploadStatus(error.toString()));
+        }
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
     const handleParse = async (file: File) => {
-        const arrayBuffer = await file.arrayBuffer();
+        try {
+            const arrayBuffer = await file.arrayBuffer();
 
-        const workbook = read(arrayBuffer);
+            const workbook = read(arrayBuffer);
 
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data: Staff[] = utils.sheet_to_json(worksheet);
+            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            const data: Staff[] = utils.sheet_to_json(worksheet);
 
-        // modify excel sheet data
-        data.map((employee) => {
-            // add id and date fields
-            employee.id = uuid();
-            employee.created_at = new Date();
-            // convert roles string into an array
-            employee.roles = employee.roles.toString().split(",");
-        })
-
-        return data;
+            // modify excel sheet data
+            data.map((employee) => {
+                // add id and date fields
+                employee.id = uuid();
+                employee.created_at = new Date();
+                // convert roles string into an array
+                employee.roles = employee.roles.toString().split(",");
+            })
+            return data;
+        } catch (err) {
+            setUploadStatus('Error while parsing: ' + err.message)
+        }
     }
 
     return (
@@ -75,7 +83,7 @@ const ExcelPage = () => {
                         onChange={(e) => handleUpload(e)}
                     />
                 </Box>
-                <Typography variant="body2">{uploadMsg.length > 0 && uploadMsg}</Typography>
+                <Typography variant="body2">{uploadStatus.length > 0 && uploadStatus}</Typography>
             </Typography>
             <StaffTable tableData={staff} />
         </MainCard>
