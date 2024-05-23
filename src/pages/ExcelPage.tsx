@@ -64,8 +64,9 @@ const ExcelPage = () => {
     return (
         <MainCard title="Excel Upload Example">
             <Typography variant="body2">
-                Upload an excel file (.xlsx) to populate the staff table below.<br />
-                This demo parses data from a table that has the columns: <b>name</b>, <b>email</b>, and <b>roles</b>.
+                This demo parses data from an excel file (.xlsx) that has the columns: <b>name</b>, <b>email</b>, and <b>roles</b>.
+                <br />
+                Try it out with <b>staff-test.xlsx</b> located in the github repository, under <b>test/resources</b>.
                 <Box sx={{ marginY: '1rem' }}>
                     <input
                         type="file"
