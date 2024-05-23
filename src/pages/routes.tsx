@@ -23,10 +23,6 @@ const routes = [
         element: <DashboardDefault />,
       },
       {
-        path: "dashboard",
-        element: <DashboardDefault />,
-      },
-      {
         path: "sample-page",
         element: <SamplePage />,
       },
