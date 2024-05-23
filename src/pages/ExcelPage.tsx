@@ -5,17 +5,12 @@
 
 */
 import { useState, useEffect } from 'react';
-import { v4 as uuid } from 'uuid';
 
 // material-ui
 import { Box, Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
 import MainCard from '../components/MainCard';
 import { Staff, staffService } from '../sections/staff/staffService';
-
-// sheetJS
-import { read, utils } from "xlsx";
-
 
 const ExcelPage = () => {
 
@@ -32,7 +27,8 @@ const ExcelPage = () => {
         if (!event.target.files) return;
         const file = event.target.files[0];
         // get parsed array from the uploaded excel file
-        const newStaffData = await handleParse(file);
+        const newStaffData = await staffService.handleParse(file)
+            .catch(err => setUploadStatus('Error while parsing: ' + err.message));
         // upload parsed data to supabase
         if (newStaffData) {
             staffService.postStaff(newStaffData)
@@ -42,30 +38,6 @@ const ExcelPage = () => {
                     setUploadStatus('Success! Uploaded data to staff table.')
                 })
                 .catch((error) => setUploadStatus(error.toString()));
-        }
-    }
-
-    // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
-    const handleParse = async (file: File) => {
-        try {
-            const arrayBuffer = await file.arrayBuffer();
-
-            const workbook = read(arrayBuffer);
-
-            const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-            const data: Staff[] = utils.sheet_to_json(worksheet);
-
-            // modify excel sheet data
-            data.map((employee) => {
-                // add id and date fields
-                employee.id = uuid();
-                employee.created_at = new Date();
-                // convert roles string into an array
-                employee.roles = employee.roles.toString().split(",");
-            })
-            return data;
-        } catch (err) {
-            setUploadStatus('Error while parsing: ' + err.message)
         }
     }
 
