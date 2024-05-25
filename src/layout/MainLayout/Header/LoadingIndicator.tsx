@@ -18,7 +18,7 @@ export const LoadingIndicator = () => {
             position: 'fixed',
             width: '100%'
         }}>
-            <LinearProgress color="success" />
+            <LinearProgress color="primary" />
         </Box>
     )
 }
