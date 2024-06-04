@@ -8,6 +8,7 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { storageService } from '../services/storageService';
+import MainCard from '../components/MainCard';
 
 
 const PrivacyPage = () => {
@@ -18,13 +19,15 @@ const PrivacyPage = () => {
             .catch(err => alert(err))
     }, [])
     return (
-        <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-            <Grid item>
-                <Markdown>
-                    {file}
-                </Markdown>
+        <MainCard> 
+            <Grid container rowSpacing={4.5} columnSpacing={2.75}>
+                <Grid item>
+                    <Markdown>
+                        {file}
+                    </Markdown>
+                </Grid>
             </Grid>
-        </Grid>
+        </MainCard>
     );
 }
 

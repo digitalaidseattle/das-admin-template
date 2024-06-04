@@ -115,7 +115,7 @@ export default function FilesTable(props: { fileList: any, onDelete: Function })
                                         <TableCell align="left">{file.metadata.mimetype}</TableCell>
                                         <TableCell align="left">{file.metadata.size}</TableCell>
                                         <TableCell align="left">{file.created_at}</TableCell>
-                                        <TableCell align="left"><Button variant="contained" color="primary" component="span" onClick={() => props.onDelete(file.name)}>Delete</Button></TableCell>
+                                        <TableCell align="left"><Button variant="contained" color="secondary" component="span" onClick={() => props.onDelete(file.name)}>Delete</Button></TableCell>
                                     </TableRow>
                                 );
                             })}

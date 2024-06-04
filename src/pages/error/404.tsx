@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router';
 import Logo from '../../components/Logo/Logo';
 import CenteredCard from '../../layout/MinimalLayout/CenteredCard';
 import MinimalWrapper from '../../layout/MinimalLayout/MinimalWrapper';
+import { useTheme } from '@mui/material/styles';
 
 // ================================|| 404 ||================================ //
 
 const Page404: React.FC = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
 
   const handleReturn = () => {
@@ -19,6 +21,7 @@ const Page404: React.FC = () => {
   return (<MinimalWrapper>
     <Grid
       container
+      sx={{backgroundColor: theme.palette.primary.main}}
       spacing={0}
       direction="column"
       alignItems="center"
@@ -26,7 +29,7 @@ const Page404: React.FC = () => {
       <Grid item xs={3}>
         <Stack direction="row" spacing={1} alignItems="center">
           <Logo />
-          <Typography variant="h5">{import.meta.env.VITE_APPLICATION_NAME}</Typography>
+          <Typography variant="h5" color={theme.palette.primary.contrastText}>{import.meta.env.VITE_APPLICATION_NAME}</Typography>
         </Stack>
       </Grid>
       <CenteredCard>
@@ -41,8 +44,9 @@ const Page404: React.FC = () => {
               <Button
                 size="large"
                 onClick={handleReturn}
-                color={'primary'}
-                variant={'outlined'}
+                variant={'contained'}
+                sx={{backgroundColor: theme.palette.secondary.main}}
+                color="secondary"
               >
                 Return to the home page
               </Button>
