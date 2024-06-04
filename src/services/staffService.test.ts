@@ -21,7 +21,6 @@ describe('staff service tests', () => {
             // a mock supabase client
             supabaseClient: {
                 from: vi.fn(),
-                insert: vi.fn()
             }
         }))
     })
@@ -30,18 +29,20 @@ describe('staff service tests', () => {
         const mockClient = {
             select: vi.fn(),
         }
-
         const blob = {};
+        // mocking .from() and .select(), setting their return values.
         const fromSpy = vi.spyOn(supabaseClient, 'from')
             .mockReturnValue(mockClient as any)
         const selectSpy = vi.spyOn(mockClient, 'select')
             .mockReturnValue(Promise.resolve({ data: blob, error: null }) as any)
 
+        // when the service is called, the mock functions are used in place of the real ones
         const actual = await staffService.getStaff();
+        // make sure from is called with the 'staff' table as argument
         expect(fromSpy).toHaveBeenCalledWith('staff');
+        // make sure select was called
         expect(selectSpy).toHaveBeenCalled();
         expect(actual).toEqual(blob);
-
     })
 
 })

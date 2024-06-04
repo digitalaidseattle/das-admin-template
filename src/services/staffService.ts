@@ -22,7 +22,12 @@ class StaffService {
     async getStaff(): Promise<Staff[]> {
         return supabaseClient.from('staff')
             .select()
-            .then((res: PostgrestSingleResponse<Staff[]>) => res.data as Staff[])
+            .then((res: PostgrestSingleResponse<Staff[]>) => {
+                if (res.error) {
+                    throw new Error(res.error.message)
+                }
+                return res.data as Staff[]
+            })
     }
 
     async postStaff(rows: Staff[]) {
