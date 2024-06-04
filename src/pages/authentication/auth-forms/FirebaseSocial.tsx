@@ -32,7 +32,6 @@ const FirebaseSocial = () => {
       sx={{ '& .MuiButton-startIcon': { mr: matchDownSM ? 0 : 1, ml: matchDownSM ? 0 : -0.5 } }}
     >
       <Button
-        sx={{ backgroundColor: theme.palette.background.default }}
         title='Login with Google'
         variant="outlined"
         color="primary"
@@ -43,7 +42,6 @@ const FirebaseSocial = () => {
       </Button>
 
       <Button
-        sx={{ backgroundColor: theme.palette.background.default }}
         title='Login with Microsoft'
         variant="outlined"
         color="primary"
