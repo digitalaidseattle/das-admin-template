@@ -40,7 +40,7 @@ const Palette = (mode: PaletteMode) => {
   // const secondaryColor = "#ef3825"
 
   const primaryColor = "#00382F"
-  const secondaryColor = "#ef3825"
+  const secondaryColor = "#D2CB2D"
 
 
   return createTheme({
