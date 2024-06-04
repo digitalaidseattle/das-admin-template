@@ -5,7 +5,8 @@
  *
  */
 
-import { supabaseClient } from "../../services/supabaseClient";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { supabaseClient } from "./supabaseClient";
 import { v4 as uuid } from 'uuid';
 import { read, utils } from "xlsx";
 
@@ -21,7 +22,7 @@ class StaffService {
     async getStaff(): Promise<Staff[]> {
         return supabaseClient.from('staff')
             .select()
-            .then(res => res.data as Staff[])
+            .then((res: PostgrestSingleResponse<Staff[]>) => res.data as Staff[])
     }
 
     async postStaff(rows: Staff[]) {
@@ -36,6 +37,7 @@ class StaffService {
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
     async handleParse(file: File) {
+        // converts worksheet to an array
         const arrayBuffer = await file.arrayBuffer();
 
         const workbook = read(arrayBuffer);

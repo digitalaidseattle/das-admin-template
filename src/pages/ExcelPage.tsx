@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
 import MainCard from '../components/MainCard';
-import { Staff, staffService } from '../sections/staff/staffService';
+import { Staff, staffService } from '../services/staffService';
 
 const ExcelPage = () => {
 

@@ -6,7 +6,7 @@
  *  @copyright 2024 Digital Aid Seattle
  *
  */
-import { Staff } from "./staffService"
+import { Staff } from "../../services/staffService"
 
 // material-ui
 import {
