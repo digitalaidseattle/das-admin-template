@@ -45,4 +45,24 @@ describe('staff service tests', () => {
         expect(actual).toEqual(blob);
     })
 
+    it('getStaff - error', async () => {
+        const mockClient = {
+            select: vi.fn(),
+        }
+        const blob = {};
+        const fromSpy = vi.spyOn(supabaseClient, 'from')
+            .mockReturnValue(mockClient as any)
+        // mock select returns an object with an error field
+        const selectSpy = vi.spyOn(mockClient, 'select')
+            .mockReturnValue(Promise.resolve({ data: blob, error: { message: 'boom' } }) as any)
+
+        // make sure that getStaff catches errors
+        try {
+            await staffService.getStaff()
+        } catch (actual) {
+            expect(fromSpy).toHaveBeenCalledWith('staff');
+            expect(selectSpy).toHaveBeenCalled();
+        }
+    })
+
 })
