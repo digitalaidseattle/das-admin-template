@@ -46,8 +46,11 @@ The DAS template includes an example mapping page `src/pages/MapPage.tsx`.  Maps
 ### Drag & Drop
 The DAS template includes an example of drag-and-drop use. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
 
+## Components
+The template includes components that provide common functionality and enforce standards.  The components should be used in venture applications to meet required behaviors.  This consistency will allow maintainers to have fewer points of support.
+
 ### Polling
-The application shell includes a 10 second timer. The refresh context can be used to refresh components with current data.
+The application shell includes a 10 second timer. The RefreshContext can be used to refresh components with current data.
 
 ```
     const { refresh } = useContext(RefreshContext)
@@ -57,6 +60,20 @@ The application shell includes a 10 second timer. The refresh context can be use
         ticketService.getTickets(NUM_TIX)
             .then((tix) => setTickets(tix))
     }, [refresh])
+```
+### Loading / Loading Indicator
+The application shell includes a linear progress indicator.  The indicator is in the shell header and displays when the LoadingContext is set.  Components can use the LoadingContext to control the indicator.
+
+
+```
+    const { setLoading } = useContext(LoadingContext)
+
+     useEffect(() => {
+        setLoading(true)
+        ticketService.getTickets(NUM_TIX)
+            .then((tix) => setTickets(tix))
+            .finally(() => setLoading(false));
+    }, [setLoading])
 ```
 
 ## Deployment

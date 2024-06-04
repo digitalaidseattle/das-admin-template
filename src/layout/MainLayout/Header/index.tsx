@@ -15,6 +15,7 @@ import HeaderContent from './HeaderContent';
 // assets
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import AppBarStyled from './AppBarStyled';
+import { LoadingIndicator } from './LoadingIndicator';
 
 // ==============================|| MAIN LAYOUT - HEADER ||============================== //
 
@@ -32,19 +33,22 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerToggle }) => {
 
   // common header
   const mainHeader = (
-    <Toolbar>
-      <IconButton
-        disableRipple
-        aria-label="open drawer"
-        onClick={handleDrawerToggle}
-        edge="start"
-        color="secondary"
-        sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
-      >
-        {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </IconButton>
-      <HeaderContent />
-    </Toolbar>
+    <>
+      <Toolbar>
+        <IconButton
+          disableRipple
+          aria-label="open drawer"
+          onClick={handleDrawerToggle}
+          edge="start"
+          color="secondary"
+          sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
+        >
+          {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </IconButton>
+        <HeaderContent />
+      </Toolbar>
+      <LoadingIndicator />
+    </>
   );
 
   // app-bar params
