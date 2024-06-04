@@ -44,9 +44,9 @@ const Page404: React.FC = () => {
               <Button
                 size="large"
                 onClick={handleReturn}
-                variant={'contained'}
-                sx={{backgroundColor: theme.palette.secondary.main}}
-                color="secondary"
+                sx={{backgroundColor: theme.palette.background.default}}
+                variant="outlined"
+                color="primary"
               >
                 Return to the home page
               </Button>

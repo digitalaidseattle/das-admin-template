@@ -66,7 +66,7 @@ const MainLayout: React.FC = () => {
                 <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
                 <Drawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
                 <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 }, 
-                      backgroundColor: theme.palette.primary.main, minHeight: '100vh' }}>
+                      backgroundColor: theme.palette.background.default, minHeight: '100vh' }}>
                   <Toolbar />
                   <Breadcrumbs navigation={navigation} title />
                   <Outlet />

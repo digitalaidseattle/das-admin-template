@@ -108,9 +108,9 @@ const Profile = () => {
       <ButtonBase
         sx={{
           p: 0.25,
-          bgcolor: open ? iconBackColorOpen : theme.palette.secondary.main,
+          bgcolor: open ? iconBackColorOpen : theme.palette.background.default,
           borderRadius: 1,
-          '&:hover': { bgcolor: 'secondary.lighter' },
+          '&:hover': { bgcolor:  theme.palette.secondary.light },
           paddingRight: '15px'
         }}
         aria-label="open profile"
