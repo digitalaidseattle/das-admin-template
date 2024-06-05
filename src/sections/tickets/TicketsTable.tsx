@@ -26,6 +26,7 @@ import {
 import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { Ticket, ticketService } from './ticketService';
 import { RefreshContext } from '../../components/contexts/RefreshContext';
+import { LoadingContext } from '../../components/contexts/LoadingContext';
 
 function descendingComparator(a: Ticket, b: Ticket, orderBy: string) {
     switch (orderBy) {
@@ -118,13 +119,14 @@ export default function TicketsTable() {
     const [orderBy] = useState<string>('id');
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const { refresh } = useContext(RefreshContext)
+    const { setLoading } = useContext(LoadingContext)
 
     useEffect(() => {
-        console.log('refer', refresh)
-        // TODO add smarts, maybe save and compare last update
+        setLoading(true)
         ticketService.getTickets(NUM_TIX)
             .then((tix) => setTickets(tix))
-    }, [refresh])
+            .finally(() => setLoading(false));
+    }, [refresh, setLoading])
 
     return (
         <Box>
