@@ -9,7 +9,8 @@ import React, { useContext, useRef, useState } from 'react';
 // material-ui
 import {
   Box,
-  IconButton
+  IconButton,
+  useTheme
 } from '@mui/material';
 
 // project import
@@ -29,9 +30,9 @@ const Labels = {
 }
 
 const TicketToolbarItem: React.FC = () => {
-
+  const theme = useTheme();
   const anchorRef = useRef(null);
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
 
@@ -60,7 +61,10 @@ const TicketToolbarItem: React.FC = () => {
         <IconButton
           disableRipple
           color="secondary"
-          sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor }}
+          sx={{
+            color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor,
+            '&:hover': { bgcolor: theme.palette.secondary.light }
+          }}
           aria-label="open profile"
           ref={anchorRef}
           aria-controls={open ? 'profile-grow' : undefined}

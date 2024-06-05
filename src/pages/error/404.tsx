@@ -21,7 +21,7 @@ const Page404: React.FC = () => {
   return (<MinimalWrapper>
     <Grid
       container
-      sx={{backgroundColor: theme.palette.primary.main}}
+      sx={{ backgroundColor: theme.palette.primary.main }}
       spacing={0}
       direction="column"
       alignItems="center"
@@ -44,9 +44,8 @@ const Page404: React.FC = () => {
               <Button
                 size="large"
                 onClick={handleReturn}
-                variant={'contained'}
-                sx={{backgroundColor: theme.palette.secondary.main}}
-                color="secondary"
+                variant={'outlined'}
+                color="primary"
               >
                 Return to the home page
               </Button>

@@ -82,7 +82,7 @@ const DashboardDefault = () => {
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
-        <Typography variant="h5" color={theme.palette.primary.contrastText}>Dashboard</Typography>
+        <Typography variant="h5" color={theme.palette.text.primary}>Dashboard</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
@@ -104,7 +104,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Recent Tickets</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Recent Tickets</Typography>
           </Grid>
           <Grid item>
             <Stack direction="row" alignItems="center" spacing={0}>
@@ -126,7 +126,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Income Overview</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Income Overview</Typography>
           </Grid>
           <Grid item />
         </Grid>
@@ -147,7 +147,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Unique Visitor</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Unique Visitor</Typography>
           </Grid>
           <Grid item>
             <Stack direction="row" alignItems="center" spacing={0}>
@@ -180,7 +180,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Analytics Report</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Analytics Report</Typography>
           </Grid>
           <Grid item />
         </Grid>
@@ -207,7 +207,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Sales Report</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Sales Report</Typography>
           </Grid>
           <Grid item>
             <TextField
@@ -239,7 +239,7 @@ const DashboardDefault = () => {
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.primary.contrastText}>Transaction History</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Transaction History</Typography>
           </Grid>
           <Grid item />
         </Grid>
