@@ -76,6 +76,16 @@ The application shell includes a linear progress indicator.  The indicator is in
     }, [setLoading])
 ```
 
+### theming
+A base theming added based on primary and secondary color of project logo and branding including a background primary color in main and minimal layout and secondary color for profile / login / 404  buttons.
+
+This base theming could be easily changed for different ventures by changing two following primary and secondary color in src/themes/palette file.
+
+const primaryColor = "#00728f"
+const secondaryColor = "#ef3825"
+
+These two colors was used for DAS Admin Template and should be changed for other projects in addition to change logo and Application name in env file
+
 ## Deployment
 The application is deployed at Google's Firebase as a static website.  GitHub's workflow action adds site secrets to the build before deploying.
 

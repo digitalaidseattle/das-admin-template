@@ -73,7 +73,11 @@ const Notification = () => {
       <IconButton
         disableRipple
         color="secondary"
-        sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor }}
+        sx={{
+          color: 'text.primary',
+          bgcolor: open ? iconBackColorOpen : iconBackColor,
+          '&:hover': { bgcolor:  theme.palette.secondary.light }
+        }}
         aria-label="open profile"
         ref={anchorRef}
         aria-controls={open ? 'profile-grow' : undefined}

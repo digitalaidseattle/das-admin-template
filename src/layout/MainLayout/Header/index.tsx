@@ -41,7 +41,12 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerToggle }) => {
           onClick={handleDrawerToggle}
           edge="start"
           color="secondary"
-          sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
+          sx={{
+            color: 'text.primary',
+            bgcolor: open ? iconBackColorOpen : iconBackColor,
+            '&:hover': { bgcolor: theme.palette.secondary.light },
+            ml: { xs: 0, lg: -2 }
+          }}
         >
           {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </IconButton>

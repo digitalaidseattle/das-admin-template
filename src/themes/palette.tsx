@@ -31,6 +31,21 @@ const Palette = (mode: PaletteMode) => {
 
   const paletteColor = Theme(colors);
 
+  // DAS Admin template theme colors
+  // these two color can be changed to apply theme for different project 
+
+  // for example for Seattle Humane could be changed to following collors 
+  // based on their branding colors
+  // const primaryColor = "#00728f"
+  // const secondaryColor = "#ef3825"
+
+  const primaryColor = "#00382F"
+  const secondaryColor = "#D2CB2D"
+
+  // Default
+  // const primaryColor = paletteColor.primary.main;
+  // const secondaryColor = paletteColor.secondary.main;
+
   return createTheme({
     palette: {
       mode,
@@ -40,6 +55,14 @@ const Palette = (mode: PaletteMode) => {
       }
       ,
       ...paletteColor,
+      primary: {
+        main: primaryColor,
+        contrastText: '#fff',
+      },
+      secondary: {
+        main: secondaryColor,
+        contrastText: '#000',
+      },
       text: {
         primary: paletteColor.grey[700],
         secondary: paletteColor.grey[500],
