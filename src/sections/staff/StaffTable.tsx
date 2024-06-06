@@ -23,12 +23,6 @@ import {
 
 const headCells = [
     {
-        id: 'id',
-        align: 'left',
-        disablePadding: false,
-        label: 'Id'
-    },
-    {
         id: 'name',
         align: 'left',
         disablePadding: false,
@@ -94,7 +88,6 @@ export default function StaffTable({ tableData }: { tableData: Staff[] }) {
                     <TableBody>
                         {tableData.map(s => (
                             <TableRow key={s.id}>
-                                <TableCell align="left">{s.id}</TableCell>
                                 <TableCell align="left">{s.name}</TableCell>
                                 <TableCell align="left">{s.email}</TableCell>
                                 <TableCell align="left">{s.roles}</TableCell>
