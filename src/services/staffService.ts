@@ -41,7 +41,7 @@ class StaffService {
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/
-    async handleParse(file: File) {
+    async handleParse(file: File): Promise<Staff[]> {
         // converts worksheet to an array
         const arrayBuffer = await file.arrayBuffer();
 

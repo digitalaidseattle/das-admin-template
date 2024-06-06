@@ -1,13 +1,3 @@
-/*
-to learn:
-[x] unit test basics
-[] vitest basics
-
-what to test:
-[] getStaff: are we able to fetch from staff table with a success code?
-[] postStaff: are we able to post to staff table with a success code? be sure to cleanup
-[] handleParse: given an excel sheet, are we getting an array back?
-*/
 import { supabaseClient } from './supabaseClient'
 import { staffService } from './staffService';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -26,14 +16,14 @@ describe('staff service tests', () => {
     })
 
     it('getStaff', async () => {
-        const mockClient = {
+        const mockDB = {
             select: vi.fn(),
         }
         const blob = {};
-        // mocking .from() and .select(), setting their return values.
+        // setting the return values for the mocked from() and select().
         const fromSpy = vi.spyOn(supabaseClient, 'from')
-            .mockReturnValue(mockClient as any)
-        const selectSpy = vi.spyOn(mockClient, 'select')
+            .mockReturnValue(mockDB as any)
+        const selectSpy = vi.spyOn(mockDB, 'select')
             .mockReturnValue(Promise.resolve({ data: blob, error: null }) as any)
 
         // when the service is called, the mock functions are used in place of the real ones
@@ -46,16 +36,15 @@ describe('staff service tests', () => {
     })
 
     it('getStaff - error', async () => {
-        const mockClient = {
+        const mockDB = {
             select: vi.fn(),
         }
         const blob = {};
         const fromSpy = vi.spyOn(supabaseClient, 'from')
-            .mockReturnValue(mockClient as any)
+            .mockReturnValue(mockDB as any)
         // mock select returns an object with an error field
-        const selectSpy = vi.spyOn(mockClient, 'select')
+        const selectSpy = vi.spyOn(mockDB, 'select')
             .mockReturnValue(Promise.resolve({ data: blob, error: { message: 'boom' } }) as any)
-
         // make sure that getStaff catches errors
         try {
             await staffService.getStaff()
@@ -64,5 +53,4 @@ describe('staff service tests', () => {
             expect(selectSpy).toHaveBeenCalled();
         }
     })
-
 })
