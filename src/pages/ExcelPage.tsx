@@ -11,10 +11,17 @@ import { Box, Typography } from '@mui/material';
 import StaffTable from '../sections/staff/StaffTable';
 import MainCard from '../components/MainCard';
 import { Staff, staffService } from '../services/staffService';
+import { DASSnackbar } from '../components/DASSnackbar';
+import { AlertColor } from "@mui/material";
 
 const ExcelPage = () => {
 
-    const [uploadStatus, setUploadStatus] = useState('');
+    type UploadStatus = {
+        message: string,
+        severity: AlertColor
+    }
+
+    const [uploadStatus, setUploadStatus] = useState<UploadStatus>({ message: '', severity: 'info' });
 
     const [staff, setStaff] = useState<Staff[]>([]);
 
@@ -28,16 +35,16 @@ const ExcelPage = () => {
         const file = event.target.files[0];
         // get parsed array from the uploaded excel file
         const newStaffData = await staffService.handleParse(file)
-            .catch(err => setUploadStatus('Error while parsing: ' + err.message));
+            .catch(err => setUploadStatus({ message: 'Error while parsing: ' + err.message, severity: 'error' }));
         // upload parsed data to supabase
         if (newStaffData) {
             staffService.postStaff(newStaffData)
                 .then(() => {
                     // append data to state, so changes are reflected in table
                     setStaff([...staff, ...newStaffData]);
-                    setUploadStatus('Success! Uploaded data to staff table.')
+                    setUploadStatus({ message: 'Success! Uploaded data to staff table.', severity: 'success' })
                 })
-                .catch((error) => setUploadStatus(error.toString()));
+                .catch((error) => setUploadStatus({ message: error.toString(), severity: 'error' }));
         }
     }
 
@@ -55,7 +62,11 @@ const ExcelPage = () => {
                         onChange={(e) => handleUpload(e)}
                     />
                 </Box>
-                <Typography variant="body2">{uploadStatus.length > 0 && uploadStatus}</Typography>
+                <DASSnackbar
+                    message={uploadStatus.message}
+                    open={uploadStatus.message.length > 0}
+                    severity={uploadStatus.severity}
+                    onClose={() => setUploadStatus({ message: '', severity: 'info' })} />
             </Typography>
             <StaffTable tableData={staff} />
         </MainCard>
