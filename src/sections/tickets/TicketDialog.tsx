@@ -50,8 +50,6 @@ const TicketDialog: React.FC<TicketDialogProps> = ({ open, handleSuccess, handle
                 event.preventDefault();
                 const formData = new FormData(event.currentTarget);
                 const formJson = Object.fromEntries(formData.entries());
-                console.log('formData', formData);
-                console.log('formJson', formJson);
                 // Review: as unknown as Ticket
                 ticketService.createTicket(user!, formJson as unknown as Ticket)
                     .then((resp: Ticket) => handleSuccess(resp))
