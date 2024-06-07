@@ -24,6 +24,8 @@ const ExcelPage = () => {
     const [uploadStatus, setUploadStatus] = useState<UploadStatus>({ message: '', severity: 'info' });
 
     const [staff, setStaff] = useState<Staff[]>([]);
+    // newStaff state is used for rendering newly added rows separately from the rest, so we can highlight them on upload.
+    const [newStaff, setNewStaff] = useState<Staff[]>([]);
 
     useEffect(() => {
         staffService.getStaff()
@@ -40,8 +42,10 @@ const ExcelPage = () => {
         if (newStaffData) {
             staffService.postStaff(newStaffData)
                 .then(() => {
-                    // append data to state, so changes are reflected in table
-                    setStaff([...staff, ...newStaffData]);
+                    // append (previously uploaded) staff to staff state, so changes are reflected in table
+                    setStaff([...newStaff, ...staff]);
+                    // update state with the just uploaded data
+                    setNewStaff([...newStaffData])
                     setUploadStatus({ message: 'Success! Uploaded data to staff table.', severity: 'success' })
                 })
                 .catch((error) => setUploadStatus({ message: error.toString(), severity: 'error' }));
@@ -68,7 +72,7 @@ const ExcelPage = () => {
                     severity={uploadStatus.severity}
                     onClose={() => setUploadStatus({ message: '', severity: 'info' })} />
             </Typography>
-            <StaffTable tableData={staff} />
+            <StaffTable tableData={staff} newData={newStaff} />
         </MainCard>
     );
 }

@@ -60,7 +60,7 @@ const StaffTableHead = () => {
     );
 }
 
-export default function StaffTable({ tableData }: { tableData: Staff[] }) {
+export default function StaffTable({ tableData, newData }: { tableData: Staff[], newData: Staff[] }) {
 
     return (
         <Box>
@@ -86,6 +86,14 @@ export default function StaffTable({ tableData }: { tableData: Staff[] }) {
                     }}>
                     <StaffTableHead />
                     <TableBody>
+                        {
+                            newData.map(s => (
+                                <TableRow key={s.id} selected>
+                                    <TableCell align="left">{s.name}</TableCell>
+                                    <TableCell align="left">{s.email}</TableCell>
+                                    <TableCell align="left">{s.roles}</TableCell>
+                                </TableRow>
+                            ))}
                         {tableData.map(s => (
                             <TableRow key={s.id}>
                                 <TableCell align="left">{s.name}</TableCell>
