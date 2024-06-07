@@ -17,7 +17,10 @@ import {
     TableContainer,
     TableHead,
     TableRow,
+    useTheme
 } from '@mui/material';
+
+import { keyframes } from '@mui/system';
 
 // ==============================|| Staff TABLE - HEADER ||============================== //
 
@@ -62,6 +65,18 @@ const StaffTableHead = () => {
 
 export default function StaffTable({ tableData, newData }: { tableData: Staff[], newData: Staff[] }) {
 
+    const theme = useTheme();
+
+    // an animation for newly added rows
+    const fadeOut = keyframes`
+        from {
+            background-color: ${theme.palette.primary.light};
+        }
+        to {
+            background-color: transparent;
+        }
+    `;
+
     return (
         <Box>
             <TableContainer
@@ -86,14 +101,15 @@ export default function StaffTable({ tableData, newData }: { tableData: Staff[],
                     }}>
                     <StaffTableHead />
                     <TableBody>
-                        {
-                            newData.map(s => (
-                                <TableRow key={s.id} selected>
-                                    <TableCell align="left">{s.name}</TableCell>
-                                    <TableCell align="left">{s.email}</TableCell>
-                                    <TableCell align="left">{s.roles}</TableCell>
-                                </TableRow>
-                            ))}
+                        {newData.map(s => (
+                            <TableRow key={s.id} sx={{
+                                animation: `${fadeOut} 2s cubic-bezier(0.49, 0.06, 0.9, 0.1)`
+                            }}>
+                                <TableCell align="left">{s.name}</TableCell>
+                                <TableCell align="left">{s.email}</TableCell>
+                                <TableCell align="left">{s.roles}</TableCell>
+                            </TableRow>
+                        ))}
                         {tableData.map(s => (
                             <TableRow key={s.id}>
                                 <TableCell align="left">{s.name}</TableCell>
