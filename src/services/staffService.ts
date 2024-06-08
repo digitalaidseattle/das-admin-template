@@ -30,14 +30,16 @@ class StaffService {
             })
     }
 
-    async postStaff(rows: Staff[]) {
-        const { error } = await supabaseClient
-            .from('staff')
+    async postStaff(rows: Staff[]): Promise<Staff[]> {
+        return supabaseClient.from('staff')
             .insert(rows)
             .select()
-        if (error) {
-            throw new Error(error.message);
-        }
+            .then((res: PostgrestSingleResponse<Staff[]>) => {
+                if (res.error) {
+                    throw new Error(res.error.message)
+                }
+                return res.data as Staff[]
+            })
     }
 
     // referenced example at https://docs.sheetjs.com/docs/demos/frontend/react/

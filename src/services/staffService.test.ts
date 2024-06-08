@@ -1,5 +1,5 @@
 import { supabaseClient } from './supabaseClient'
-import { staffService } from './staffService';
+import { staffService, Staff } from './staffService';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('staff service tests', () => {
@@ -53,4 +53,29 @@ describe('staff service tests', () => {
             expect(selectSpy).toHaveBeenCalled();
         }
     })
+
+    it('postStaff', async () => {
+        const mockTable = {
+            insert: vi.fn()
+        }
+        const mockDB = {
+            select: vi.fn(),
+        }
+        const blob: Staff[] = [];
+        const fromSpy = vi.spyOn(supabaseClient, 'from')
+            .mockReturnValue(mockTable as any)
+        const insertSpy = vi.spyOn(mockTable, 'insert')
+            .mockReturnValue(mockDB as any)
+        const selectSpy = vi.spyOn(mockDB, 'select')
+            .mockReturnValue(Promise.resolve({ data: blob, error: null }) as any)
+
+        const actual = await staffService.postStaff(blob)
+
+        expect(fromSpy).toHaveBeenCalledWith('staff');
+        expect(insertSpy).toHaveBeenCalled();
+        expect(selectSpy).toHaveBeenCalled();
+
+        expect(actual).toEqual(blob);
+    })
+
 })
