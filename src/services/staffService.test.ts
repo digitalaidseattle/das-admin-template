@@ -48,7 +48,7 @@ describe('staff service tests', () => {
         // make sure that getStaff catches errors
         try {
             await staffService.getStaff()
-        } catch (actual) {
+        } catch (error) {
             expect(fromSpy).toHaveBeenCalledWith('staff');
             expect(selectSpy).toHaveBeenCalled();
         }
@@ -78,4 +78,27 @@ describe('staff service tests', () => {
         expect(actual).toEqual(blob);
     })
 
+    it('postStaff - error', async () => {
+        const mockTable = {
+            insert: vi.fn()
+        }
+        const mockDB = {
+            select: vi.fn(),
+        }
+        const blob: Staff[] = [];
+        const fromSpy = vi.spyOn(supabaseClient, 'from')
+            .mockReturnValue(mockTable as any)
+        const insertSpy = vi.spyOn(mockTable, 'insert')
+            .mockReturnValue(mockDB as any)
+        const selectSpy = vi.spyOn(mockDB, 'select')
+            .mockReturnValue(Promise.resolve({ data: blob, error: { message: 'oops' } }) as any)
+
+        try {
+            await staffService.postStaff(blob)
+        } catch (error) {
+            expect(fromSpy).toHaveBeenCalledWith('staff');
+            expect(insertSpy).toHaveBeenCalled();
+            expect(selectSpy).toHaveBeenCalled();
+        }
+    })
 })
