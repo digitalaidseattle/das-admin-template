@@ -107,14 +107,14 @@ export default function StaffTable({ tableData, newData }: { tableData: Staff[],
                             }}>
                                 <TableCell align="left">{s.name}</TableCell>
                                 <TableCell align="left">{s.email}</TableCell>
-                                <TableCell align="left">{s.roles}</TableCell>
+                                <TableCell align="left">{s.roles && s.roles.join(", ")}</TableCell>
                             </TableRow>
                         ))}
                         {tableData.map(s => (
                             <TableRow key={s.id}>
                                 <TableCell align="left">{s.name}</TableCell>
                                 <TableCell align="left">{s.email}</TableCell>
-                                <TableCell align="left">{s.roles}</TableCell>
+                                <TableCell align="left">{s.roles && s.roles.join(", ")}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
