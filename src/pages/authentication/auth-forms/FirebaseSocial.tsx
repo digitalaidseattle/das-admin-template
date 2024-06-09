@@ -34,7 +34,7 @@ const FirebaseSocial = () => {
       <Button
         title='Login with Google'
         variant="outlined"
-        color="secondary"
+        color="primary"
         fullWidth={!matchDownSM}
         startIcon={<img src={Google} alt="Google" />}
         onClick={googleHandler}>
@@ -44,7 +44,7 @@ const FirebaseSocial = () => {
       <Button
         title='Login with Microsoft'
         variant="outlined"
-        color="secondary"
+        color="primary"
         fullWidth={!matchDownSM}
         startIcon={<img src={Microsoft} alt="Microsoft" />}
         onClick={microsoftHandler}>

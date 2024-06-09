@@ -10,6 +10,7 @@ import {
   FileExclamationOutlined,
   EyeInvisibleOutlined,
   UploadOutlined,
+  DragOutlined,
   GlobalOutlined,
   TableOutlined
 } from '@ant-design/icons';
@@ -25,6 +26,7 @@ const icons = {
   FileExclamationOutlined,
   EyeInvisibleOutlined,
   UploadOutlined,
+  DragOutlined,
   GlobalOutlined,
   TableOutlined
 };
@@ -39,7 +41,7 @@ const dashboard = {
       id: 'dashboard',
       title: 'Dashboard',
       type: 'item',
-      url: '/dashboard',
+      url: '/',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
     },
@@ -102,6 +104,14 @@ const pages = {
       type: 'item',
       url: '/upload',
       icon: icons.UploadOutlined,
+      breadcrumbs: false
+    },
+     {
+      id: 'drag-drop-page',
+      title: 'Drag Drop Page',
+      type: 'item',
+      url: '/drag-drop',
+      icon: icons.DragOutlined,
       breadcrumbs: false
     },
     {

@@ -12,6 +12,7 @@ The template supports these application types by providing an application shell 
 * form validation
 * file uploads
 * drag-and-drop
+* Excel spreadsheet support
 
 A venture squad will be able to copy this template and modify it to suit their venture's need.
 
@@ -23,8 +24,72 @@ The template is built with:
 * Vite
 * Supabase
 
-## Modification
+## Features
+### Application Shell
+The responsive shell that provides a toolbar, navbar, and aside. 
 
+### Authentication
+The DAS template uses Supabase for user authentication and authorization.  Implementation for Google and Microsoft authentication is provided.
+
+### CRUD
+The DAS template uses Supabase for data storage.  It is anticipated that applications requiring RDBMS support would use this.  Examples of lists, dialogs, and forms with validation are available.
+
+### Markdown
+The DAS template includes support for displaying Markdown. The typical use-case is to display privacy policies and/or terms and conditions.  The content on the page can be stored as a application resource to allow changes withou redployment.  One consequence of supporting Markdown is not using Tailwind CSS.  Tailwind removes default formatting from HTML components (e.g. h1 renders plainly with default font size and weight). Markdown is implemented with react-markdown.
+
+### File Storage
+The DAS template includes an example of uploading, reading, as listing of files in Supabase's storage system.  The use-case for this could include storing documents, like release forms, for an application. The file `src/pages/UploadPage.tsx` is the entry point for the example.
+
+### Maps
+The DAS template includes an example mapping page `src/pages/MapPage.tsx`.  Maps were implemented with react-map-gl & maplibre-gl.
+
+### Drag & Drop
+The DAS template includes an example of drag-and-drop use. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
+
+## Components
+The template includes components that provide common functionality and enforce standards.  The components should be used in venture applications to meet required behaviors.  This consistency will allow maintainers to have fewer points of support.
+
+### Polling
+The application shell includes a 10 second timer. The RefreshContext can be used to refresh components with current data.
+
+```
+    const { refresh } = useContext(RefreshContext)
+
+    useEffect(() => {
+        // Refresh action
+        ticketService.getTickets(NUM_TIX)
+            .then((tix) => setTickets(tix))
+    }, [refresh])
+```
+### Loading / Loading Indicator
+The application shell includes a linear progress indicator.  The indicator is in the shell header and displays when the LoadingContext is set.  Components can use the LoadingContext to control the indicator.
+
+
+```
+    const { setLoading } = useContext(LoadingContext)
+
+     useEffect(() => {
+        setLoading(true)
+        ticketService.getTickets(NUM_TIX)
+            .then((tix) => setTickets(tix))
+            .finally(() => setLoading(false));
+    }, [setLoading])
+```
+
+### theming
+A base theming added based on primary and secondary color of project logo and branding including a background primary color in main and minimal layout and secondary color for profile / login / 404  buttons.
+
+This base theming could be easily changed for different ventures by changing two following primary and secondary color in src/themes/palette file.
+
+const primaryColor = "#00728f"
+const secondaryColor = "#ef3825"
+
+These two colors was used for DAS Admin Template and should be changed for other projects in addition to change logo and Application name in env file
+
+## Deployment
+The application is deployed at Google's Firebase as a static website.  GitHub's workflow action adds site secrets to the build before deploying.
+
+## FAQ
 ### How do I connect to Supabase?
 Environment variables for the connecting to Supabase must be added to the hosting platform as well as the `.env.local` file.  Squad members must obtain the supabase url and auth_anon_key for accessing the Supabase project.
 

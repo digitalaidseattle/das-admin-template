@@ -21,12 +21,12 @@ import { User } from '@supabase/supabase-js';
 import Breadcrumbs from '../../components/@extended/Breadcrumbs';
 import ScrollTop from '../../components/ScrollTop';
 import { DrawerOpenContext } from '../../components/contexts/DrawerOpenContext';
+import { LoadingContextProvider } from '../../components/contexts/LoadingContext';
 import { RefreshContextProvider } from '../../components/contexts/RefreshContext';
 import { UserContext } from '../../components/contexts/UserContext';
 import { authService } from '../../services/authService';
 
 // ==============================|| MAIN LAYOUT ||============================== //
-
 
 const MainLayout: React.FC = () => {
   const theme = useTheme();
@@ -59,21 +59,24 @@ const MainLayout: React.FC = () => {
   return (
     <UserContext.Provider value={{ user, setUser }} >
       {user &&
-        <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
-          <RefreshContextProvider >
-            <ScrollTop>
-              <Box sx={{ display: 'flex', width: '100%' }}>
-                <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-                <Drawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
-                <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
-                  <Toolbar />
-                  <Breadcrumbs navigation={navigation} title />
-                  <Outlet />
+        <LoadingContextProvider>
+          <DrawerOpenContext.Provider value={{ drawerOpen, setDrawerOpen }} >
+            <RefreshContextProvider >
+              <ScrollTop>
+                <Box sx={{ display: 'flex', width: '100%' }}>
+                  <Header open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+                  <Drawer open={drawerOpen} handleDrawerToggle={handleDrawerToggle} />
+                  <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 }, 
+                      backgroundColor: theme.palette.background.default, minHeight: '100vh' }}>
+                    <Toolbar />
+                    <Breadcrumbs navigation={navigation} title />
+                    <Outlet />
+                  </Box>
                 </Box>
-              </Box>
-            </ScrollTop>
-          </RefreshContextProvider>
-        </DrawerOpenContext.Provider>
+              </ScrollTop>
+            </RefreshContextProvider>
+          </DrawerOpenContext.Provider>
+        </LoadingContextProvider>
       }
     </UserContext.Provider>
   );

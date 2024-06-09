@@ -5,6 +5,7 @@
 
 // react
 import { ReactNode, useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 
 // material-ui
 import {
@@ -70,6 +71,7 @@ function Pin({ size = 20 }) {
 }
 
 const MapPage = () => {
+  const theme = useTheme();
   const [viewState, setViewState] = useState(DEFAULT_VIEW);
   const [popupInfo, setPopupInfo] = useState<PopupInfo | null>(null);
   const [people, setPeople] = useState<TeamMember[]>([]);
@@ -146,18 +148,18 @@ const MapPage = () => {
       {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
         <Stack direction="row" justifyContent={'space-between'} >
-          <Typography variant="h5">{Labels.title}</Typography>
+          <Typography variant="h5" color={theme.palette.text.primary}>{Labels.title}</Typography>
           <Stack direction="row" spacing={'1rem'}>
             <Button
               title={Labels.resetButton}
-              variant="contained"
+              variant="outlined"
               color="secondary"
               onClick={reset}>
               {Labels.resetButton}
             </Button>
             <Button
               title={Labels.saveButton}
-              variant="contained"
+              variant="outlined"
               color="primary"
               disabled={true}
               onClick={save}>

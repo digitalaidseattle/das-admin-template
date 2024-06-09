@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 // material-ui
 import { Grid, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
+import { useTheme } from '@mui/material/styles';
 
 // project imports
 import MainCard from '../MainCard';
@@ -16,6 +17,7 @@ interface PROPS {
 }
 
 const Breadcrumbs: React.FC<PROPS> = ({ navigation, title, others }) => {
+  const theme = useTheme();
   const location = useLocation();
   const [main, setMain] = useState<any>({});
   const [item, setItem] = useState<any>({});
@@ -69,7 +71,7 @@ const Breadcrumbs: React.FC<PROPS> = ({ navigation, title, others }) => {
   if (item && item.type === 'item') {
     itemTitle = item.title;
     itemContent = (
-      <Typography variant="subtitle1" color="textPrimary">
+      <Typography variant="h6" color={theme.palette.text.primary}>
         {itemTitle}
       </Typography>
     );
@@ -81,7 +83,7 @@ const Breadcrumbs: React.FC<PROPS> = ({ navigation, title, others }) => {
           <Grid container direction="column" justifyContent="flex-start" alignItems="flex-start" spacing={1}>
             <Grid item>
               <MuiBreadcrumbs aria-label="breadcrumb">
-                <Typography component={Link} to="/" color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
+                <Typography component={Link} to="/" color={theme.palette.text.primary} variant="h6" sx={{ textDecoration: 'none' }}>
                   Home
                 </Typography>
                 {mainContent}
@@ -90,7 +92,7 @@ const Breadcrumbs: React.FC<PROPS> = ({ navigation, title, others }) => {
             </Grid>
             {title && (
               <Grid item sx={{ mt: 2 }}>
-                <Typography variant="h5">{item.title}</Typography>
+                <Typography variant="h5" color={theme.palette.text.primary}>{item.title}</Typography>
               </Grid>
             )}
           </Grid>
