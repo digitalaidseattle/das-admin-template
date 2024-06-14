@@ -24,16 +24,16 @@ const TicketPage = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [ticket, setTicket] = useState<Ticket>();
-  const [changes, setChanges] = useState<Record<string, unknown>>({});
+  const [changes, setChanges] = useState<Map<string, unknown>>(new Map());
   const [messages, setMessages] = useState<Map<string, string>>(new Map());
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [staff, setStaff] = useState<Staff[]>();
 
   useEffect(() => {
-    ticketService.getTicket(Number(id))
+    ticketService.getById(id)
       .then((resp: Ticket) => {
         setTicket(resp);
-        setChanges({});
+        setChanges(new Map());
       })
   }, [id]);
 
@@ -45,7 +45,7 @@ const TicketPage = () => {
   }, []);
 
   const handleChange = (field: string, value: unknown) => {
-    changes[field] = value;
+    changes.set(field, value);
     setChanges({ ...changes })
 
     const clone = Object.assign({}, ticket);
@@ -56,7 +56,7 @@ const TicketPage = () => {
   }
 
   const reset = () => {
-    ticketService.getTicket(Number(id))
+    ticketService.getById(id)
       .then((resp: Ticket) => setTicket(resp))
   }
 
@@ -64,7 +64,7 @@ const TicketPage = () => {
     ticketService.updateTicket(user!, ticket!, changes)
       .then((resp: Ticket) => {
         setTicket(resp);
-        setChanges({});
+        setChanges(new Map());
         setOpenSnack(true);
       })
   }

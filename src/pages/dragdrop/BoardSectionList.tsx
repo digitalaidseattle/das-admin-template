@@ -32,7 +32,7 @@ const [boardSections, setBoardSections] =
     useState<BoardSectionsType>();
 
     useEffect(() => {
-        ticketService.getTickets(NUM_TIX)
+        ticketService.getAll(NUM_TIX)
             .then((tix) => setTickets(tix));
     }, []);
 
