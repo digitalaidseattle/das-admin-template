@@ -44,7 +44,7 @@ const [boardSections, setBoardSections] =
 
   const [activeTicketId, setActiveTicketId] = useState<null | number>(null);
 
-  const [changes, setChanges] = useState<Record<string, unknown>>({});
+  const [changes, setChanges] = useState<Map<string, unknown>>(new Map());
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -144,11 +144,11 @@ const [boardSections, setBoardSections] =
       }));
     }
     // persist status changes in database
-    changes["status"] = active.data.current?.sortable.containerId;
+    changes.set("status", active.data.current?.sortable.containerId);
     setChanges({ ...changes });
-    ticketService.updateTicket(user!, ticket!, changes)
+    ticketService.update(user!, ticket!, changes)
       .then(() => {
-        setChanges({});
+        setChanges(new Map());
       })
 
     setActiveTicketId(null);

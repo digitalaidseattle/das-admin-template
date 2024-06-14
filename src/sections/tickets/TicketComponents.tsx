@@ -3,8 +3,9 @@ import moment from "moment";
 import { Link as RouterLink } from 'react-router-dom';
 import Dot from "../../components/@extended/Dot";
 import MainCard from "../../components/MainCard";
-import { Ticket, TicketHistory, Staff } from "./ticketService";
+import { Ticket, TicketHistory } from "./ticketService";
 import useAppConstants from "../../services/useAppConstants";
+import { Staff } from "./staffService";
 
 
 interface TicketProps {

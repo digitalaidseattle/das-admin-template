@@ -4,10 +4,9 @@
  *  @copyright 2024 Digital Aid Seattle
  *
  */
-import { describe, expect, it, vi } from 'vitest'
-import { supabaseClient, QueryModel } from '../../services/supabaseClient'
-import { staffService } from './staffService'
-import { User } from '@supabase/supabase-js';
+import { describe, expect, it, vi } from 'vitest';
+import { supabaseClient } from '../../services/supabaseClient';
+import { staffService } from './staffService';
 
 const mockFilterBuilder = {
     limit: vi.fn(() => Promise.resolve({})),

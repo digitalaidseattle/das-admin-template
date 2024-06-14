@@ -6,7 +6,7 @@ import TicketsTable from '../sections/tickets/TicketsTable';
 import ExcelPage from './ExcelPage';
 import MapPage from './MapPage';
 import PrivacyPage from './PrivacyPage';
-import TicketPage from './TicketPage';
+import TicketPage from '../sections/tickets/TicketPage';
 import UploadPage from './UploadPage';
 import Login from './authentication/Login';
 import DashboardDefault from './dashboard';

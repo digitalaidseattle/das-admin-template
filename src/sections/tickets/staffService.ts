@@ -38,7 +38,7 @@ class StaffService implements EntityService<Staff> {
             .then(resp => resp.data ?? undefined)
     }
 
-    async create(user: User, staff: Staff): Promise<Staff> {
+    async create(_user: User, staff: Staff): Promise<Staff> {
         return supabaseClient.from(TABLE_STAFF)
             .insert(staff)
             .select()
@@ -46,7 +46,7 @@ class StaffService implements EntityService<Staff> {
             .then(resp => resp.data)
     }
 
-    async update(user: User, staff: Staff, changes: Map<string, unknown>): Promise<Staff> {
+    async update(_user: User, staff: Staff, changes: Map<string, unknown>): Promise<Staff> {
         return supabaseClient.from(TABLE_STAFF)
             .update(changes)
             .eq('id', staff.id)
