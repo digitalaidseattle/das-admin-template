@@ -112,7 +112,6 @@ const TicketTableHead: React.FC<TicketTableHeadProps> = ({ order, orderBy }) => 
 
 // ==============================|| TICKETS TABLE ||============================== //
 
-const NUM_TIX = 10;
 
 export default function TicketsTable() {
     const [order] = useState<SortDirection>('desc');
@@ -123,7 +122,7 @@ export default function TicketsTable() {
 
     useEffect(() => {
         setLoading(true)
-        ticketService.getTickets(NUM_TIX)
+        ticketService.getAll()
             .then((tix) => setTickets(tix))
             .finally(() => setLoading(false));
     }, [refresh, setLoading])

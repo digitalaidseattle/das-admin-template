@@ -10,10 +10,11 @@ import { useParams } from 'react-router';
 // material-ui
 import { Button, Grid, Stack, Typography } from '@mui/material';
 
-import { DASSnackbar } from '../components/DASSnackbar';
-import { UserContext } from '../components/contexts/UserContext';
-import { TicketHistoryCard, TicketLongForm } from '../sections/tickets/TicketComponents';
-import { Ticket, Staff, ticketService } from '../sections/tickets/ticketService';
+import { DASSnackbar } from '../../components/DASSnackbar';
+import { UserContext } from '../../components/contexts/UserContext';
+import { TicketHistoryCard, TicketLongForm } from './TicketComponents';
+import { Ticket, ticketService } from './ticketService';
+import { Staff, staffService } from './staffService';
 
 const Labels = {
   updateMessage: 'Ticket updated.',
@@ -24,28 +25,28 @@ const TicketPage = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [ticket, setTicket] = useState<Ticket>();
-  const [changes, setChanges] = useState<Record<string, unknown>>({});
+  const [changes, setChanges] = useState<Map<string, unknown>>(new Map());
   const [messages, setMessages] = useState<Map<string, string>>(new Map());
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [staff, setStaff] = useState<Staff[]>();
 
   useEffect(() => {
-    ticketService.getTicket(Number(id))
+    ticketService.getById(id)
       .then((resp: Ticket) => {
         setTicket(resp);
-        setChanges({});
+        setChanges(new Map());
       })
   }, [id]);
 
   useEffect(() => {
-    ticketService.getStaff()
+    staffService.getAll()
       .then((resp: Staff[]) => {
         setStaff(resp);
       })
   }, []);
 
   const handleChange = (field: string, value: unknown) => {
-    changes[field] = value;
+    changes.set(field, value);
     setChanges({ ...changes })
 
     const clone = Object.assign({}, ticket);
@@ -56,15 +57,15 @@ const TicketPage = () => {
   }
 
   const reset = () => {
-    ticketService.getTicket(Number(id))
+    ticketService.getById(id)
       .then((resp: Ticket) => setTicket(resp))
   }
 
   const save = () => {
-    ticketService.updateTicket(user!, ticket!, changes)
+    ticketService.update(user!, ticket!, changes)
       .then((resp: Ticket) => {
         setTicket(resp);
-        setChanges({});
+        setChanges(new Map());
         setOpenSnack(true);
       })
   }

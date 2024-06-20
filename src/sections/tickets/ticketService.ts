@@ -7,6 +7,7 @@
 
 import { User } from "@supabase/supabase-js";
 import { supabaseClient, PageInfo, QueryModel } from "../../services/supabaseClient";
+import { EntityService } from "../../services/entityService";
 
 
 type Ticket = {
@@ -33,15 +34,17 @@ type TicketHistory = {
     change_by: string
 };
 
-type Staff = {
-    id: number,
-    created_at: Date,
-    name: string,
-    email: string,
-    roles: string,
-};
+const DEFAULT_COUNT = 100;
+const TABLE_SERVICE_TICKET = 'service_ticket';
 
-class TicketService {
+class TicketService implements EntityService<Ticket> {
+    async getAll(count?: number | undefined): Promise<Ticket[]> {
+        return supabaseClient.from(TABLE_SERVICE_TICKET)
+            .select()
+            .limit(count ?? DEFAULT_COUNT)
+            .order('created_at', { ascending: false })
+            .then(tixResp => tixResp.data ?? [])
+    }
 
     validateTicket(updated: Ticket): Map<string, string> {
         const map = new Map<string, string>();
@@ -57,7 +60,7 @@ class TicketService {
 
     async query(query: QueryModel): Promise<PageInfo<Ticket>> {
         const _offset = query.page ? query.page * query.pageSize : 0;
-        return supabaseClient.from('service_ticket')
+        return supabaseClient.from(TABLE_SERVICE_TICKET)
             .select('*', { count: 'exact' })
             .range(_offset, _offset + query.pageSize - 1)
             .order(query.sortField, { ascending: query.sortDirection === 'asc' })
@@ -69,57 +72,48 @@ class TicketService {
             })
     }
 
-    async getTickets(count: number): Promise<Ticket[]> {
-        return supabaseClient.from('service_ticket')
-            .select()
-            .limit(count)
-            .order('created_at', { ascending: false })
-            .then(tixResp => tixResp.data ?? [])
-    }
-
-    async getTicket(ticket_id: number): Promise<Ticket> {
-        return supabaseClient.from('service_ticket')
+    async getById(ticket_id: string | undefined): Promise<Ticket> {
+        return supabaseClient.from(TABLE_SERVICE_TICKET)
             .select('*, ticket_history(*)')
-            .eq('id', ticket_id)
+            .eq('id', Number(ticket_id))
             .single()
-            .then(tixResp => tixResp.data ?? undefined )
+            .then(tixResp => tixResp.data ?? undefined)
     }
 
-    async createTicket(user: User, tix: Ticket): Promise<Ticket> {
+    async create(user: User, tix: Ticket): Promise<Ticket> {
         tix.status = 'new';
-        return supabaseClient.from('service_ticket')
+        return supabaseClient.from(TABLE_SERVICE_TICKET)
             .insert(tix)
             .select()
-            .then(async tixResp => {
-                const ticket = tixResp.data![0] as Ticket;
+            .single()
+            .then(async resp => {
+                const ticket = resp.data! as Ticket;
                 const history = {
                     'service_ticket_id': ticket.id,
                     'description': 'New ticket',
                     'change_by': user.email
                 }
                 return this.createTicketHistory(history as TicketHistory)
-                    .then(() => this.getTicket(ticket.id))
+                    .then(() => this.getById(ticket.id.toString()))
             })
     }
 
-    async updateTicket(user: User, tix: Ticket, changes: Record<string, unknown>): Promise<Ticket> {
-        return supabaseClient.from('service_ticket')
+    async update(user: User, tix: Ticket, changes: Map<string, unknown>): Promise<Ticket> {
+        return supabaseClient.from(TABLE_SERVICE_TICKET)
             .update(changes)
             .eq('id', tix.id)
             .select()
             .then(async tixResp => {
                 const ticket = tixResp.data![0] as Ticket;
-                const description = Object.entries(changes).map(e => `Changed "${e[0]}" to "${e[1]}"`).join('\n');
                 const history = {
                     'service_ticket_id': tix.id,
-                    'description': description,
+                    'description': JSON.stringify(Array.from(changes.entries())),
                     'change_by': user.email
                 }
                 return this.createTicketHistory(history as TicketHistory)
-                    .then(() => this.getTicket(ticket.id))
+                    .then(() => this.getById(ticket.id.toString()))
             })
     }
-
 
     async createTicketHistory(history: TicketHistory): Promise<TicketHistory> {
         return supabaseClient.from('ticket_history')
@@ -127,16 +121,9 @@ class TicketService {
             .select()
             .then(histResp => histResp.data![0] as TicketHistory);
     }
-
-    async getStaff(): Promise<Staff[]> {
-        return supabaseClient.from('staff')
-            .select()
-            .then(tixResp => tixResp.data as Staff[])
-    }
-
 }
 
 const ticketService = new TicketService()
 export { ticketService };
-export type { PageInfo, Ticket, Staff, TicketHistory };
+export type { PageInfo, Ticket, TicketHistory };
 
