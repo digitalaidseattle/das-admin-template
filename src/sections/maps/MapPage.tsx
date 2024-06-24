@@ -31,7 +31,7 @@ import {
 import Map from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { Location, TeamMember, mappingService } from '../sections/maps/mappingService';
+import { Location, TeamMember, mappingService } from './mappingService';
 
 const Labels = {
   title: 'Map Example',
@@ -77,8 +77,10 @@ const MapPage = () => {
   const [people, setPeople] = useState<TeamMember[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [pins, setPins] = useState<ReactNode[]>([]);
+  const mapStyle = `${import.meta.env.VITE_MAP_STYLE}?key=${import.meta.env.VITE_MAPTILER_API_KEY}`;
 
   useEffect(() => {
+    console.log(mapStyle)
     Promise
       .all([
         mappingService.getPeople(),
@@ -190,7 +192,7 @@ const MapPage = () => {
           <Map
             {...viewState}
             onMove={evt => setViewState(evt.viewState)}
-            mapStyle={`${import.meta.env.VITE_MAP_STYLE}?key=${import.meta.env.VITE_MAPTILER_API_KEY}`}
+            mapStyle={mapStyle}
           >
             <GeolocateControl position="top-left" />
             <FullscreenControl position="top-left" />
