@@ -4,7 +4,6 @@ import MinimalLayout from '../layout/MinimalLayout';
 import TicketsGrid from '../sections/tickets/TicketsGrid';
 import TicketsTable from '../sections/tickets/TicketsTable';
 import ExcelPage from './ExcelPage';
-import MapPage from './MapPage';
 import PrivacyPage from './PrivacyPage';
 import TicketPage from '../sections/tickets/TicketPage';
 import UploadPage from './UploadPage';
@@ -13,6 +12,7 @@ import DashboardDefault from './dashboard';
 import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
 import DragDropPage from './dragdrop/DragDropPage';
+import MapPage from '../sections/maps/MapPage';
 
 const routes = [
   {

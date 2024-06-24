@@ -100,11 +100,12 @@ class TicketService implements EntityService<Ticket> {
 
     async update(user: User, tix: Ticket, changes: Map<string, unknown>): Promise<Ticket> {
         return supabaseClient.from(TABLE_SERVICE_TICKET)
-            .update(changes)
+            .update(Object.fromEntries(changes.entries()))
             .eq('id', tix.id)
             .select()
+            .single()
             .then(async tixResp => {
-                const ticket = tixResp.data![0] as Ticket;
+                const ticket = tixResp.data;
                 const history = {
                     'service_ticket_id': tix.id,
                     'description': JSON.stringify(Array.from(changes.entries())),
