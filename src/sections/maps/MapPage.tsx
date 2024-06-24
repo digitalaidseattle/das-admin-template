@@ -80,7 +80,7 @@ const MapPage = () => {
   const mapStyle = import.meta.env.VITE_MAP_STYLE + '?key='+ import.meta.env.VITE_MAPTILER_API_KEY;
 
   useEffect(() => {
-    console.log(MapPage, mapStyle, import.meta.env.VITE_MAPTILER_API_KEY)
+    console.log('MapPage', mapStyle, import.meta.env.VITE_MAPTILER_API_KEY)
     Promise
       .all([
         mappingService.getPeople(),
