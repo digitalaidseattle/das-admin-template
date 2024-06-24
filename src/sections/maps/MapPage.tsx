@@ -77,10 +77,10 @@ const MapPage = () => {
   const [people, setPeople] = useState<TeamMember[]>([]);
   const [locations, setLocations] = useState<Location[]>([]);
   const [pins, setPins] = useState<ReactNode[]>([]);
-  const mapStyle = `${import.meta.env.VITE_MAP_STYLE}?key=${import.meta.env.VITE_MAPTILER_API_KEY}`;
+  const mapStyle = import.meta.env.VITE_MAP_STYLE + '?key='+ import.meta.env.VITE_MAPTILER_API_KEY;
 
   useEffect(() => {
-    console.log(mapStyle)
+    console.log(MapPage, mapStyle, import.meta.env.VITE_MAPTILER_API_KEY)
     Promise
       .all([
         mappingService.getPeople(),
