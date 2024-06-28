@@ -24,6 +24,8 @@ The template is built with:
 * Vite
 * Supabase
 
+Additional dependencies are added to support individual features
+
 ## Features
 ### Application Shell
 The responsive shell that provides a toolbar, navbar, and aside. 
@@ -32,19 +34,22 @@ The responsive shell that provides a toolbar, navbar, and aside.
 The DAS template uses Supabase for user authentication and authorization.  Implementation for Google and Microsoft authentication is provided.
 
 ### CRUD
-The DAS template uses Supabase for data storage.  It is anticipated that applications requiring RDBMS support would use this.  Examples of lists, dialogs, and forms with validation are available.
+The DAS template uses Supabase for data storage.  It is anticipated that applications requiring RDBMS support would use this.  Examples of lists, dialogs, and forms with validation are available. The file `src/setions/tickets/TicketTable.tsx` and `src/setions/tickets/TicketGrid.tsx` are entry points for the example.
 
 ### Markdown
 The DAS template includes support for displaying Markdown. The typical use-case is to display privacy policies and/or terms and conditions.  The content on the page can be stored as a application resource to allow changes withou redployment.  One consequence of supporting Markdown is not using Tailwind CSS.  Tailwind removes default formatting from HTML components (e.g. h1 renders plainly with default font size and weight). Markdown is implemented with react-markdown.
 
 ### File Storage
-The DAS template includes an example of uploading, reading, as listing of files in Supabase's storage system.  The use-case for this could include storing documents, like release forms, for an application. The file `src/pages/UploadPage.tsx` is the entry point for the example.
+The DAS template includes an example of uploading, reading, as listing of files in Supabase's storage system.  The use-case for this could include storing documents, like release forms, for an application. The file `src/setions/file-storage/UploadPage.tsx` is the entry point for the example.
 
 ### Maps
-The DAS template includes an example mapping page `src/pages/MapPage.tsx`.  Maps were implemented with react-map-gl & maplibre-gl.
+The DAS template includes an example mapping page `src/sections/maps/MapPage.tsx`.  Maps were implemented with react-map-gl & maplibre-gl.
 
 ### Drag & Drop
-The DAS template includes an example of drag-and-drop use. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
+The DAS template includes an example of drag-and-drop use `src/sections/dragdrop/DragDropPage.tsx`. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
+
+### Excel Parsing
+The DAS template includes an example of parsing a spreadsheet. it is implemented with `xlsx`.
 
 ## Components
 The template includes components that provide common functionality and enforce standards.  The components should be used in venture applications to meet required behaviors.  This consistency will allow maintainers to have fewer points of support.

@@ -8,10 +8,10 @@ import { useState, useEffect } from 'react';
 
 // material-ui
 import { Box, Typography } from '@mui/material';
-import StaffTable from '../sections/staff/StaffTable';
-import MainCard from '../components/MainCard';
-import { Staff, staffService } from '../services/staffService';
-import { DASSnackbar } from '../components/DASSnackbar';
+import StaffTable from './StaffTable';
+import MainCard from '../../components/MainCard';
+import { Staff, staffService } from '../../services/staffService';
+import { DASSnackbar } from '../../components/DASSnackbar';
 import { AlertColor } from "@mui/material";
 
 const ExcelPage = () => {

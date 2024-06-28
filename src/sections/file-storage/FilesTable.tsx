@@ -12,7 +12,7 @@ import {
     TableHead,
     TableRow
 } from '@mui/material';
-import { File } from '../services/storageService';
+import { File } from '../../services/storageService';
 
 
 // ==============================|| HEADER CELL ||============================== //

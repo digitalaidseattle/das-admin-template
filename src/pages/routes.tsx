@@ -3,16 +3,16 @@ import MainLayout from '../layout/MainLayout';
 import MinimalLayout from '../layout/MinimalLayout';
 import TicketsGrid from '../sections/tickets/TicketsGrid';
 import TicketsTable from '../sections/tickets/TicketsTable';
-import ExcelPage from './ExcelPage';
+import ExcelPage from '../sections/excel/ExcelPage';
 import PrivacyPage from './PrivacyPage';
 import TicketPage from '../sections/tickets/TicketPage';
-import UploadPage from './UploadPage';
+import UploadPage from '../sections/file-storage/UploadPage';
 import Login from './authentication/Login';
-import DashboardDefault from './dashboard';
 import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
-import DragDropPage from './dragdrop/DragDropPage';
 import MapPage from '../sections/maps/MapPage';
+import DashboardDefault from './dashboard';
+import DragDropPage from '../sections/dragdrop/DragDropPage';
 
 const routes = [
   {

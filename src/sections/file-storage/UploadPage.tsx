@@ -1,10 +1,10 @@
-import MainCard from '../components/MainCard';
-import { storageService } from '../services/storageService';
+import MainCard from '../../components/MainCard';
+import { storageService } from '../../services/storageService';
 import { useEffect, useState } from 'react';
-import FilesTable from '../sections/FilesTable';
+import FilesTable from './FilesTable';
 import { v4 as uuid } from 'uuid';
 import moment from "moment";
-import { File } from '../services/storageService';
+import { File } from '../../services/storageService';
 
 // ==============================|| UPLOAD PAGE ||============================== //
 
