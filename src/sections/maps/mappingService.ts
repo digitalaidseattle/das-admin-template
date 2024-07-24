@@ -68,7 +68,7 @@ class MappingService {
     async getPeople(): Promise<TeamMember[]> {
         const TABLE = import.meta.env.VITE_AIRTABLE_TABLE_PEOPLE_REFERENCE;
         const MAX_RECORDS = 100;
-        const FILTER = `{Manual Status} = "${'ongoing'}"`
+        const FILTER = `{Manual Status} = "${'Cadre'}"`
 
         return airtableService.getTableRecords(TABLE, MAX_RECORDS, FILTER)
             .then(records => records.map(r => {
