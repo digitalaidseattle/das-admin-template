@@ -108,12 +108,10 @@ const TicketTableHead: React.FC<TicketTableHeadProps> = ({ order, orderBy }) => 
     );
 }
 
-
-
 // ==============================|| TICKETS TABLE ||============================== //
 
-
-export default function TicketsTable() {
+// For more advanced table with features like paging sorting, see TableGrid
+export default function TicketsTable(props?: {count?: number}) {
     const [order] = useState<SortDirection>('desc');
     const [orderBy] = useState<string>('id');
     const [tickets, setTickets] = useState<Ticket[]>([]);
@@ -122,7 +120,7 @@ export default function TicketsTable() {
 
     useEffect(() => {
         setLoading(true)
-        ticketService.getAll()
+        ticketService.getAll( props? props.count ?? 10 : 10)
             .then((tix) => setTickets(tix))
             .finally(() => setLoading(false));
     }, [refresh, setLoading])
