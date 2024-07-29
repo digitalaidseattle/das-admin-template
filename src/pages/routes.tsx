@@ -34,8 +34,8 @@ const routes = [
       {
         path: "tickets",
         element: (
-          <MainCard title="Tickets Page">
-            <TicketsTable />
+          <MainCard title="Last 100 Tickets">
+            <TicketsTable count={100}/>
           </MainCard>),
       },
       {

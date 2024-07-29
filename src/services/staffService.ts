@@ -8,7 +8,8 @@
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabaseClient";
 import { v4 as uuid } from 'uuid';
-import { read, utils } from "xlsx";
+import { read, write, utils } from "xlsx";
+import { saveAs } from 'file-saver';
 
 type Staff = {
     id: string,
@@ -61,6 +62,19 @@ class StaffService {
             employee.roles = employee.roles.toString().split(",");
         })
         return data;
+    }
+
+
+    async download(fileName: string, data: any): Promise<boolean> {
+        const workbook = utils.book_new();
+
+        const sheet = utils.json_to_sheet(data)
+        utils.book_append_sheet(workbook, sheet);
+
+        const excelBuffer = write(workbook, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+        saveAs(blob, `${fileName}`);
+        return true;
     }
 }
 
