@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {
@@ -17,29 +17,27 @@ import {
 } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates, arrayMove } from '@dnd-kit/sortable';
 import { BoardSections as BoardSectionsType } from './types';
-import { getTicketById } from './utils/tickets';
-import { findBoardSectionContainer, initializeBoard } from './utils/board';
+import { findBoardSectionContainer } from './utils/board';
 import BoardSection from './BoardSection';
-import TicketItem from './TicketItem';
-import { Ticket, ticketService } from '../../sections/tickets/ticketService';
-import { UserContext } from '../../components/contexts/UserContext';
+import DDItem from './DDItem';
+import { Ticket } from '../tickets/ticketService';
+import { BoardSections } from './types';
 
-const BoardSectionList = () => {
-const { user } = useContext(UserContext);
-const NUM_TIX = 20;
-const [tickets, setTickets] = useState<Ticket[]>([]);
+type DragDropBoardProps = {
+  categories: {};
+  items: Ticket[];
+  onChange: Function;
+};
+
+const DragDropBoard = ({ items, onChange, categories }: DragDropBoardProps) => {
+
 const [boardSections, setBoardSections] =
     useState<BoardSectionsType>();
 
     useEffect(() => {
-        ticketService.getAll(NUM_TIX)
-            .then((tix) => setTickets(tix));
-    }, []);
-
-    useEffect(() => {
-        const initialBoardSections = initializeBoard(tickets);
+        const initialBoardSections = initializeBoard(items);
         setBoardSections(initialBoardSections);
-    }, [tickets]);
+    }, [items]);
 
 
   const [activeTicketId, setActiveTicketId] = useState<null | number>(null);
@@ -143,13 +141,13 @@ const [boardSections, setBoardSections] =
         ),
       }));
     }
-    // persist status changes in database
+
     changes.set("status", active.data.current?.sortable.containerId);
     setChanges({ ...changes });
-    ticketService.update(user!, ticket!, changes)
-      .then(() => {
-        setChanges(new Map());
-      })
+
+     // sends the changes back to be persisted outside drag and drop component
+    onChange(changes, ticket);
+    setChanges(new Map());
 
     setActiveTicketId(null);
   };
@@ -158,7 +156,31 @@ const [boardSections, setBoardSections] =
     ...defaultDropAnimation,
   };
 
-  const ticket = activeTicketId ? getTicketById(tickets, activeTicketId) : null;
+  const getItemById = (tickets: Ticket[], id: number) => {
+    return tickets.find((ticket) => ticket.id === id);
+  };
+
+  const ticket = activeTicketId ? getItemById(items, activeTicketId) : null;
+
+  const initializeBoard = (tickets: Ticket[]) => {
+    const boardSections: BoardSections = {};
+  
+    Object.keys(categories).forEach((boardSectionKey) => {
+      boardSections[boardSectionKey] = getItemsByCategory(
+        tickets,
+        boardSectionKey
+      );
+    });
+  
+    return boardSections;
+  };
+
+  const getItemsByCategory = (tickets: Ticket[], status: String) => {
+    return tickets.filter((ticket) => ticket.status === status);
+  };
+
+  
+  
 
   return (
     boardSections &&
@@ -176,12 +198,12 @@ const [boardSections, setBoardSections] =
               <BoardSection
                 id={boardSectionKey}
                 title={boardSectionKey}
-                tickets={boardSections[boardSectionKey]}
+                items={boardSections[boardSectionKey]}
               />
             </Grid>
           ))}
           <DragOverlay dropAnimation={dropAnimation}>
-            {ticket ? <TicketItem ticket={ticket} /> : null}
+            {ticket ? <DDItem item={ticket} /> : null}
           </DragOverlay>
         </Grid>
       </DndContext>
@@ -189,4 +211,4 @@ const [boardSections, setBoardSections] =
   );
 };
 
-export default BoardSectionList;
+export default DragDropBoard;

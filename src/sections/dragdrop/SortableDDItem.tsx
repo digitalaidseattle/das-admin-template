@@ -2,12 +2,12 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-type SortableTicketItemProps = {
+type SortableDDItemProps = {
   children: React.ReactNode;
   id: number;
 };
 
-const SortableTicketItem = ({ children, id }: SortableTicketItemProps) => {
+const SortableDDItem = ({ children, id }: SortableDDItemProps) => {
   const {
     attributes,
     listeners,
@@ -30,4 +30,4 @@ const SortableTicketItem = ({ children, id }: SortableTicketItemProps) => {
   );
 };
 
-export default SortableTicketItem;
+export default SortableDDItem;

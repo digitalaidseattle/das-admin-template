@@ -7,16 +7,16 @@ import {
 } from '@dnd-kit/sortable';
 import Typography from '@mui/material/Typography';
 import { Ticket } from '../../sections/tickets/ticketService';
-import TicketItem from './TicketItem';
-import SortableTicketItem from './SortableTicketItem';
+import DDItem from './DDItem';
+import SortableDDItem from './SortableDDItem';
 
 type BoardSectionProps = {
   id: string;
   title: string;
-  tickets: Ticket[];
+  items: Ticket[];
 };
 
-const BoardSection = ({ id, title, tickets }: BoardSectionProps) => {
+const BoardSection = ({ id, title, items }: BoardSectionProps) => {
   const { setNodeRef } = useDroppable({
     id,
   });
@@ -28,15 +28,15 @@ const BoardSection = ({ id, title, tickets }: BoardSectionProps) => {
       </Typography>
       <SortableContext
         id={id}
-        items={tickets}
+        items={items}
         strategy={verticalListSortingStrategy}
       >
         <div ref={setNodeRef}>
-          {tickets.map((ticket) => (
-            <Box key={ticket.id} sx={{ mb: 2 }}>
-              <SortableTicketItem id={ticket.id}>
-                <TicketItem ticket={ticket} />
-              </SortableTicketItem>
+          {items.map((item) => (
+            <Box key={item.id} sx={{ mb: 2 }}>
+              <SortableDDItem id={item.id}>
+                <DDItem item={item} />
+              </SortableDDItem>
             </Box>
           ))}
         </div>
