@@ -1,15 +1,19 @@
-import { BoardSections } from '../types';
+import { UniqueIdentifier } from '@dnd-kit/core';
+import { BoardSectionType, DDType } from '../types';
 
-export const findBoardSectionContainer = (
-  boardSections: BoardSections,
-  id: number
+export const findBoardSectionContainer = <T extends DDType,>(
+  boardSections: BoardSectionType<T>,
+  id: UniqueIdentifier | undefined
 ) => {
-  if (id in boardSections) {
-    return id;
-  }
+  if (id) {
+    if (id in boardSections) {
+      return id;
+    }
 
-  const container = Object.keys(boardSections).find((key) =>
-    boardSections[key].find((item) => item.id === id)
-  );
-  return container;
+    const container = Object.keys(boardSections).find((key) =>
+      boardSections[key].find((item) => item.id === id)
+    );
+    return container;
+  }
+  return undefined;
 };
