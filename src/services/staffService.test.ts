@@ -2,7 +2,8 @@ import { supabaseClient } from './supabaseClient'
 import { staffService, Staff } from './staffService';
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { v4 as uuid } from 'uuid';
-import { read, utils } from "xlsx";
+import { read, utils, WorkBook, write } from "xlsx";
+import { saveAs } from 'file-saver';
 
 describe('staff service tests', () => {
 
@@ -108,16 +109,26 @@ describe('staff service tests', () => {
         }
     })
 
+    vi.mock('xlsx', () => ({
+        read: vi.fn(),
+        write: vi.fn(),
+        utils: {
+            sheet_to_json: vi.fn(),
+            book_new: vi.fn(),
+            json_to_sheet: vi.fn(),
+            book_append_sheet: vi.fn()
+        }
+    }));
+
+    vi.mock('uuid', () => ({
+        v4: vi.fn()
+    }));
+
+    vi.mock('file-saver', () => ({
+        saveAs: vi.fn()
+    }))
+
     it('handleParse', async () => {
-        vi.mock('xlsx', () => ({
-            read: vi.fn(),
-            utils: {
-                sheet_to_json: vi.fn()
-            }
-        }));
-        vi.mock('uuid', () => ({
-            v4: vi.fn()
-        }));
 
         const mockArrayBuffer = new ArrayBuffer(8);
         const mockSheetData = [
@@ -144,5 +155,27 @@ describe('staff service tests', () => {
         expect(result[0].id).toBe('123');
         expect(result[0].roles).toEqual(['lawyer', 'writer']);
         expect(result[0].created_at).toBeInstanceOf(Date);
+    })
+
+    it('download', async () => {
+
+        const mockArrayBuffer = new ArrayBuffer(8);
+        const mockSheetData: any[] = [];
+        const mockWorkbook = {} as WorkBook;
+
+        (utils.json_to_sheet as any).mockReturnValue(mockSheetData);
+        (utils.book_new as any).mockReturnValue(mockWorkbook);
+        (write as any).mockReturnValue(mockArrayBuffer);
+
+        const mockData: any[] = [];
+        staffService.download('test', mockData)
+            .then(resp => {
+                expect(utils.json_to_sheet).toBeCalledWith(mockData);
+                expect(utils.book_append_sheet).toBeCalledWith(mockWorkbook, mockSheetData);
+                expect(write).toBeCalledWith(mockWorkbook, { bookType: 'xlsx', type: 'array' });
+                expect(saveAs).toBeCalledWith(expect.anything(), 'test');
+                expect(resp).toBe(true)
+            })
+
     })
 })

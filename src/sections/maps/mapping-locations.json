@@ -1,5 +1,15 @@
 [
     {
+        "name": "Auburn, WA",
+        "latitude": 47.3073,
+        "longitude": -122.2285
+    },
+    {
+        "name": "Auburn, WA, USA",
+        "latitude": 47.3073,
+        "longitude": -122.2285
+    },
+    {
         "name": "Bellevue, WA United States",
         "latitude": 47.6101,
         "longitude": -122.2015
@@ -25,6 +35,11 @@
         "longitude": -122.2054
     },
     {
+        "name": "Burbank, CA, USA",
+        "latitude": 34.1808,
+        "longitude": -118.3090
+    },
+    {
         "name": "Everett, WA, USA",
         "latitude": 47.9790,
         "longitude": -122.2021
@@ -35,6 +50,16 @@
         "longitude": -122.5801
     },
     {
+        "name": "Irvine, CA",
+        "latitude": 33.6846,
+        "longitude": -117.8265
+    },
+    {
+        "name": "Issaquah, WA",
+        "latitude": 47.5301,
+        "longitude": -122.0329
+    },
+    {
         "name": "Kent, WA",
         "latitude": 47.3831,
         "longitude": -122.2348
@@ -43,21 +68,6 @@
         "name": "Kirkland, WA",
         "latitude": 47.6769,
         "longitude": -122.2060
-    },
-    {
-        "name": "Lubbock, TX",
-        "latitude": 33.5778,
-        "longitude": -101.8553
-    },
-    {
-        "name": "Lynnwood",
-        "latitude": 47.8209,
-        "longitude": -122.3151
-    },
-    {
-        "name": "Lynnwood, WA 98087",
-        "latitude": 47.8209,
-        "longitude": -122.3151
     },
     {
         "name": "Mission Viejo, California, USA",
@@ -75,19 +85,14 @@
         "longitude": -122.0839
     },
     {
-        "name": "New York City, NY, USA",
+        "name": "New York City, NY, USA or Bethesda, Maryland, USA",
         "latitude": 40.6643,
         "longitude": -73.9385
     },
     {
-        "name": "Portland, OR",
-        "latitude": 45.5152,
-        "longitude": -122.6784
-    },
-    {
-        "name": "Redmond, WA",
-        "latitude": 47.6740,
-        "longitude": -122.1215
+        "name": "Puyallup, WA",
+        "latitude": 47.1854,
+        "longitude": -122.2929
     },
     {
         "name": "Redmond, WA, USA",
@@ -120,11 +125,6 @@
         "longitude": -122.3509
     },
     {
-        "name": "Seattle, Wa",
-        "latitude": 47.6205,
-        "longitude": -122.3509
-    },
-    {
         "name": "Seattle, Washington USA",
         "latitude": 47.6205,
         "longitude": -122.3509
@@ -135,23 +135,8 @@
         "longitude": -122.3509
     },
     {
-        "name": "Seattle, Washington, USA",
-        "latitude": 47.6205,
-        "longitude": -122.3509
-    },
-    {
-        "name": "Seattle,Washington",
-        "latitude": 47.6205,
-        "longitude": -122.3509
-    },
-    {
         "name": "Washington, DC",
         "latitude": 38.9072,
         "longitude": -77.0369
-    },
-    {
-        "name": "Woodinville",
-        "latitude": 47.7543,
-        "longitude": -122.1635
     }
 ]
