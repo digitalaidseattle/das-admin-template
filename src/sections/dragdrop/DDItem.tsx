@@ -1,15 +1,14 @@
 import { Card, CardContent } from '@mui/material';
-import { Ticket } from '../../sections/tickets/ticketService';
+import { DDType } from './types';
 
-type DDItemProps = {
-  item: Ticket;
+type DDItemProps<T extends DDType> = {
+  item: T;
 };
 
-const DDItem = ({ item }: DDItemProps) => {
+const DDItem = <T extends DDType,>({ item }: DDItemProps<T>) => {
   return (
     <Card>
       <CardContent>id: {item.id}</CardContent>
-      <CardContent>Description: {item.description}</CardContent>
     </Card>
   );
 };

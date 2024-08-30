@@ -1,46 +1,43 @@
-import { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import {
-  useSensors,
-  useSensor,
-  PointerSensor,
-  KeyboardSensor,
   DndContext,
-  closestCorners,
   DragEndEvent,
-  DragStartEvent,
   DragOverEvent,
   DragOverlay,
+  DragStartEvent,
   DropAnimation,
+  KeyboardSensor,
+  PointerSensor,
+  closestCorners,
   defaultDropAnimation,
+  useSensor,
+  useSensors,
 } from '@dnd-kit/core';
-import { sortableKeyboardCoordinates, arrayMove } from '@dnd-kit/sortable';
-import { BoardSections as BoardSectionsType } from './types';
-import { findBoardSectionContainer } from './utils/board';
+import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { ReactNode, useEffect, useState } from 'react';
 import BoardSection from './BoardSection';
 import DDItem from './DDItem';
-import { Ticket } from '../tickets/ticketService';
-import { BoardSections } from './types';
+import { BoardSectionType, DDCategory, DDType } from './types';
+import { findBoardSectionContainer } from './utils/board';
 
-type DragDropBoardProps = {
-  categories: {};
-  items: Ticket[];
+type DragDropBoardProps<T extends DDType> = {
+  categories: DDCategory<string>[];
+  items: T[];
   onChange: Function;
+  isCategory: (item: T, category: DDCategory<any>) => boolean;
+  cardRenderer?: (item: T) => ReactNode;
 };
 
-const DragDropBoard = ({ items, onChange, categories }: DragDropBoardProps) => {
+const DragDropBoard = <T extends DDType,>({ items, onChange, categories, isCategory, cardRenderer }: DragDropBoardProps<T>) => {
+  const [boardSections, setBoardSections] = useState<BoardSectionType<T>>();
 
-const [boardSections, setBoardSections] =
-    useState<BoardSectionsType>();
-
-    useEffect(() => {
-        const initialBoardSections = initializeBoard(items);
-        setBoardSections(initialBoardSections);
-    }, [items]);
+  useEffect(() => {
+    const initialBoardSections = initializeBoard(items);
+    setBoardSections(initialBoardSections);
+  }, [items]);
 
 
-  const [activeTicketId, setActiveTicketId] = useState<null | number>(null);
+  const [activeItemId, setActiveItemId] = useState<null | number>(null);
 
   const [changes, setChanges] = useState<Map<string, unknown>>(new Map());
 
@@ -52,19 +49,13 @@ const [boardSections, setBoardSections] =
   );
 
   const handleDragStart = ({ active }: DragStartEvent) => {
-    setActiveTicketId(active.id as number);
+    setActiveItemId(active.id as number);
   };
 
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     // Find the containers
-    const activeContainer = findBoardSectionContainer(
-      boardSections!,
-      active.id as number
-    );
-    const overContainer = findBoardSectionContainer(
-      boardSections!,
-      over?.id as number
-    );
+    const activeContainer = findBoardSectionContainer(boardSections!, active.id);
+    const overContainer = findBoardSectionContainer(boardSections!, over?.id);
 
     if (
       !activeContainer ||
@@ -102,10 +93,11 @@ const [boardSections, setBoardSections] =
         ],
       };
     });
-
   };
 
+  // We might have to expose this, so that handling order is possible.
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
+
     const activeContainer = findBoardSectionContainer(
       boardSections!,
       active.id as number
@@ -114,7 +106,6 @@ const [boardSections, setBoardSections] =
       boardSections!,
       over?.id as number
     );
-    
 
     if (
       !activeContainer ||
@@ -125,10 +116,10 @@ const [boardSections, setBoardSections] =
     }
 
     const activeIndex = boardSections![activeContainer].findIndex(
-      (ticket) => ticket.id === active.id
+      (item: T) => item.id === active.id
     );
     const overIndex = boardSections![overContainer].findIndex(
-      (ticket) => ticket.id === over?.id
+      (item: T) => item.id === over?.id
     );
 
     if (activeIndex !== overIndex) {
@@ -142,72 +133,76 @@ const [boardSections, setBoardSections] =
       }));
     }
 
-    changes.set("status", active.data.current?.sortable.containerId);
+    changes.set("containerId", active.data.current?.sortable.containerId);
     setChanges({ ...changes });
 
-     // sends the changes back to be persisted outside drag and drop component
-    onChange(changes, ticket);
+    // sends the changes back to be persisted outside drag and drop component
+    onChange(changes, item);
     setChanges(new Map());
 
-    setActiveTicketId(null);
+    setActiveItemId(null);
   };
 
   const dropAnimation: DropAnimation = {
     ...defaultDropAnimation,
   };
 
-  const getItemById = (tickets: Ticket[], id: number) => {
-    return tickets.find((ticket) => ticket.id === id);
+  const getItemById = (items: T[], id: number) => {
+    return items.find((item) => item.id === id);
   };
 
-  const ticket = activeTicketId ? getItemById(items, activeTicketId) : null;
+  const item = activeItemId ? getItemById(items, activeItemId) : null;
 
-  const initializeBoard = (tickets: Ticket[]) => {
-    const boardSections: BoardSections = {};
-  
-    Object.keys(categories).forEach((boardSectionKey) => {
-      boardSections[boardSectionKey] = getItemsByCategory(
-        tickets,
-        boardSectionKey
+  const initializeBoard = (items: T[]) => {
+    const boardSections: BoardSectionType<T> = {};
+
+    categories.forEach((category) => {
+      boardSections[category.value] = getItemsByCategory(
+        items,
+        category
       );
     });
-  
+
     return boardSections;
   };
 
-  const getItemsByCategory = (tickets: Ticket[], status: String) => {
-    return tickets.filter((ticket) => ticket.status === status);
+  const getItemsByCategory = (items: T[], category: DDCategory<any>) => {
+    return items.filter(t => isCategory(t, category));
   };
 
-  
-  
-
-  return (
-    boardSections &&
-    <Container>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-      >
-        <Grid container spacing={4}>
-          {Object.keys(boardSections).map((boardSectionKey) => (
-            <Grid item xs={3} key={boardSectionKey}>
-              <BoardSection
-                id={boardSectionKey}
-                title={boardSectionKey}
-                items={boardSections[boardSectionKey]}
-              />
-            </Grid>
-          ))}
-          <DragOverlay dropAnimation={dropAnimation}>
-            {ticket ? <DDItem item={ticket} /> : null}
-          </DragOverlay>
-        </Grid>
-      </DndContext>
-    </Container>
+  const columnWidth = 1 / categories.length;
+  return (boardSections &&
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCorners}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+    >
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            {categories.map((cat) => <TableCell sx={{ border: 1, width: columnWidth }}>{cat.label}</TableCell>)}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            {categories.map((cat) =>
+              <TableCell sx={{ verticalAlign: 'top', padding: 0, border: 1, backgroundColor: '#eee', }} >
+                <BoardSection id={cat.value}
+                  items={boardSections[cat.value]}
+                  cardRenderer={cardRenderer} />
+              </TableCell>
+            )}
+          </TableRow>
+        </TableBody>
+        <DragOverlay dropAnimation={dropAnimation}>
+          {item ?
+            cardRenderer ? cardRenderer(item) : <DDItem item={item} />
+            : null}
+        </DragOverlay>
+      </Table>
+    </DndContext>
   );
 };
 
