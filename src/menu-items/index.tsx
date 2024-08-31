@@ -12,7 +12,8 @@ import {
   UploadOutlined,
   DragOutlined,
   GlobalOutlined,
-  TableOutlined
+  TableOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -28,7 +29,8 @@ const icons = {
   UploadOutlined,
   DragOutlined,
   GlobalOutlined,
-  TableOutlined
+  TableOutlined,
+  CalendarOutlined
 };
 
 // ==============================|| MENU ITEMS ||============================== //
@@ -128,6 +130,15 @@ const pages = {
       type: 'item',
       url: '/excel-example',
       icon: icons.TableOutlined,
+      breadcrumbs: false
+    }
+    ,
+    {
+      id: 'calendar-example-page',
+      title: 'Calendar Example Page',
+      type: 'item',
+      url: '/calendar-example',
+      icon: icons.CalendarOutlined,
       breadcrumbs: false
     }
   ]

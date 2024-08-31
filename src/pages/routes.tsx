@@ -13,6 +13,7 @@ import SamplePage from './extra-pages/SamplePage';
 import MapPage from '../sections/maps/MapPage';
 import DashboardDefault from './dashboard';
 import DragDropPage from '../pages/dragdrop/DragDropPage';
+import CalendarPage from '../sections/calendar/CalendarPage';
 
 const routes = [
   {
@@ -65,6 +66,10 @@ const routes = [
       {
         path: "excel-example",
         element: <ExcelPage />
+      },
+      {
+        path: "calendar-example",
+        element: <CalendarPage />
       }
     ]
   },
