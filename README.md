@@ -46,7 +46,7 @@ The DAS template includes an example of uploading, reading, as listing of files 
 The DAS template includes an example mapping page `src/sections/maps/MapPage.tsx`.  Maps were implemented with react-map-gl & maplibre-gl.
 
 ### Drag & Drop
-The DAS template includes an example of drag-and-drop use `src/sections/dragdrop/DragDropPage.tsx`. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
+The DAS template includes an example of drag-and-drop use `src/pages/dragdrop/DragDropPage.tsx`. Drag and drop is implemented with @dnd-kit/core and @dnd-kit/sortable.
 
 ### Excel Parsing
 The DAS template includes an example of parsing a spreadsheet. it is implemented with `xlsx`.

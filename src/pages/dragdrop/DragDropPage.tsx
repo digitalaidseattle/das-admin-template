@@ -11,7 +11,7 @@ import { ReactNode, useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../components/contexts/UserContext';
 import MainCard from '../../components/MainCard';
 import { Ticket, ticketService } from '../../sections/tickets/ticketService';
-import DragDropBoard from './DragDropBoard';
+import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
 import { DDCategory, DDType } from './types';
 import { Card, CardContent, Typography } from '@mui/material';
 
