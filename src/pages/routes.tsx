@@ -12,7 +12,7 @@ import Page404 from './error/404';
 import SamplePage from './extra-pages/SamplePage';
 import MapPage from '../sections/maps/MapPage';
 import DashboardDefault from './dashboard';
-import DragDropPage from '../sections/dragdrop/DragDropPage';
+import DragDropPage from '../pages/dragdrop/DragDropPage';
 import CalendarPage from '../sections/calendar/CalendarPage';
 
 const routes = [

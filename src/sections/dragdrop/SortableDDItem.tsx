@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { UniqueIdentifier } from '@dnd-kit/core';
 
-type SortableTicketItemProps = {
+type SortableDDItemProps = {
   children: React.ReactNode;
-  id: number;
+  id: UniqueIdentifier;
 };
 
-const SortableTicketItem = ({ children, id }: SortableTicketItemProps) => {
+const SortableDDItem = ({ children, id }: SortableDDItemProps) => {
   const {
     attributes,
     listeners,
@@ -30,4 +31,4 @@ const SortableTicketItem = ({ children, id }: SortableTicketItemProps) => {
   );
 };
 
-export default SortableTicketItem;
+export default SortableDDItem;

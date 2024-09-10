@@ -1,42 +1,39 @@
 
-import Box from '@mui/material/Box';
 import { useDroppable } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import Typography from '@mui/material/Typography';
-import { Ticket } from '../../sections/tickets/ticketService';
-import TicketItem from './TicketItem';
-import SortableTicketItem from './SortableTicketItem';
+import Box from '@mui/material/Box';
+import DDItem from './DDItem';
+import SortableDDItem from './SortableDDItem';
+import { DDType } from './types';
+import { ReactNode } from 'react';
 
-type BoardSectionProps = {
-  id: string;
-  title: string;
-  tickets: Ticket[];
+type BoardSectionProps<T extends DDType> = {
+  id: string
+  items: T[];
+  cardRenderer?: (item: T) => ReactNode
 };
 
-const BoardSection = ({ id, title, tickets }: BoardSectionProps) => {
+const BoardSection = <T extends DDType,>({ id, items, cardRenderer }: BoardSectionProps<T>) => {
   const { setNodeRef } = useDroppable({
     id,
   });
 
   return (
-    <Box sx={{ backgroundColor: '#eee', padding: 2 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        {title}
-      </Typography>
+    <Box sx={{ padding: 2 }}>
       <SortableContext
         id={id}
-        items={tickets}
+        items={items}
         strategy={verticalListSortingStrategy}
       >
         <div ref={setNodeRef}>
-          {tickets.map((ticket) => (
-            <Box key={ticket.id} sx={{ mb: 2 }}>
-              <SortableTicketItem id={ticket.id}>
-                <TicketItem ticket={ticket} />
-              </SortableTicketItem>
+          {items.map((item) => (
+            <Box key={item.id} sx={{ mb: 2 }}>
+              <SortableDDItem id={item.id}>
+                {cardRenderer ? cardRenderer(item) : <DDItem item={item} />}
+              </SortableDDItem>
             </Box>
           ))}
         </div>
