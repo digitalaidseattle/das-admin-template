@@ -12,7 +12,7 @@ import { UserContext } from '../../components/contexts/UserContext';
 import MainCard from '../../components/MainCard';
 import { Ticket, ticketService } from '../../sections/tickets/ticketService';
 // import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
-import  DragAndDrop  from '@digitalaidseattle/draganddrop';
+import  { DragAndDrop  } from '@digitalaidseattle/draganddrop';
 import { DDCategory, DDType } from './types';
 import { Card, CardContent, Typography } from '@mui/material';
 
