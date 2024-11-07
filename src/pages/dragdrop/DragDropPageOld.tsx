@@ -11,8 +11,7 @@ import { ReactNode, useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../components/contexts/UserContext';
 import MainCard from '../../components/MainCard';
 import { Ticket, ticketService } from '../../sections/tickets/ticketService';
-// import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
-import  DragAndDrop  from '@digitalaidseattle/draganddrop';
+import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
 import { DDCategory, DDType } from './types';
 import { Card, CardContent, Typography } from '@mui/material';
 
@@ -61,18 +60,12 @@ const DragDropPage = () => {
 
   return (
     <MainCard title="Drag Drop Sample">
-      <DragAndDrop
+      <DragDropBoard
         onChange={(c: Map<string, unknown>, t: TicketWrapper) => handleChange(c, t)}
         items={items}
         categories={categories}
         isCategory={(tix, cat) => tix.status === cat.value}
         cardRenderer={cardRenderer} />
-        {/* <DragDropBoard
-        onChange={(c: Map<string, unknown>, t: TicketWrapper) => handleChange(c, t)}
-        items={items}
-        categories={categories}
-        isCategory={(tix, cat) => tix.status === cat.value}
-        cardRenderer={cardRenderer} /> */}
     </MainCard>
   )
 }
