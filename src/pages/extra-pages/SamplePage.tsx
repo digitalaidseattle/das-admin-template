@@ -1,7 +1,8 @@
 // material-ui
 import { Typography } from '@mui/material';
-import MainCard from '../../components/MainCard';
-
+import {
+  MainCard
+} from '@digitalaidseattle/mui';
 // project import
 
 // ==============================|| SAMPLE PAGE ||============================== //

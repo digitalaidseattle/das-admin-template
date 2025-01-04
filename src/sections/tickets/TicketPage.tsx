@@ -11,7 +11,7 @@ import { useParams } from 'react-router';
 import { Button, Grid, Stack, Typography } from '@mui/material';
 
 import { DASSnackbar } from '../../components/DASSnackbar';
-import { UserContext } from '../../components/contexts/UserContext';
+import { UserContext } from '@digitalaidseattle/core';
 import { TicketHistoryCard, TicketLongForm } from './TicketComponents';
 import { Ticket, ticketService } from './ticketService';
 import { Staff, staffService } from './staffService';
@@ -23,7 +23,7 @@ const Labels = {
 }
 const TicketPage = () => {
   const { id } = useParams();
-  const { user } = useContext(UserContext);
+  const { user } = useContext<any>(UserContext);
   const [ticket, setTicket] = useState<Ticket>();
   const [changes, setChanges] = useState<Map<string, unknown>>(new Map());
   const [messages, setMessages] = useState<Map<string, string>>(new Map());

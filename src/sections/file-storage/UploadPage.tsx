@@ -1,4 +1,6 @@
-import MainCard from '../../components/MainCard';
+import {
+  MainCard
+} from '@digitalaidseattle/mui';
 import { storageService } from '../../services/storageService';
 import { useEffect, useState } from 'react';
 import FilesTable from './FilesTable';

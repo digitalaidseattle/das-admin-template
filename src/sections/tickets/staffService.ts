@@ -7,8 +7,9 @@
 
 import { User } from "@supabase/supabase-js";
 import { EntityService } from "../../services/entityService";
-import { supabaseClient } from "../../services/supabaseClient";
-
+import {
+    supabaseClient
+} from '@digitalaidseattle/supabase';
 
 type Staff = {
     id: number,
@@ -27,7 +28,7 @@ class StaffService implements EntityService<Staff> {
             .select()
             .limit(count ?? DEFAULT_COUNT)
             .order('created_at', { ascending: false })
-            .then(resp => resp.data ?? [])
+            .then((resp: any) => resp.data ?? [])
     }
 
     async getById(id: string | undefined): Promise<Staff> {
@@ -35,7 +36,7 @@ class StaffService implements EntityService<Staff> {
             .select('*')
             .eq('id', id)
             .single()
-            .then(resp => resp.data ?? undefined)
+            .then((resp: any) => resp.data ?? undefined)
     }
 
     async create(_user: User, staff: Staff): Promise<Staff> {
@@ -43,7 +44,7 @@ class StaffService implements EntityService<Staff> {
             .insert(staff)
             .select()
             .single()
-            .then(resp => resp.data)
+            .then((resp: any) => resp.data)
     }
 
     async update(_user: User, staff: Staff, changes: Map<string, unknown>): Promise<Staff> {
@@ -52,7 +53,7 @@ class StaffService implements EntityService<Staff> {
             .eq('id', staff.id)
             .select()
             .single()
-            .then(tixResp => tixResp.data)
+            .then((resp: any) => resp.data)
     }
 
 }

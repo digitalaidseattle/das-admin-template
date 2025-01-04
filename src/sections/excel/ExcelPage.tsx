@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react';
 // material-ui
 import { AlertColor, Box, Button, Stack, Typography } from '@mui/material';
 import { DASSnackbar } from '../../components/DASSnackbar';
-import MainCard from '../../components/MainCard';
+import {
+    MainCard
+} from '@digitalaidseattle/mui';
 import { Staff, staffService } from '../../services/staffService';
 import StaffTable from './StaffTable';
 

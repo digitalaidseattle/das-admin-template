@@ -8,7 +8,9 @@ import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { storageService } from '../services/storageService';
-import MainCard from '../components/MainCard';
+import {
+    MainCard
+} from '@digitalaidseattle/mui';
 
 
 const PrivacyPage = () => {
@@ -19,7 +21,7 @@ const PrivacyPage = () => {
             .catch(err => alert(err))
     }, [])
     return (
-        <MainCard> 
+        <MainCard>
             <Grid container rowSpacing={4.5} columnSpacing={2.75}>
                 <Grid item>
                     <Markdown>

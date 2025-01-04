@@ -17,6 +17,9 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import {
+  MainCard
+} from '@digitalaidseattle/mui';
 
 // project import
 import AnalyticEcommerce from '../../components/cards/statistics/AnalyticEcommerce';
@@ -28,7 +31,6 @@ import SalesColumnChart from './SalesColumnChart';
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import MainCard from '../../components/MainCard';
 import avatar1 from '/src/assets/images/users/avatar-1.png';
 import avatar2 from '/src/assets/images/users/avatar-2.png';
 import avatar3 from '/src/assets/images/users/avatar-3.png';
@@ -110,7 +112,7 @@ const DashboardDefault = () => {
             <Stack direction="row" alignItems="center" spacing={0}>
               <Button
                 size="small"
-                onClick={() =>  navigate('/tickets')}
+                onClick={() => navigate('/tickets')}
                 color={'primary'}
                 variant={'text'}
               >
@@ -216,7 +218,7 @@ const DashboardDefault = () => {
               select
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              sx={{ '& .MuiInputBase-input': { py: 0.5, fontSize: '0.875rem', color:'textSecondary' } }}
+              sx={{ '& .MuiInputBase-input': { py: 0.5, fontSize: '0.875rem', color: 'textSecondary' } }}
             >
               {status.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

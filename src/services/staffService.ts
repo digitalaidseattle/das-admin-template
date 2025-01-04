@@ -6,10 +6,10 @@
  */
 
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import { supabaseClient } from "./supabaseClient";
 import { v4 as uuid } from 'uuid';
 import { read, write, utils } from "xlsx";
 import { saveAs } from 'file-saver';
+import { supabaseClient } from "@digitalaidseattle/supabase";
 
 type Staff = {
     id: string,

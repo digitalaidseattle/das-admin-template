@@ -6,7 +6,7 @@
  *
  */
 
-import { supabaseClient } from "./supabaseClient";
+import { supabaseClient } from "@digitalaidseattle/supabase";
 
 export type File = {
     created_at: string,
@@ -26,7 +26,7 @@ class StorageService {
             .storage
             .from(BUCKET_NAME)
             .download(filepath)
-            .then(resp => {
+            .then((resp: any) => {
                 if (resp.error) {
                     throw new Error(resp.error.message)
                 }
@@ -40,11 +40,11 @@ class StorageService {
             .storage
             .from(BUCKET_NAME)
             .list()
-            .then(resp => {
+            .then((resp: any) => {
                 if (resp.error) {
                     throw new Error(resp.error.message)
                 }
-                return resp.data?.filter(f => f.name != '.emptyFolderPlaceholder')
+                return resp.data?.filter((f: any) => f.name != '.emptyFolderPlaceholder')
             })
     }
 
@@ -53,7 +53,7 @@ class StorageService {
             .storage
             .from(BUCKET_NAME)
             .remove([fileName])
-            .then(resp => {
+            .then((resp: any) => {
                 if (resp.error) {
                     throw new Error(resp.error.message)
                 }
@@ -66,7 +66,7 @@ class StorageService {
             .storage
             .from(BUCKET_NAME)
             .upload(file.name, file)
-            .then(resp => {
+            .then((resp: any) => {
                 if (resp.error) {
                     throw new Error(resp.error.message)
                 }

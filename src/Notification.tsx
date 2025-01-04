@@ -21,8 +21,7 @@ import {
 import { useTheme } from '@mui/material/styles';
 
 // project import
-import Transitions from '../components/@extended/Transitions';
-import MainCard from '../components/MainCard';
+import { MainCard, Transitions } from '@digitalaidseattle/mui';
 
 // assets
 import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -73,11 +72,7 @@ const Notification = () => {
       <IconButton
         disableRipple
         color="secondary"
-        sx={{
-          color: 'text.primary',
-          bgcolor: open ? iconBackColorOpen : iconBackColor,
-          '&:hover': { bgcolor:  theme.palette.secondary.light }
-        }}
+        sx={{ color: 'text.primary', bgcolor: open ? iconBackColorOpen : iconBackColor }}
         aria-label="open profile"
         ref={anchorRef}
         aria-controls={open ? 'profile-grow' : undefined}

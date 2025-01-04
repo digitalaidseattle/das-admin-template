@@ -1,19 +1,22 @@
-import MainCard from '../components/MainCard';
-import MainLayout from '../layout/MainLayout';
-import MinimalLayout from '../layout/MinimalLayout';
-import TicketsGrid from '../sections/tickets/TicketsGrid';
-import TicketsTable from '../sections/tickets/TicketsTable';
-import ExcelPage from '../sections/excel/ExcelPage';
-import PrivacyPage from './PrivacyPage';
-import TicketPage from '../sections/tickets/TicketPage';
-import UploadPage from '../sections/file-storage/UploadPage';
-import Login from './authentication/Login';
-import Page404 from './error/404';
-import SamplePage from './extra-pages/SamplePage';
-import MapPage from '../sections/maps/MapPage';
-import DashboardDefault from './dashboard';
 import DragDropPage from '../pages/dragdrop/DragDropPage';
 import CalendarPage from '../sections/calendar/CalendarPage';
+import ExcelPage from '../sections/excel/ExcelPage';
+import UploadPage from '../sections/file-storage/UploadPage';
+import MapPage from '../sections/maps/MapPage';
+import TicketPage from '../sections/tickets/TicketPage';
+import TicketsGrid from '../sections/tickets/TicketsGrid';
+import TicketsTable from '../sections/tickets/TicketsTable';
+import DashboardDefault from './dashboard';
+import SamplePage from './extra-pages/SamplePage';
+
+import {
+  Error,
+  Login,
+  MainCard,
+  MainLayout,
+  MarkdownPage,
+  MinimalLayout
+} from "@digitalaidseattle/mui";
 
 const routes = [
   {
@@ -49,7 +52,7 @@ const routes = [
       },
       {
         path: "privacy",
-        element: <PrivacyPage />,
+        element: <MarkdownPage  filepath='privacy.md'/>,
       },
       {
         path: "upload",
@@ -89,7 +92,7 @@ const routes = [
     children: [
       {
         path: '*',
-        element: <Page404 />
+        element: <Error />
       }
     ]
   }

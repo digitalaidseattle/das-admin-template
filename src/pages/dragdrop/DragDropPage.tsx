@@ -8,8 +8,9 @@
  *
  */
 import { ReactNode, useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../components/contexts/UserContext';
-import MainCard from '../../components/MainCard';
+import { UserContext } from '@digitalaidseattle/core';
+import { MainCard } from '@digitalaidseattle/mui';
+
 import { Ticket, ticketService } from '../../sections/tickets/ticketService';
 import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
 import { DDCategory, DDType } from './types';
@@ -22,7 +23,7 @@ const DragDropPage = () => {
 
   const NUM_TIX = 20;
   const [items, setItems] = useState<TicketWrapper[]>([]);
-  const { user } = useContext(UserContext);
+  const { user } = useContext<any>(UserContext);
 
   const categories: DDCategory<string>[] = [
     { label: 'New', value: 'new' },

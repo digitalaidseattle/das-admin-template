@@ -7,8 +7,8 @@
  *
  */
 import { useEffect, useState } from "react";
-import { supabaseClient } from "./supabaseClient";
 import { loggingService } from "./loggingService";
+import { supabaseClient } from "@digitalaidseattle/supabase";
 
 export type AppConstant = {
     value: string,
@@ -34,15 +34,15 @@ const useAppConstants = (type: string) => {
             supabaseClient.from('app_constants')
                 .select()
                 .eq('type', type)
-                .then(response => {
-                    console.log('response', response)
-                    if (response.data) {
-                        const data = response.data as AppConstant[];
+                .then((resp: any) => {
+                    console.log('response', resp)
+                    if (resp.data) {
+                        const data = resp.data as AppConstant[];
                         cache[type] = data;
                         setData(data);
                         setStatus('fetched');
                     } else {
-                        loggingService.error(response.statusText)
+                        loggingService.error(resp.statusText)
                         setData([]);
                         setStatus('fetched');
                     }

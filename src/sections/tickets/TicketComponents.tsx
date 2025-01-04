@@ -1,11 +1,13 @@
 import { Link, MenuItem, Select, Stack, TextField, Typography, Autocomplete } from "@mui/material";
 import moment from "moment";
 import { Link as RouterLink } from 'react-router-dom';
-import Dot from "../../components/@extended/Dot";
-import MainCard from "../../components/MainCard";
+import {
+    MainCard
+} from "@digitalaidseattle/mui";
 import { Ticket, TicketHistory } from "./ticketService";
 import useAppConstants from "../../services/useAppConstants";
 import { Staff } from "./staffService";
+import Dot from "../../components/@extended/Dot";
 
 
 interface TicketProps {

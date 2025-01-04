@@ -25,8 +25,10 @@ import {
 // project import
 import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { Ticket, ticketService } from './ticketService';
-import { RefreshContext } from '../../components/contexts/RefreshContext';
-import { LoadingContext } from '../../components/contexts/LoadingContext';
+import {
+    LoadingContext,
+    RefreshContext
+} from '@digitalaidseattle/core';
 
 function descendingComparator(a: Ticket, b: Ticket, orderBy: string) {
     switch (orderBy) {
@@ -111,16 +113,16 @@ const TicketTableHead: React.FC<TicketTableHeadProps> = ({ order, orderBy }) => 
 // ==============================|| TICKETS TABLE ||============================== //
 
 // For more advanced table with features like paging sorting, see TableGrid
-export default function TicketsTable(props?: {count?: number}) {
+export default function TicketsTable(props?: { count?: number }) {
     const [order] = useState<SortDirection>('desc');
     const [orderBy] = useState<string>('id');
     const [tickets, setTickets] = useState<Ticket[]>([]);
-    const { refresh } = useContext(RefreshContext)
-    const { setLoading } = useContext(LoadingContext)
+    const { refresh } = useContext<any>(RefreshContext);
+    const { setLoading } = useContext<any>(LoadingContext);
 
     useEffect(() => {
         setLoading(true)
-        ticketService.getAll( props? props.count ?? 10 : 10)
+        ticketService.getAll(props ? props.count ?? 10 : 10)
             .then((tix) => setTickets(tix))
             .finally(() => setLoading(false));
     }, [refresh, setLoading])

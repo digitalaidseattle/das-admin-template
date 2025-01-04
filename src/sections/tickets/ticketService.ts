@@ -6,9 +6,9 @@
  */
 
 import { User } from "@supabase/supabase-js";
-import { supabaseClient, PageInfo, QueryModel } from "../../services/supabaseClient";
 import { EntityService } from "../../services/entityService";
-
+import { supabaseClient } from "@digitalaidseattle/supabase";
+import type { PageInfo, QueryModel } from "@digitalaidseattle/supabase";
 
 type Ticket = {
     id: number,
@@ -43,7 +43,7 @@ class TicketService implements EntityService<Ticket> {
             .select()
             .limit(count ?? DEFAULT_COUNT)
             .order('created_at', { ascending: false })
-            .then(tixResp => tixResp.data ?? [])
+            .then((resp: any) => resp.data ?? [])
     }
 
     validateTicket(updated: Ticket): Map<string, string> {
@@ -64,7 +64,7 @@ class TicketService implements EntityService<Ticket> {
             .select('*', { count: 'exact' })
             .range(_offset, _offset + query.pageSize - 1)
             .order(query.sortField, { ascending: query.sortDirection === 'asc' })
-            .then(resp => {
+            .then((resp: any) => {
                 return {
                     rows: resp.data as Ticket[],
                     totalRowCount: resp.count || 0
@@ -77,7 +77,7 @@ class TicketService implements EntityService<Ticket> {
             .select('*, ticket_history(*)')
             .eq('id', Number(ticket_id))
             .single()
-            .then(tixResp => tixResp.data ?? undefined)
+            .then((resp: any) => resp.data ?? undefined)
     }
 
     async create(user: User, tix: Ticket): Promise<Ticket> {
@@ -86,7 +86,7 @@ class TicketService implements EntityService<Ticket> {
             .insert(tix)
             .select()
             .single()
-            .then(async resp => {
+            .then(async (resp: any) => {
                 const ticket = resp.data! as Ticket;
                 const history = {
                     'service_ticket_id': ticket.id,
@@ -104,8 +104,8 @@ class TicketService implements EntityService<Ticket> {
             .eq('id', tix.id)
             .select()
             .single()
-            .then(async tixResp => {
-                const ticket = tixResp.data;
+            .then(async (resp: any) => {
+                const ticket = resp.data;
                 const history = {
                     'service_ticket_id': tix.id,
                     'description': JSON.stringify(Array.from(changes.entries())),
@@ -120,7 +120,7 @@ class TicketService implements EntityService<Ticket> {
         return supabaseClient.from('ticket_history')
             .insert(history)
             .select()
-            .then(histResp => histResp.data![0] as TicketHistory);
+            .then((resp: any) => resp.data![0] as TicketHistory);
     }
 }
 
