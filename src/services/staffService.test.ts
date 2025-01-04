@@ -1,4 +1,4 @@
-import { supabaseClient } from './supabaseClient'
+import { supabaseClient } from "@digitalaidseattle/supabase";
 import { staffService, Staff } from './staffService';
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import { v4 as uuid } from 'uuid';

@@ -52,7 +52,7 @@ const routes = [
       },
       {
         path: "privacy",
-        element: <MarkdownPage  filepath='privacy.md'/>,
+        element: <MarkdownPage filepath='privacy.md'/>,
       },
       {
         path: "upload",

@@ -1,6 +1,6 @@
-import { User } from "@supabase/supabase-js";
+import { User } from "@digitalaidseattle/core";
 
-
+// Deprecated see @digitalaidseattle/core
 export interface EntityService<T> {
 
     getAll(count?: number): Promise<T[]>;

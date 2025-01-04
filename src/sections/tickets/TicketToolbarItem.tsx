@@ -20,9 +20,7 @@ import { ThunderboltOutlined } from '@ant-design/icons';
 import { DASSnackbar } from '../../components/DASSnackbar';
 import TicketDialog from './TicketDialog';
 import { Ticket } from './ticketService';
-import { loggingService } from '../../services/loggingService';
-import { UserContext } from '../../components/contexts/UserContext';
-
+import { useLoggingService, UserContext } from '@digitalaidseattle/core';
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
 const Labels = {
@@ -35,6 +33,8 @@ const TicketToolbarItem: React.FC = () => {
   const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
+  
+  const loggingService = useLoggingService();
 
   const iconBackColorOpen = 'grey.300';
   const iconBackColor = 'grey.100';

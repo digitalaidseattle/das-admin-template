@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { Ticket, ticketService } from './ticketService';
 import useAppConstants from '../../services/useAppConstants';
-import { UserContext } from '../../components/contexts/UserContext';
+import { UserContext } from '@digitalaidseattle/core';
 
 interface TicketDialogProps {
     open: boolean,

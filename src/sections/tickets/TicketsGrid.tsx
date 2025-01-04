@@ -23,11 +23,11 @@ import {
 // third-party
 
 // project import
-import { QueryModel } from '../../services/supabaseClient';
 import useAppConstants, { AppConstant } from '../../services/useAppConstants';
 import { TicketContact, TicketLink, TicketStatus } from './TicketComponents';
 import { PageInfo, Ticket, ticketService } from './ticketService';
 import { RefreshContext } from '@digitalaidseattle/core';
+import { QueryModel } from '@digitalaidseattle/supabase';
 
 // ==============================|| Tickets Grid ||============================== //
 

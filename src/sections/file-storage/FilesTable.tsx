@@ -12,8 +12,8 @@ import {
     TableHead,
     TableRow
 } from '@mui/material';
-import { File } from '../../services/storageService';
 
+import { File } from '@digitalaidseattle/supabase';
 
 // ==============================|| HEADER CELL ||============================== //
 
