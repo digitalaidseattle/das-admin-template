@@ -12,9 +12,8 @@ import { UserContext } from '@digitalaidseattle/core';
 import { MainCard } from '@digitalaidseattle/mui';
 
 import { Ticket, ticketService } from '../../sections/tickets/ticketService';
-import DragDropBoard from '../../sections/dragdrop/DragDropBoard';
-import { DDCategory, DDType } from './types';
-import { Card, CardContent, Typography } from '@mui/material';
+import { DragAndDrop, DDCategory, DDType } from '@digitalaidseattle/draganddrop';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
 // ==============================|| Drag Drop PAGE ||============================== //
 type TicketWrapper = Ticket & DDType
@@ -50,6 +49,14 @@ const DragDropPage = () => {
     items.map(i => i.status)
   }, [items]);
 
+  const headerRenderer = (cat: DDCategory<string>): ReactNode => {
+    return (
+      <Box>
+        <Typography variant="h6">Status: {cat.label}</Typography>
+      </Box>
+    )
+  };
+
   const cardRenderer = (item: TicketWrapper): ReactNode => {
     return (<Card>
       <CardContent>
@@ -60,14 +67,17 @@ const DragDropPage = () => {
   };
 
   return (
-    <MainCard title="Drag Drop Sample">
-      <DragDropBoard
-        onChange={(c: Map<string, unknown>, t: TicketWrapper) => handleChange(c, t)}
-        items={items}
-        categories={categories}
-        isCategory={(tix, cat) => tix.status === cat.value}
-        cardRenderer={cardRenderer} />
-    </MainCard>
+    <Box id="DnD" width="100%">
+      <MainCard title="Drag Drop Sample">
+        <DragAndDrop
+          onChange={(c: Map<string, unknown>, t: TicketWrapper) => handleChange(c, t)}
+          items={items}
+          categories={categories}
+          isCategory={(tix: TicketWrapper, cat: DDCategory<string>) => tix.status === cat.value}
+          cardRenderer={cardRenderer}
+          headerRenderer={headerRenderer} />
+      </MainCard>
+    </Box>
   )
 }
 

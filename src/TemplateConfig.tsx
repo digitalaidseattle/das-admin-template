@@ -1,42 +1,23 @@
 
 
-import logo from "./assets/images/logo-light-icon.svg";
 import {
+    CalendarOutlined,
     ChromeOutlined,
     DashboardOutlined,
-    LoginOutlined,
-    ProfileOutlined,
-    QuestionOutlined,
-    ExclamationOutlined,
-    FileOutlined,
-    FileExclamationOutlined,
-    EyeInvisibleOutlined,
-    UploadOutlined,
     DragOutlined,
+    ExclamationOutlined,
+    EyeInvisibleOutlined,
+    FileExclamationOutlined,
+    FileOutlined,
     GlobalOutlined,
+    LoginOutlined,
     TableOutlined,
-    CalendarOutlined
+    UploadOutlined
 } from '@ant-design/icons';
+import logo from "./assets/images/logo-light-icon.svg";
 
-import Notification from "./Notification";
 import { LayoutConfiguration, MenuItem } from "@digitalaidseattle/mui";
-
-const icons = {
-    DashboardOutlined,
-    LoginOutlined,
-    ProfileOutlined,
-    ChromeOutlined,
-    QuestionOutlined,
-    ExclamationOutlined,
-    FileOutlined,
-    FileExclamationOutlined,
-    EyeInvisibleOutlined,
-    UploadOutlined,
-    DragOutlined,
-    GlobalOutlined,
-    TableOutlined,
-    CalendarOutlined
-};
+import Notification from "./Notification";
 
 export const TemplateConfig = (): LayoutConfiguration => {
     const dashboard = {
