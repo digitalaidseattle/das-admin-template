@@ -5,9 +5,9 @@
  *
  */
 import { describe, expect, it, vi } from 'vitest'
-import { supabaseClient, QueryModel } from '../../services/supabaseClient'
 import { Ticket, TicketHistory, ticketService } from './ticketService'
-import { User } from '@supabase/supabase-js';
+import { QueryModel, supabaseClient } from '@digitalaidseattle/supabase';
+import { User } from '@digitalaidseattle/core';
 
 const mockFilterBuilder = {
     limit: vi.fn(() => Promise.resolve({})),

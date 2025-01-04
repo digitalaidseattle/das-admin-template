@@ -32,7 +32,7 @@ const App: React.FC = () => {
     <AuthServiceProvider authService={new SupabaseAuthService()} >
       <StorageServiceProvider storageService={new SupabaseStorageService()} >
         <UserContextProvider>
-          <LayoutConfigurationProvider configuration={TemplateConfig}>
+          <LayoutConfigurationProvider configuration={TemplateConfig()}>
             <RouterProvider router={router} />
           </LayoutConfigurationProvider>
         </UserContextProvider>

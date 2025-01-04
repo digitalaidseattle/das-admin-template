@@ -16,10 +16,10 @@ import {
 } from '@ant-design/icons';
 import logo from "./assets/images/logo-light-icon.svg";
 
-import { LayoutConfiguration, MenuItem } from "@digitalaidseattle/mui";
+import { MenuItem } from "@digitalaidseattle/mui";
 import Notification from "./Notification";
 
-export const TemplateConfig = (): LayoutConfiguration => {
+export const TemplateConfig = () => {
     const dashboard = {
         id: 'group-dashboard',
         title: 'Navigation',
@@ -128,5 +128,5 @@ export const TemplateConfig = (): LayoutConfiguration => {
         toolbarItems: [
             <Notification key={1} />
         ]
-    })
+    });
 }

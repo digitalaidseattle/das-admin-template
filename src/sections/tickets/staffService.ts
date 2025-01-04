@@ -5,7 +5,7 @@
  *
  */
 
-import { User } from "@supabase/supabase-js";
+import { User } from "@digitalaidseattle/core";
 import { EntityService } from "../../services/entityService";
 import {
     supabaseClient
