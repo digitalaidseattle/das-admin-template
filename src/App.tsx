@@ -5,20 +5,20 @@
  *
  */
 // project import
-import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
   AuthServiceProvider,
   StorageServiceProvider,
   UserContextProvider
 } from "@digitalaidseattle/core";
 import { LayoutConfigurationProvider } from "@digitalaidseattle/mui";
+import React from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { routes } from './pages/routes';
 import {
   SupabaseAuthService,
   SupabaseStorageService
 } from '@digitalaidseattle/supabase';
+import { routes } from './pages/routes';
 import { TemplateConfig } from './TemplateConfig';
 
 import "./App.css";
