@@ -30,7 +30,6 @@ import SalesColumnChart from './SalesColumnChart';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import avatar1 from '/src/assets/images/users/avatar-1.png';
 import avatar2 from '/src/assets/images/users/avatar-2.png';
 import avatar3 from '/src/assets/images/users/avatar-3.png';
@@ -76,8 +75,6 @@ const DashboardDefault = () => {
   const theme = useTheme();
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
-
-  const navigate = useNavigate();
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
