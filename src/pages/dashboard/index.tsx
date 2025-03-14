@@ -30,12 +30,10 @@ import SalesColumnChart from './SalesColumnChart';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import avatar1 from '/src/assets/images/users/avatar-1.png';
 import avatar2 from '/src/assets/images/users/avatar-2.png';
 import avatar3 from '/src/assets/images/users/avatar-3.png';
 import avatar4 from '/src/assets/images/users/avatar-4.png';
-import TicketsTable from '../../sections/tickets/TicketsTable';
 import { useTheme } from '@mui/material/styles';
 
 // avatar style
@@ -78,8 +76,6 @@ const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
 
-  const navigate = useNavigate();
-
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
@@ -103,49 +99,6 @@ const DashboardDefault = () => {
 
       {/* row 2 */}
 
-      <Grid item xs={12} md={7} lg={8}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
-            <Typography variant="h5" color={theme.palette.text.primary}>Recent Tickets</Typography>
-          </Grid>
-          <Grid item>
-            <Stack direction="row" alignItems="center" spacing={0}>
-              <Button
-                size="small"
-                onClick={() => navigate('/tickets')}
-                color={'primary'}
-                variant={'text'}
-              >
-                More
-              </Button>
-            </Stack>
-          </Grid>
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <TicketsTable />
-        </MainCard>
-      </Grid>
-      <Grid item xs={12} md={5} lg={4}>
-        <Grid container alignItems="center" justifyContent="space-between">
-          <Grid item>
-            <Typography variant="h5" color={theme.palette.text.primary}>Income Overview</Typography>
-          </Grid>
-          <Grid item />
-        </Grid>
-        <MainCard sx={{ mt: 2 }} content={false}>
-          <Box sx={{ p: 3, pb: 0 }}>
-            <Stack spacing={2}>
-              <Typography variant="h6" color="textSecondary">
-                This Week Statistics
-              </Typography>
-              <Typography variant="h3">$7,650</Typography>
-            </Stack>
-          </Box>
-          <MonthlyBarChart />
-        </MainCard>
-      </Grid>
-
-      {/* row 3 */}
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
@@ -178,34 +131,27 @@ const DashboardDefault = () => {
           </Box>
         </MainCard>
       </Grid>
-
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
-            <Typography variant="h5" color={theme.palette.text.primary}>Analytics Report</Typography>
+            <Typography variant="h5" color={theme.palette.text.primary}>Income Overview</Typography>
           </Grid>
           <Grid item />
         </Grid>
         <MainCard sx={{ mt: 2 }} content={false}>
-          <List sx={{ p: 0, '& .MuiListItemButton-root': { py: 2 } }}>
-            <ListItemButton divider>
-              <ListItemText primary="Company Finance Growth" />
-              <Typography variant="h5">+45.14%</Typography>
-            </ListItemButton>
-            <ListItemButton divider>
-              <ListItemText primary="Company Expenses Ratio" />
-              <Typography variant="h5">0.58%</Typography>
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Business Risk Cases" />
-              <Typography variant="h5">Low</Typography>
-            </ListItemButton>
-          </List>
-          <ReportAreaChart />
+          <Box sx={{ p: 3, pb: 0 }}>
+            <Stack spacing={2}>
+              <Typography variant="h6" color="textSecondary">
+                This Week Statistics
+              </Typography>
+              <Typography variant="h3">$7,650</Typography>
+            </Stack>
+          </Box>
+          <MonthlyBarChart />
         </MainCard>
       </Grid>
 
-      {/* row 4 */}
+      {/* row 3 */}
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
@@ -237,6 +183,37 @@ const DashboardDefault = () => {
           </Stack>
           <SalesColumnChart />
         </MainCard>
+      </Grid>
+
+      <Grid item xs={12} md={5} lg={4}>
+        <Grid container alignItems="center" justifyContent="space-between">
+          <Grid item>
+            <Typography variant="h5" color={theme.palette.text.primary}>Analytics Report</Typography>
+          </Grid>
+          <Grid item />
+        </Grid>
+        <MainCard sx={{ mt: 2 }} content={false}>
+          <List sx={{ p: 0, '& .MuiListItemButton-root': { py: 2 } }}>
+            <ListItemButton divider>
+              <ListItemText primary="Company Finance Growth" />
+              <Typography variant="h5">+45.14%</Typography>
+            </ListItemButton>
+            <ListItemButton divider>
+              <ListItemText primary="Company Expenses Ratio" />
+              <Typography variant="h5">0.58%</Typography>
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemText primary="Business Risk Cases" />
+              <Typography variant="h5">Low</Typography>
+            </ListItemButton>
+          </List>
+          <ReportAreaChart />
+        </MainCard>
+      </Grid>
+
+      {/* row 4 */}
+      <Grid item xs={12} md={7} lg={8}>
+        {/* Enbale orders table*/}
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
