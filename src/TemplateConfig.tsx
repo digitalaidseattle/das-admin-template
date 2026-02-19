@@ -47,6 +47,6 @@ export const TemplateConfig = () => {
         menuItems: [dashboard, pages],
         toolbarItems: [
             <Notification key={1} />
-        ]
+        ],
     });
 }
