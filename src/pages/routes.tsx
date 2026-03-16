@@ -1,6 +1,3 @@
-import DashboardDefault from './dashboard';
-import SamplePage from './extra-pages/SamplePage';
-
 import {
   Error,
   Login,
@@ -9,6 +6,9 @@ import {
   MinimalLayout
 } from "@digitalaidseattle/mui";
 
+
+import SamplePage from './extra-pages/SamplePage';
+
 const routes = [
   {
     path: "/",
@@ -16,7 +16,7 @@ const routes = [
     children: [
       {
         path: "",
-        element: <DashboardDefault />,
+        element: <SamplePage />
       },
       {
         path: "sample-page",
@@ -24,7 +24,7 @@ const routes = [
       },
       {
         path: "privacy",
-        element: <MarkdownPage filepath='privacy.md'/>,
+        element: <MarkdownPage filepath='privacy.md' />,
       }
     ]
   },
