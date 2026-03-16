@@ -48,5 +48,6 @@ export const TemplateConfig = () => {
         toolbarItems: [
             <Notification key={1} />
         ],
+        version: '1.0.0'
     });
 }
